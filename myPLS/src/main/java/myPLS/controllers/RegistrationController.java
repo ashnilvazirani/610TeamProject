@@ -2,6 +2,8 @@ package myPLS.controllers;
 
 
 import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -37,7 +39,9 @@ public class RegistrationController {
          try {
              Template resultTemplate = configuration.getTemplate("templates/authorizationMsg.ftl");
              boolean result =  registrationService.registerUser(request);
-             resultTemplate.process(result, writer);
+             Map<String, Object> map = new HashMap<String, Object>();
+             map.put("result", result);
+             resultTemplate.process(map, writer);
          } catch (Exception e) {
              Spark.halt(500);
          }
