@@ -8,7 +8,7 @@ import java.util.Map;
 public class RegistrationDAO {
 
 	public boolean saveUser(Map<String, Object> map) {
-	 final String INSERT_USER = "INSERT INTO USER (name, e, authorized) VALUES (?,?,?)";
+	 final String INSERT_USER = "INSERT INTO USER (name, email, authorized) VALUES (?,?,?)";
 	 boolean result = false;
 	 try (Connection conn = JDBCConnection.geConnection();
          PreparedStatement preparedStatement = conn.prepareStatement(INSERT_USER)) {
