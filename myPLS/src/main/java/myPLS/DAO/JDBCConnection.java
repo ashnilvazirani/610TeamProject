@@ -10,7 +10,7 @@ public class JDBCConnection {
 	public static Connection geConnection() {
 		String jdbcURL = "jdbc:mysql://localhost:3306/myPLS?allowPublicKeyRetrieval=true&useSSL=false";
 		String jdbcUser = "root";
-		String jdbcPwd = "sk2677@@";
+		String jdbcPwd = "Ashnil@1998";
 		try {
 			con = DriverManager.getConnection(jdbcURL, jdbcUser, jdbcPwd);
 		} catch (SQLException e) {
