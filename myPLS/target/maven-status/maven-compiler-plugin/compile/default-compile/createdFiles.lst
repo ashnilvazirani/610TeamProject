@@ -1,0 +1,5 @@
+myPLS/DAO/JDBCConnection.class
+myPLS/DAO/RegistrationDAO.class
+myPLS/main/mainApp.class
+myPLS/services/RegistrationService.class
+myPLS/beans/User.class
