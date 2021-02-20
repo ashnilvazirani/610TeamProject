@@ -1,5 +1,11 @@
 package myPLS.beans;
-
+/**
+ * 
+ * @author Sandeep kaur
+ * @version 1.0
+ * myPLS users
+ *
+ */
 public class User {
 	private String name;
 	private String email;
