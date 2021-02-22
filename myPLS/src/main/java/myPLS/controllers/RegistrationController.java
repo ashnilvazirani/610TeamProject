@@ -4,10 +4,10 @@ package myPLS.controllers;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.Version;
-import myPLS.beans.User;
 import myPLS.services.RegistrationService;
 import spark.Request;
 import spark.Spark;
@@ -20,12 +20,8 @@ public class RegistrationController {
 		setConfiguration();
 		registrationService = new RegistrationService();
 	}
-    public void getUserRegistrations(){
-        registrationService.getUserDetails();
-    }
+
 	public StringWriter getRegistrationPage() {
-        Map<Integer, User> map =  registrationService.getUserDetails();
-        map.forEach((key, value) -> System.out.println(key + ":" + value.getName()));
 		StringWriter writer = new StringWriter();  
         try {
             Template formTemplate = configuration.getTemplate("templates/registration.ftl");
@@ -39,8 +35,8 @@ public class RegistrationController {
 	}
 	
 	public StringWriter registerUser(Request request) {
-		StringWriter writer = new StringWriter();
-        try {
+		 StringWriter writer = new StringWriter();
+         try {
              Template resultTemplate = configuration.getTemplate("templates/authorizationMsg.ftl");
              boolean result =  registrationService.registerUser(request);
              Map<String, Object> map = new HashMap<String, Object>();
@@ -54,5 +50,6 @@ public class RegistrationController {
 	
 	private void setConfiguration() {
         configuration.setClassForTemplateLoading(RegistrationController.class, "/");
+
 	}
 }
