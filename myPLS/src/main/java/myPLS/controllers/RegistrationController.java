@@ -48,8 +48,35 @@ public class RegistrationController {
          return writer;
 	}
 	
+	public StringWriter authoriseUser(Request request) {
+		registrationService.updateAuthorization(request);
+		StringWriter writer = new StringWriter();  
+        try {
+            Template formTemplate = configuration.getTemplate("templates/resetPassword.ftl");
+            formTemplate.process(null, writer);
+        } catch (Exception e) {
+            Spark.halt(500);
+        }
+        return writer;
+	}
+	
+	public StringWriter loginUser(Request request) {
+		StringWriter writer = new StringWriter();  
+		if(registrationService.loginUser(request)) {
+			try {
+				registrationService.updatePassword(request);
+	            Template formTemplate = configuration.getTemplate("templates/dashboard.ftl");
+	            formTemplate.process(null, writer);
+	        } catch (Exception e) {
+	            Spark.halt(500);
+	        }
+		} else {
+			// render page to verify email address
+			System.out.println("Please verify your email address");
+		}
+        return writer;
+	}
 	private void setConfiguration() {
         configuration.setClassForTemplateLoading(RegistrationController.class, "/");
-
 	}
 }
