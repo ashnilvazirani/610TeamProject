@@ -8,11 +8,11 @@ public class DiscussionReply {
     private int flag; //(0/1)
     public DiscussionReply(){}
 
-    public DiscussionReply(int discussionReplyID, int userID, int discussionPanelID, String messageContent) {
+    public DiscussionReply(int discussionReplyID, int userID, int discussionPanelID, String replyContent) {
         this.discussionReplyID = discussionReplyID;
         this.userID = userID;
         this.discussionPanelID = discussionPanelID;
-        this.messageContent = messageContent;
+        this.replyContent = replyContent;
     }
 
 	public int getDiscussionReplyID() {

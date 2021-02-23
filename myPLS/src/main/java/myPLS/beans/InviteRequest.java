@@ -1,11 +1,12 @@
 package myPLS.beans;
-public class IniviteRequest{
+
+public class InviteRequest{
     private int iniviteRequestID;
     private int userID;
     private int discussionPanelID;
     private int flag;
-    public IniviteRequest(){}
-    public IniviteRequest(int iniviteRequestID, int userID, int discussionPanelID, int flag) {
+    public InviteRequest(){}
+    public InviteRequest(int iniviteRequestID, int userID, int discussionPanelID, int flag) {
         this.iniviteRequestID = iniviteRequestID;
         this.userID = userID;
         this.discussionPanelID = discussionPanelID;
@@ -43,7 +44,6 @@ public class IniviteRequest{
 	public void setFlag(int flag) {
 		this.flag = flag;
 	}
-
 }
 /**
  *  CREATE TABLE iniviteRequest (
