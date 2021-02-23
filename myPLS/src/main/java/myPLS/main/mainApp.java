@@ -29,8 +29,16 @@ public class mainApp {
 			return registraionController.authoriseUser(request);
 		});
 		
-		post("/login",(request,response) -> {
-			return registraionController.loginUser(request);
+		post("/resetPassword",(request,response) -> {
+			return registraionController.resetPassword(request);
+		});
+		
+		post("/loginPage", (request, response) -> {
+            return registraionController.getLoginPage();
+        });
+		
+		post("/logIn",(request,response) -> {
+			return registraionController.logIn(request);
 		});
 		
 	}
