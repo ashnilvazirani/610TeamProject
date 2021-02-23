@@ -60,9 +60,9 @@ public class RegistrationController {
         return writer;
 	}
 	
-	public StringWriter loginUser(Request request) {
+	public StringWriter resetPassword(Request request) {
 		StringWriter writer = new StringWriter();  
-		if(registrationService.loginUser(request)) {
+		if(registrationService.resetPassword(request)) {
 			try {
 				registrationService.updatePassword(request);
 	            Template formTemplate = configuration.getTemplate("templates/dashboard.ftl");
@@ -76,7 +76,37 @@ public class RegistrationController {
 		}
         return writer;
 	}
+	
 	private void setConfiguration() {
         configuration.setClassForTemplateLoading(RegistrationController.class, "/");
 	}
+
+	public Object logIn(Request request) {
+		StringWriter writer = new StringWriter();  
+		if(registrationService.logIn(request)) {
+			try {
+	            Template formTemplate = configuration.getTemplate("templates/dashboard.ftl");
+	            formTemplate.process(null, writer);
+	        } catch (Exception e) {
+	            Spark.halt(500);
+	        }
+		} else {
+			System.out.println("invalid credentials");
+		}
+        return writer;
+	}
+	
+	public StringWriter getLoginPage() {
+		StringWriter writer = new StringWriter();  
+        try {
+            Template formTemplate = configuration.getTemplate("templates/login.ftl");
+            formTemplate.process(null, writer);
+        } catch (Exception e) {
+            Spark.halt(500);
+        }
+
+        return writer;
+		
+	}
+	
 }

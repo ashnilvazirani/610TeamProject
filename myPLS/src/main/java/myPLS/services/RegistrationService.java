@@ -49,7 +49,7 @@ public class RegistrationService {
         registrationDAO.updateUser(email,role);
 	}
 	
-	public boolean loginUser(Request request) {
+	public boolean resetPassword(Request request) {
         String email = request.queryParams("email") != null ? request.queryParams("email") : "unknown";
 		User user = registrationDAO.getUser(email);
 		if(user.getEmail().equalsIgnoreCase(email) && user.isAuthorized()) 
@@ -67,5 +67,15 @@ public class RegistrationService {
 	private Optional<User> checkRITUser(String email) {
 		List<User> users = ritUserDAO.getRITUsers();
 		return users.stream().filter(user -> user.getEmail().equalsIgnoreCase(email)).findFirst();
+	}
+	
+	public boolean logIn(Request request) {
+        String email = request.queryParams("email") != null ? request.queryParams("email") : "unknown";
+        String password = request.queryParams("password") != null ? request.queryParams("password") : "unknown";
+		User user = registrationDAO.getUser(email);
+		if(user.getEmail().equalsIgnoreCase(email) && user.isAuthorized() && user.getPassword().equals(password)) 
+			return true;
+		else
+			return false;
 	}
 }
