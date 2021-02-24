@@ -24,7 +24,9 @@
                     <div class="signup-form">
                         <h2 class="form-title">Registration</h2>
                         <form method="POST" class="register-form" id="register-form" name="registrationForm" action="/registerUser">
+                       	 <font color ="red">
                            <#if status??>${message}</#if>
+                          </font>
                             <div class="form-group">
                                 <input type="text" name="fname" id="name" placeholder="First Name" required/>
                             </div>
@@ -36,12 +38,13 @@
                             </div>
                           
                             <div class="form-group form-button">
-                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"
+                                onclick="ValidateEmail(document.registrationForm.email)"/>
                             </div>              
                         </form>
                             <div class="signup-image">
                                <a href="http://localhost:4567/loginPage" class="signup-image-link" rel="link"
-                               onclick="ValidateEmail(document.registrationForm.email)">I am already registered user</a> 
+                               >I am already registered user</a> 
                             </div>
                   
                     </div>                 
@@ -63,16 +66,10 @@
 		var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 		if(inputText.value.match(mailformat))
 		{
-		alert("Valid email address!");
 		document.form1.text1.focus();
 		return true;
 		}
-		else
-		{
-		alert("You have entered an invalid email address!");
-		document.form1.text1.focus();
-		return false;
-		}
+		
 		}
 	</script>
 	  <script type="text/javascript">

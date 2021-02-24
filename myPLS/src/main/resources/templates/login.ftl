@@ -27,12 +27,12 @@
 
                     <div class="signin-form">
                         <h2 class="form-title">Sign up</h2>
-                       	<p>
-                       	<#if status??>${message}</#if>
-                       	
+                       	<p>            	
+                       	<font color ="red">
+                       		<#if status??>${message}</#if>
+                       	</font>
                         <form method="POST" class="register-form" id="login-form" action="/logIn">
-                            <div class="form-group">
-                               
+                            <div class="form-group">           
                                 <input type="text" name="email" id="email" placeholder="email"/>
                             </div>
                             <div class="form-group">

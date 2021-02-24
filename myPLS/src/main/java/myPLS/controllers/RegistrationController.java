@@ -39,7 +39,7 @@ public class RegistrationController {
 		 Map<String, Object> map = new HashMap<String, Object>();
 		 Template resultTemplate;
 		 Map<String, Object> result =  registrationService.registerUser(request);
-         if(!result.isEmpty()) {
+         if(result.isEmpty()) {
         	 try {
             	 resultTemplate = configuration.getTemplate("templates/authorizationMsg.ftl");
                  map.put("result", result);
@@ -50,7 +50,7 @@ public class RegistrationController {
          } else {
         	 try {
             	 resultTemplate = configuration.getTemplate("templates/registration.ftl");
-                 resultTemplate.process(map, writer);
+                 resultTemplate.process(result, writer);
              } catch (Exception e) {
                  Spark.halt(500);
              }
