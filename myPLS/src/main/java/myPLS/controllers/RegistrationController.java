@@ -36,15 +36,26 @@ public class RegistrationController {
 	
 	public StringWriter registerUser(Request request) {
 		 StringWriter writer = new StringWriter();
-         try {
-             Template resultTemplate = configuration.getTemplate("templates/authorizationMsg.ftl");
-             boolean result =  registrationService.registerUser(request);
-             Map<String, Object> map = new HashMap<String, Object>();
-             map.put("result", result);
-             resultTemplate.process(map, writer);
-         } catch (Exception e) {
-             Spark.halt(500);
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 Template resultTemplate;
+		 Map<String, Object> result =  registrationService.registerUser(request);
+         if(result.isEmpty()) {
+        	 try {
+            	 resultTemplate = configuration.getTemplate("templates/authorizationMsg.ftl");
+                 map.put("result", result);
+                 resultTemplate.process(map, writer);
+             } catch (Exception e) {
+                 Spark.halt(500);
+             }
+         } else {
+        	 try {
+            	 resultTemplate = configuration.getTemplate("templates/registration.ftl");
+                 resultTemplate.process(result, writer);
+             } catch (Exception e) {
+                 Spark.halt(500);
+             }
          }
+        
          return writer;
 	}
 	
@@ -82,16 +93,27 @@ public class RegistrationController {
 	}
 
 	public Object logIn(Request request) {
-		StringWriter writer = new StringWriter();  
+		StringWriter writer = new StringWriter();
+		Template formTemplate;
 		if(registrationService.logIn(request)) {
 			try {
-	            Template formTemplate = configuration.getTemplate("templates/dashboard.ftl");
+	            formTemplate = configuration.getTemplate("templates/dashboard.ftl");
 	            formTemplate.process(null, writer);
 	        } catch (Exception e) {
 	            Spark.halt(500);
 	        }
 		} else {
-			System.out.println("invalid credentials");
+			System.out.println("Invalid credentials");
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("status", "error");
+			map.put("message", "Invalid Credentials!!");
+			try {
+	      formTemplate = configuration.getTemplate("templates/login.ftl");
+	      formTemplate.process(map, writer);
+	    } catch (Exception e) {
+	      Spark.halt(500);
+	    }
+			
 		}
         return writer;
 	}
