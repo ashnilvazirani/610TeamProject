@@ -22,7 +22,7 @@ public class RegistrationService {
 		authMailService = new AuthenticationMailService();
 	}
 
-	public boolean registerUser(Request request) {
+	public Map<String, Object> registerUser(Request request) {
 		StringBuilder fname = new StringBuilder(request.queryParams("fname") != null ? request.queryParams("fname") : "anonymous");
         StringBuilder lname = new StringBuilder(request.queryParams("lname") != null ? request.queryParams("lname") : "anonymous");
         String email = request.queryParams("email") != null ? request.queryParams("email") : "unknown";
@@ -31,16 +31,22 @@ public class RegistrationService {
         map.put("name", name);
         map.put("email", email);
         map.put("authorized", false);
+        Map<String, Object> resultMap = new HashMap<>();
         Optional<User> user = checkRITUser(email);
         if(user.isPresent()) {
         	User userValue = user.get();
         	boolean result = registrationDAO.saveUser(map);
-        	authMailService.sendAuthMail(name.toString(), email,userValue.getRole());
-        	return result;
-
+        	if(result) {
+        		authMailService.sendAuthMail(name.toString(), email,userValue.getRole());
+        	} else {
+        		resultMap.put("status", "error");
+            	resultMap.put("message", "User already exists.");
+        	}
         }else {
-        	return false;
+        	resultMap.put("status", "error");
+        	resultMap.put("message", "Not a RIT user");
         }
+        return resultMap;
 	}
 	
 	public void updateAuthorization(Request request) {

@@ -6,13 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MyPLS - Sign Up</title>
 
-    <!-- Font Icon -->
-    <style type="text/css">
-  <#include "/static/fonts/material-icon/css/material-design-iconic-font.min.css">
-  <#include "/static/fonts/poppins">
-	</style>
-    
-
     <!-- Main css -->
     <style type="text/css">
 	<#include "/static/css/style.css">
@@ -29,37 +22,28 @@
             <div class="container">
                 <div class="signup-content">
                     <div class="signup-form">
-                        <h2 class="form-title">Sign up</h2>
-                        <form method="POST" class="register-form" id="register-form" action="/registerUser">
+                        <h2 class="form-title">Registration</h2>
+                        <form method="POST" class="register-form" id="register-form" name="registrationForm" action="/registerUser">
+                           <#if status??>${message}</#if>
                             <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="fname" id="name" placeholder="First Name"/>
+                                <input type="text" name="fname" id="name" placeholder="First Name" required/>
                             </div>
                              <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="lname" id="name" placeholder="Last Name"/>
+                                <input type="text" name="lname" id="name" placeholder="Last Name" required/>
                             </div>
                             <div class="form-group">
-                                <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" id="email" placeholder="Your Email"/>
+                                <input type="email" name="email" id="email" placeholder="Email: username@rit.edu" required/>
                             </div>
-                            <div class="form-group">
-                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="pass" id="pass" placeholder="Password"/>
-                            </div>
+                          
                             <div class="form-group form-button">
                                 <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
-                            </div>
-                            
-                            
+                            </div>              
                         </form>
-                        <form method="POST" class="register-form" id="login-form" action="/loginPage">
                             <div class="signup-image">
-                               <a href="login.ftl" class="signup-image-link" rel="link">I am already member</a> 
+                               <a href="http://localhost:4567/loginPage" class="signup-image-link" rel="link"
+                               onclick="ValidateEmail(document.registrationForm.email)">I am already registered user</a> 
                             </div>
-                        </form>
-                        
-                        
+                  
                     </div>                 
                 </div>
             </div>
@@ -73,7 +57,24 @@
      <script type="text/javascript">
 	<#include "/static/js/jquery.min.js">
 	</script>
-	
+	<script>
+	function ValidateEmail(inputText)
+		{
+		var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+		if(inputText.value.match(mailformat))
+		{
+		alert("Valid email address!");
+		document.form1.text1.focus();
+		return true;
+		}
+		else
+		{
+		alert("You have entered an invalid email address!");
+		document.form1.text1.focus();
+		return false;
+		}
+		}
+	</script>
 	  <script type="text/javascript">
 	<#include "/static/js/main.js">
 	</script>

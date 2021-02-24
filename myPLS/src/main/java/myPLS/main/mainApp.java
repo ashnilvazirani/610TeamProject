@@ -33,7 +33,7 @@ public class mainApp {
 			return registraionController.resetPassword(request);
 		});
 		
-		post("/loginPage", (request, response) -> {
+		get("/loginPage", (request, response) -> {
             return registraionController.getLoginPage();
         });
 		
