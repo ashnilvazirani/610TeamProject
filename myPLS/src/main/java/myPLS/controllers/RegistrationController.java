@@ -65,7 +65,7 @@ public class RegistrationController {
 		if(registrationService.resetPassword(request)) {
 			try {
 				registrationService.updatePassword(request);
-	            Template formTemplate = configuration.getTemplate("templates/dashboard.ftl");
+	            Template formTemplate = configuration.getTemplate("templates/mailTemplate.ftl");
 	            formTemplate.process(null, writer);
 	        } catch (Exception e) {
 	            Spark.halt(500);
