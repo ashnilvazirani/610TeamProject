@@ -48,8 +48,65 @@ public class RegistrationController {
          return writer;
 	}
 	
+	public StringWriter authoriseUser(Request request) {
+		registrationService.updateAuthorization(request);
+		StringWriter writer = new StringWriter();  
+        try {
+            Template formTemplate = configuration.getTemplate("templates/resetPassword.ftl");
+            formTemplate.process(null, writer);
+        } catch (Exception e) {
+            Spark.halt(500);
+        }
+        return writer;
+	}
+	
+	public StringWriter resetPassword(Request request) {
+		StringWriter writer = new StringWriter();  
+		if(registrationService.resetPassword(request)) {
+			try {
+				registrationService.updatePassword(request);
+	            Template formTemplate = configuration.getTemplate("templates/dashboard.ftl");
+	            formTemplate.process(null, writer);
+	        } catch (Exception e) {
+	            Spark.halt(500);
+	        }
+		} else {
+			// render page to verify email address
+			System.out.println("Please verify your email address");
+		}
+        return writer;
+	}
+	
 	private void setConfiguration() {
         configuration.setClassForTemplateLoading(RegistrationController.class, "/");
-
 	}
+
+	public Object logIn(Request request) {
+		StringWriter writer = new StringWriter();  
+		if(registrationService.logIn(request)) {
+			try {
+	            Template formTemplate = configuration.getTemplate("templates/dashboard.ftl");
+	            formTemplate.process(null, writer);
+	        } catch (Exception e) {
+	            Spark.halt(500);
+	        }
+		} else {
+			System.out.println("invalid credentials");
+		}
+        return writer;
+	}
+	
+	public StringWriter getLoginPage() {
+		StringWriter writer = new StringWriter();  
+        try {
+            Template formTemplate = configuration.getTemplate("templates/login.ftl");
+            formTemplate.process(null, writer);
+        } catch (Exception e) {
+            Spark.halt(500);
+        }
+
+        return writer;
+		
+	}
+	
 }
