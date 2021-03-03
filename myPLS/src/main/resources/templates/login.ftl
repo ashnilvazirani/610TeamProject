@@ -22,7 +22,7 @@
             <div class="container">
                 <div class="signin-content">
                     <div class="signin-image">
-                        <a href="http://localhost:4567/" class="signup-image-link">Create an account</a>
+                        <a href="http://localhost:4567/registerUser" class="signup-image-link">Create an account</a>
                     </div>
 
                     <div class="signin-form">
