@@ -79,7 +79,7 @@ public class RegistrationService {
         String email = request.queryParams("email") != null ? request.queryParams("email") : "unknown";
         String password = request.queryParams("password") != null ? request.queryParams("password") : "unknown";
 		User user = registrationDAO.getUser(email);
-		if(user.getEmail().equalsIgnoreCase(email) && user.isAuthorized() && user.getPassword().equals(password)) 
+		if(user.getEmail() != null && user.getPassword()!= null && user.getEmail().equalsIgnoreCase(email) && user.isAuthorized() && user.getPassword().equals(password)) 
 			return true;
 		else
 			return false;
