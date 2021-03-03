@@ -76,10 +76,9 @@ public class RegistrationController {
 		StringWriter writer = new StringWriter();  
 		if(registrationService.resetPassword(request)) {
 			try {
-				response.redirect("/dashboard");
-				// registrationService.updatePassword(request);
-	            // Template formTemplate = configuration.getTemplate("templates/studentDashboard.ftl");
-	            // formTemplate.process(null, writer);
+				 registrationService.updatePassword(request);
+	             Template formTemplate = configuration.getTemplate("templates/studentDashboard.ftl");
+	             formTemplate.process(null, writer);
 	        } catch (Exception e) {
 	            Spark.halt(500);
 	        }
@@ -89,10 +88,10 @@ public class RegistrationController {
 		}
         return writer;
 	}
+	
 	public StringWriter getDashboard(Request request) {
 		StringWriter writer = new StringWriter();  
 		try {
-			registrationService.updatePassword(request);
 			Template formTemplate = configuration.getTemplate("templates/studentDashboard.ftl");
 			formTemplate.process(null, writer);
 		} catch (Exception e) {
@@ -101,6 +100,7 @@ public class RegistrationController {
 		
         return writer;
 	}
+	
 	private void setConfiguration() {
         configuration.setClassForTemplateLoading(RegistrationController.class, "/");
 	}
