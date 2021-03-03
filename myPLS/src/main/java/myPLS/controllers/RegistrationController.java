@@ -38,7 +38,7 @@ public class RegistrationController {
 		 StringWriter writer = new StringWriter();
 		 Map<String, Object> map = new HashMap<String, Object>();
 		 Template resultTemplate;
-		 Map<String, Object> result =  registrationService.registerUser(request);
+		 Map<String, Object> result = registrationService.registerUser(request);
          if(result.isEmpty()) {
         	 try {
             	 resultTemplate = configuration.getTemplate("templates/authorizationMsg.ftl");
@@ -76,7 +76,7 @@ public class RegistrationController {
 		if(registrationService.resetPassword(request)) {
 			try {
 				registrationService.updatePassword(request);
-	            Template formTemplate = configuration.getTemplate("templates/dashboard.ftl");
+	            Template formTemplate = configuration.getTemplate("templates/studentDashboard.ftl");
 	            formTemplate.process(null, writer);
 	        } catch (Exception e) {
 	            Spark.halt(500);
@@ -97,7 +97,7 @@ public class RegistrationController {
 		Template formTemplate;
 		if(registrationService.logIn(request)) {
 			try {
-	            formTemplate = configuration.getTemplate("templates/dashboard.ftl");
+	            formTemplate = configuration.getTemplate("templates/studentDashboard.ftl");
 	            formTemplate.process(null, writer);
 	        } catch (Exception e) {
 	            Spark.halt(500);

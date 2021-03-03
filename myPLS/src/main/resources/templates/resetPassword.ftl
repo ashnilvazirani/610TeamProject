@@ -30,11 +30,11 @@
                         <form method="POST" class="register-form" id="login-form" action="/resetPassword">
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="email" id="email" placeholder="Your email"/>
+                                <input type="text" name="email" id="email" placeholder="Your email" required/>
                             </div>
                             <div class="form-group">
                                 <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="password" id="password" placeholder="Password"/>
+                                <input type="password" name="password" id="password" placeholder="Password" minlength="5" required/>
                             </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>

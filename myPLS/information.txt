@@ -1,0 +1,9 @@
+Models:
+    Defines the schema of the tables
+DAO:
+    used to perform SQL queries on the database to access objects
+Service:
+    Access DAO objects to provide SQL operations as a service layer
+
+Controller:
+    Utlizes services to map the data and the front end and render templates for the web-app
