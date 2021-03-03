@@ -10,6 +10,7 @@ import freemarker.template.Template;
 import freemarker.template.Version;
 import myPLS.services.RegistrationService;
 import spark.Request;
+import spark.Response;
 import spark.Spark;
 
 public class RegistrationController {
@@ -71,13 +72,14 @@ public class RegistrationController {
         return writer;
 	}
 	
-	public StringWriter resetPassword(Request request) {
+	public StringWriter resetPassword(Request request, Response response) {
 		StringWriter writer = new StringWriter();  
 		if(registrationService.resetPassword(request)) {
 			try {
-				registrationService.updatePassword(request);
-	            Template formTemplate = configuration.getTemplate("templates/studentDashboard.ftl");
-	            formTemplate.process(null, writer);
+				response.redirect("/dashboard");
+				// registrationService.updatePassword(request);
+	            // Template formTemplate = configuration.getTemplate("templates/studentDashboard.ftl");
+	            // formTemplate.process(null, writer);
 	        } catch (Exception e) {
 	            Spark.halt(500);
 	        }
@@ -87,18 +89,28 @@ public class RegistrationController {
 		}
         return writer;
 	}
-	
+	public StringWriter getDashboard(Request request) {
+		StringWriter writer = new StringWriter();  
+		try {
+			registrationService.updatePassword(request);
+			Template formTemplate = configuration.getTemplate("templates/studentDashboard.ftl");
+			formTemplate.process(null, writer);
+		} catch (Exception e) {
+			Spark.halt(500);
+		}
+		
+        return writer;
+	}
 	private void setConfiguration() {
         configuration.setClassForTemplateLoading(RegistrationController.class, "/");
 	}
 
-	public Object logIn(Request request) {
+	public Object logIn(Request request, Response response) {
 		StringWriter writer = new StringWriter();
 		Template formTemplate;
 		if(registrationService.logIn(request)) {
 			try {
-	            formTemplate = configuration.getTemplate("templates/studentDashboard.ftl");
-	            formTemplate.process(null, writer);
+	            response.redirect("/dashboard");
 	        } catch (Exception e) {
 	            Spark.halt(500);
 	        }
@@ -117,7 +129,6 @@ public class RegistrationController {
 		}
         return writer;
 	}
-	
 	public StringWriter getLoginPage() {
 		StringWriter writer = new StringWriter();  
         try {
@@ -130,5 +141,14 @@ public class RegistrationController {
         return writer;
 		
 	}
-	
+	public StringWriter getUploadPage() {
+		StringWriter writer = new StringWriter();  
+        try {
+            Template formTemplate = configuration.getTemplate("templates/uploadFileTempForm.ftl");
+            formTemplate.process(null, writer);
+        } catch (Exception e) {
+            Spark.halt(500);
+        }
+        return writer;
+	}	
 }
