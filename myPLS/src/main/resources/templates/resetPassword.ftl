@@ -21,9 +21,7 @@
         <section class="sign-in">
             <div class="container">
                 <div class="signin-content">
-                    <div class="signin-image">
-                        <a href="http://localhost:4567/" class="signup-image-link">Create an account</a>
-                    </div>
+                    
 
                     <div class="signin-form">
                         <h2 class="form-title">Password Reset</h2>

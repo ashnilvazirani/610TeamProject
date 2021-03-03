@@ -2,8 +2,8 @@ Create database myPLS;
 use myPLS;
 
 create table rit_users(
-ID int auto_increment primary key,
-email varchar(100),
+ID int auto_increment Unique key ,
+email varchar(100) primary key,
 role varchar(50)
 );
 
@@ -14,7 +14,7 @@ insert into rit_users (email,role) values ('tawvse@rit.edu','professor');
 
 create table user(
 name varchar(100),
-email varchar(50) references rit_users(email),
+email varchar(50) primary key references rit_users(email),
 authorized boolean,
 role varchar(50),
 password varchar(50)
