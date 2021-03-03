@@ -1,21 +1,13 @@
 package myPLS.beans;
-/**
- * 
- * @author Sandeep kaur
- * @version 1.0
- * myPLS users
- *
- */
+
+
 public class User {
 	private String name;
 	private String email;
 	private boolean authorized;
-	public User(){}
-	public User(String name, String email, boolean authorized){
-		this.name = name;
-		this.email = email;
-		this.authorized=authorized;
-	}
+	private String role;
+	private String password;
+	
 	public String getName() {
 		return name;
 	}
@@ -34,22 +26,17 @@ public class User {
 	public void setAuthorized(boolean authorized) {
 		this.authorized = authorized;
 	}
-	
-	@Override
-	public String toString(){
-		return this.getName()+", "+this.getEmail()+", "+this.isAuthorized();
+	public String getRole() {
+		return role;
 	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 }
-/**
- * SQL Statements: 
- CREATE TABLE user (
-    userID int NOT NULL AUTO_INCREMENT,
-    name varchar(255) NOT NULL,
-    email varchar(255),
-    authorized boolean,
-    PRIMARY KEY (userID)
-);
-
-select * from user;
-
- */

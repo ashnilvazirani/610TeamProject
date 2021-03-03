@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<h1>email sent authorize</h1>
+<h1>Authorization email sent</h1>
 
 </body>
 </html>
