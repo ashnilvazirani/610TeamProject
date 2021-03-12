@@ -3,39 +3,19 @@ package myPLS.main;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
-import java.io.StringWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 import java.io.IOException;
 
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
+import myPLS.controllers.CourseController;
 import myPLS.controllers.RegistrationController;
-import static spark.Spark.*;
 
-import spark.utils.IOUtils;
-
-import javax.servlet.MultipartConfigElement;
-import javax.servlet.http.Part;
-
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import spark.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.*;
-import java.nio.file.*;
-// import static spark.Spark.*;
-public class mainApp extends HttpServlet{
+public class mainApp {
 	
 	private final static RegistrationController registraionController = new RegistrationController();
+	private final static CourseController courseController = new CourseController();
 	public static int fileCount=0;
 	public static void main(String[] args) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		get("/registerUser", (request, response) -> {
@@ -70,6 +50,19 @@ public class mainApp extends HttpServlet{
         post("/logIn",(request,response) -> {
             return registraionController.logIn(request, response);
         });
-		
+
+        get("/addCourse", (request, response) -> {
+        	return courseController.getAddCoursePage();
+        });
+        
+        get("/courses",(request,response) -> {
+        	return courseController.getCourses();
+        });
+        
+        post("/addCourse", (request, response) -> {
+        	courseController.addCourse(request,response);
+    		response.redirect("/courses");
+    		return 0;
+        });
 	}
 }

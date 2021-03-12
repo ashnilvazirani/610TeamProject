@@ -1,16 +1,13 @@
 package myPLS.beans;
 
 public class Course {
+    private int courseId;
     private String courseName;
-    private String courseField;
-    private int courseYear;
     private String courseDescription;
     private int courseDuration;
     private int streamID;
-    public Course(){}
-    public Course(String courseName, String courseField, String courseYear, String courseDescription, String courseDuration, int streamID){
-      
-    }
+    private String streamName;
+    
     public int getStreamID() {
         return this.streamID;
     }
@@ -27,21 +24,6 @@ public class Course {
         this.courseName = courseName;
     }
 
-    public String getCourseField() {
-        return this.courseField;
-    }
-
-    public void setCourseField(String courseField) {
-        this.courseField = courseField;
-    }
-
-    public int getCourseYear() {
-        return this.courseYear;
-    }
-
-    public void setCourseYear(int courseYear) {
-        this.courseYear = courseYear;
-    }
 
     public String getCourseDescription() {
         return this.courseDescription;
@@ -66,6 +48,22 @@ public class Course {
     public void setStreamId(int streamID) {
         this.streamID = streamID;
     }
+    
+    public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
+    
+    public int getCourseId() {
+		return courseId;
+	}
+    
+    public void setStreamName(String streamName) {
+		this.streamName = streamName;
+	}
+    
+    public String getStreamName() {
+		return streamName;
+	}
 }
 /**
  *  CREATE TABLE course  (

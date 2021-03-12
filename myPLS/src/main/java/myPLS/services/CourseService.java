@@ -1,22 +1,15 @@
 package myPLS.services;
 
-import java.util.Map;
+import java.util.List;
 
-import myPLS.DAO.CourseDAO;
 import myPLS.beans.Course;
 import spark.Request;
 
-public class CourseService {
-    private CourseDAO courseDao;
+public interface CourseService {
+	boolean addCourse(Request request);
+	boolean updateCourse(Course course);
+	List<Course> getCourses();
+	boolean deleteCourse(int id);
+	Course getCourse(int id);
 
-    public CourseService() {
-		this.courseDao = new CourseDAO();
-	}
-    public Map<Integer, Course> getUserDetails(){
-        return this.courseDao.getAllCourses();
-    }
-	public boolean addCourseDetails(Request request) {
-		//Connect with UI
-        return true;
-	}
 }
