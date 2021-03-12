@@ -10,12 +10,15 @@ import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
 import myPLS.controllers.CourseController;
+import myPLS.controllers.LearnerController;
 import myPLS.controllers.RegistrationController;
 
 public class mainApp {
 	
 	private final static RegistrationController registraionController = new RegistrationController();
 	private final static CourseController courseController = new CourseController();
+	private final static LearnerController learnerController = new LearnerController();
+
 	public static int fileCount=0;
 	public static void main(String[] args) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		get("/registerUser", (request, response) -> {
@@ -31,11 +34,10 @@ public class mainApp {
 		});
 		
 		post("/resetPassword",(request,response) -> {
-			return registraionController.resetPassword(request, response);
+			registraionController.resetPassword(request, response);
+			return 0;
 		});
-		get("/dashboard", (request, response)->{
-			return registraionController.getDashboard(request);
-		});
+		
 		get("/loginPage", (request, response) -> {
             return registraionController.getLoginPage();
         });
@@ -57,6 +59,10 @@ public class mainApp {
         
         get("/courses",(request,response) -> {
         	return courseController.getCourses();
+        });
+        
+        get("/studentDashboard",(request,response) -> {
+        	return learnerController.getLearnerDashboard();
         });
         
         post("/addCourse", (request, response) -> {
