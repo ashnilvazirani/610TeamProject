@@ -77,7 +77,7 @@ public class RegistrationController {
 		if(registrationService.resetPassword(request)) {
 			try {
 				 registrationService.updatePassword(request);
-	             Template formTemplate = configuration.getTemplate("templates/studentDashboard.ftl");
+	             Template formTemplate = configuration.getTemplate("templates/adminDashboard.ftl");
 	             formTemplate.process(null, writer);
 	        } catch (Exception e) {
 	            Spark.halt(500);
@@ -110,7 +110,7 @@ public class RegistrationController {
 		Template formTemplate;
 		if(registrationService.logIn(request)) {
 			try {
-	            response.redirect("/dashboard");
+	            response.redirect("/courses");
 	        } catch (Exception e) {
 	            Spark.halt(500);
 	        }
