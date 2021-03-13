@@ -23,7 +23,7 @@ public class AuthenticationMailService {
 		Properties props = new Properties();
 		try {
 			// props.load(new FileInputStream(new File("mail.properties")));
-			props.load(new FileInputStream(new File("/Users/ashnilvazirani/programming/610TeamProject/myPLS/mail.properties")));
+			props.load(new FileInputStream(new File("mail.properties")));
 			Authenticator auth = new Authenticator() {
 				//override the getPasswordAuthentication method
 				protected PasswordAuthentication getPasswordAuthentication() {

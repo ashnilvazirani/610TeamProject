@@ -2,8 +2,8 @@ Create database myPLS;
 use myPLS;
 
 create table rit_users(
-ID int auto_increment primary key,
-email varchar(100),
+ID int auto_increment Unique key ,
+email varchar(100) primary key,
 role varchar(50)
 );
 
@@ -14,8 +14,40 @@ insert into rit_users (email,role) values ('tawvse@rit.edu','professor');
 
 create table user(
 name varchar(100),
-email varchar(50) references rit_users(email),
+email varchar(50) primary key references rit_users(email),
 authorized boolean,
 role varchar(50),
 password varchar(50)
+);
+
+create table stream(
+streamId int primary key auto_increment,
+streamName varchar(50) not null,
+streamDescription varchar(100),
+streamDuration int
+);
+
+insert into stream
+(streamName,streamDescription,streamDuration)
+values
+('DS','Data Science',3);
+
+insert into stream
+(streamName,streamDescription,streamDuration)
+values
+('CS','Computer Science',3);
+
+insert into stream
+(streamName,streamDescription,streamDuration)
+values
+('SE','Software Engineering',3);
+
+select * from stream;
+
+create table course(
+courseId int primary key auto_increment,
+streamId int references Stream(streamId),
+courseName varchar(50) not null,
+courseDescription varchar(100),
+courseDuration int
 );

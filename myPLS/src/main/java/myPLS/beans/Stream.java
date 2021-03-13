@@ -5,20 +5,10 @@ public class Stream {
     private String streamName;
     private int streamDuration;
     private String streamDescription;
-    public Stream(){}
-    public Stream(String streamName, int streamDuration, String streamDescription){
-        this.streamName = streamName;
-        this.streamDuration = streamDuration;
-        this.streamDescription =streamDescription;
-    }
+   
     public String getStreamDescription() {
 		return this.streamDescription;
 	}
-
-    public void set(String streamDescription ) {
-		this.streamDescription = streamDescription;
-	}
-    
 
 	public int getStreamID() {
 		return this.streamID;
@@ -38,6 +28,10 @@ public class Stream {
 
 	public int getStreamDuration() {
 		return this.streamDuration;
+	}
+	
+	public void setStreamDescription(String streamDescription) {
+		this.streamDescription = streamDescription;
 	}
 
 	public void setStreamDuration(int streamDuration) {
