@@ -47,7 +47,8 @@
 			<h1 class="display-4">
 				Welcome!
 			</h1>
-			<p class="lead">courses List</p>
+			<p class="lead">Group Name:${groupDiscussion.getGroupName()} </p>
+            <p class="lead">Topic:${groupDiscussion.getGroupTopic()} </p>
 		</div>
 	</div>
 
@@ -56,38 +57,21 @@
 			<thead>
 				<tr>
 					<th scope="col">ID</th>
-					<th scope="col">Group Name</th>
-                    <th scope="col">Group Topic</th>
-					<th scope="col">Created By</th>
+					<th scope="col">User Name</th>
+                    <th scope="col">User Role</th>
                     
 				</tr>
 			</thead>
 			<tbody>
-				<#list groups as group>
-				<tr>
-					<td scope="col">${group.getGroupDiscussionID()}</td>
-					<td scope="col">${group.getGroupName()}</td>
-                    <td scope="col">${group.getGroupTopic()}</td>
-                    <td scope="col">${group.getUserID()}</td>
-                    <td scope="col">
-                        <form class="form-inline" method="post" action="/inviteMembers">
-                            <button type="submit" class="btn btn-info">InviteMembers</button>
-                            <input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${group.getGroupDiscussionID()}"/>
-                        </form>
-                    </td>
-					<td scope="col">
-                        <form class="form-inline" method="post" action="/viewMembersInGroup">
-                            <button type="submit" class="btn btn-info">ViewMembers</button>
-                            <input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${group.getGroupDiscussionID()}"/>
-                        </form>
-                    </td>
-					<td scope="col">
-						<a class="btn btn-info" href="/viewGroupChats/${group.getGroupDiscussionID()}">ViewChats</a>
-					</td>
-					<#--  <td scope="col">
-                        <form class="form-inline" method="post" action="/viewGroupChats">
-                            <button type="submit" class="btn btn-info">ViewChats</button>
-                            <input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${group.getGroupDiscussionID()}"/>
+				<#list users as user>
+				<td scope="col">${user.getUserID()}</td>
+					<td scope="col">${user.getName()}</td>
+                    <td scope="col">${user.getEmail()}</td>
+                    <#--  <td scope="col">
+                        <form class="form-inline" method="post" action="/addMemberToGroup">
+                            <button type="submit" class="btn btn-info">ADD</button>
+                            <input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${groupDiscussionID}"/> 
+                            <input id="userID" name="userID" type="hidden" value="${user.getUserID()}"/> 
                         </form>
                     </td>  -->
 				</tr>

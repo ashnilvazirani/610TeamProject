@@ -46,7 +46,11 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	public String getUserNameByID(int userID){
+		if(this.userID == userID)
+			return this.getName();
+		return "NULL";
+	}
 	public User(int userID, String name, String email, boolean authorized, String role, String password) {
 		this.userID = userID;
 		this.name = name;

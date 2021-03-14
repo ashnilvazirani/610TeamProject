@@ -1,6 +1,7 @@
 package myPLS.controllers;
 
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import freemarker.template.Template;
 import freemarker.template.Version;
 import myPLS.beans.Course;
 import myPLS.beans.GroupDiscussion;
+import myPLS.beans.GroupDiscussionChat;
 import myPLS.beans.Stream;
 import myPLS.beans.User;
 import myPLS.services.CourseService;
@@ -29,6 +31,7 @@ public class AdminController {
     private static GroupDiscussionService groupDiscussionService;
     private static RegistrationService registrationService;
     private static UserService userService;
+    private static int userID = 1; //get from session
 	public AdminController() {
 		setConfiguration();
 		courseService = new CourseServiceImpl();
@@ -51,14 +54,35 @@ public class AdminController {
 		} catch (Exception e) {
 			Spark.halt(500);
 		}
-
+		return writer;
+	}
+    public StringWriter viewGroupChats(Request request, Response response) {
+		StringWriter writer = new StringWriter();
+		Map<String,Object> map = new HashMap<String, Object>();
+		List<GroupDiscussionChat> chats = groupDiscussionService.getGroupChats(request, response);
+        GroupDiscussion groupDiscussion = groupDiscussionService.getGroupDiscussionNameByID(request, response);
+        List<User> users = new ArrayList<>();
+        for(GroupDiscussionChat chat:chats ){
+            User u = userService.getUserByID(chat.getUserID());
+            users.add(u);
+        }
+		map.put("chats", chats);
+		map.put("users", users);
+		map.put("group", groupDiscussion);
+        map.put("userID", userID);
+		try {
+			Template formTemplate = configuration.getTemplate("templates/viewChats.ftl");
+			formTemplate.process(map, writer);
+		} catch (Exception e) {
+			Spark.halt(500);
+		}
 		return writer;
 	}
     public void createADiscussionGroup(Request request, Response response){
         if(groupDiscussionService.createADiscussionGroup(request, response))
             response.redirect("/courses");
         else
-            System.out.println("ERROR TO INSERT>>!!!");
+            System.out.println("ERROR TO INSERT!!!");
     }
 
     public StringWriter inviteMembers(Request request, Response response){
@@ -91,7 +115,7 @@ public class AdminController {
         StringWriter writer = new StringWriter();
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("users", groupDiscussionService.getMembersFromGroupDiscussionID(request, response));
-        map.put("groupDiscussion", groupDiscussionService.getGroupGroupDiscussionNameByID(request, response));
+        map.put("groupDiscussion", groupDiscussionService.getGroupDiscussionNameByID(request, response));
 		try {
 			Template formTemplate = configuration.getTemplate("templates/viewUsersInGroupDiscussion.ftl");
 			formTemplate.process(map, writer);
