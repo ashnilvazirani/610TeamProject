@@ -11,6 +11,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
 import myPLS.controllers.AdminController;
 import myPLS.controllers.CourseController;
+import myPLS.controllers.GroupDiscussionChatController;
 import myPLS.controllers.LearnerController;
 import myPLS.controllers.RegistrationController;
 
@@ -20,7 +21,7 @@ public class mainApp {
 	private final static CourseController courseController = new CourseController();
 	private final static LearnerController learnerController = new LearnerController();
 	private final static AdminController adminController = new AdminController();
-
+	private final static GroupDiscussionChatController groupDiscussionChatController = new GroupDiscussionChatController();
 	public static int fileCount=0;
 	public static void main(String[] args) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		get("/registerUser", (request, response) -> {
@@ -57,8 +58,14 @@ public class mainApp {
 		post("/inviteMembers",(request,response) -> {
             return adminController.inviteMembers(request, response);
         });
+		post("/postChat",(request,response) -> {
+            return groupDiscussionChatController.postMessage(request, response);
+        });
 		post("/addMemberToGroup",(request,response) -> {
             return adminController.addMemberToGroup(request, response);
+        });
+		get("/viewGroupChats/:groupDiscussionID",(request,response) -> {
+            return adminController.viewGroupChats(request, response);
         });
         get("/addCourse", (request, response) -> {
         	return courseController.getAddCoursePage();
