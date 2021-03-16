@@ -51,3 +51,43 @@ courseName varchar(50) not null,
 courseDescription varchar(100),
 courseDuration int
 );
+
+
+CREATE TABLE groupDiscussion (
+    groupDiscussionID int(11) NOT NULL AUTO_INCREMENT,
+    userID int(11),
+    groupName varchar(255),
+    groupTopic varchar(255),
+    flag int(11),
+    PRIMARY KEY (groupDiscussionID),
+	FOREIGN KEY (userID) REFERENCES user(userID)
+);
+
+CREATE TABLE groupDiscussionMembers (
+    groupDiscussionMembersID int(11) NOT NULL AUTO_INCREMENT,
+    userID int(11),
+    groupDiscussionID int(11),
+    flag int(11),
+    PRIMARY KEY (groupDiscussionMembersID),
+	FOREIGN KEY (userID) REFERENCES user(userID),
+	FOREIGN KEY (groupDiscussionID) REFERENCES groupDiscussion(groupDiscussionID)
+);
+CREATE TABLE groupDiscussionChat (
+    groupDiscussionChatID int(11) NOT NULL AUTO_INCREMENT,
+    userID int(11),
+    groupDiscussionID int(11),
+    messageContent varchar(555),
+    flag int(11),
+    PRIMARY KEY (groupDiscussionChatID),
+	FOREIGN KEY (userID) REFERENCES user(userID),
+	FOREIGN KEY (groupDiscussionID) REFERENCES groupDiscussion(groupDiscussionID)
+);
+
+
+select * from rit_users; /* ID */
+select * from user; /* userID */
+select * from learner; /* learnerID, userID */
+select * from groupDiscussionMembers;
+truncate table groupDiscussionChat;
+ALTER TABLE groupDiscussionChat AUTO_INCREMENT = 1;
+select * from groupDiscussionChat;

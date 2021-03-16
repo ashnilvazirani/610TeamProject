@@ -25,7 +25,7 @@ public class GroupDiscussionMembersDAO {
 			ResultSet result = preparedStatement.executeQuery();
 			while (result.next()) {
                 User u = userService.getUserByID(result.getInt("userID"));
-                System.out.println(u.getUserID());
+                u.setUserID(result.getInt("userID"));
 				usersInGroup.add(u);
 			}
 		} catch (SQLException e) {
