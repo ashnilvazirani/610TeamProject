@@ -39,9 +39,6 @@
 				<form class="form-inline" method="get" action="/createGroup">
 					<button type="submit" class="btn btn-info">Create A group</button>
 				</form>
-				<form class="form-inline" method="get" action="/viewGroups">
-					<button type="submit" class="btn btn-info">View Groups</button>
-				</form>
 			</div>
 		</div>
 	</nav>
@@ -58,21 +55,41 @@
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th scope="col">Course Name</th>
-					<th scope="col">Course Description</th>
-                    <th scope="col">Course Duration</th>
-					<th scope="col">Stream Name</th>
+					<th scope="col">ID</th>
+					<th scope="col">Group Name</th>
+                    <th scope="col">Group Topic</th>
+					<th scope="col">Created By</th>
                     
 				</tr>
 			</thead>
 			<tbody>
-				<#list courses as course>
+				<#list groups as group>
 				<tr>
-					<td scope="col">${course.courseName}</td>
-					<td scope="col">${course.courseDescription}</td>
-                    <td scope="col">${course.courseDuration}</td>
-                    <td scope="col">${course.streamName}</td>
-                    
+					<td scope="col">${group.getGroupDiscussionID()}</td>
+					<td scope="col">${group.getGroupName()}</td>
+                    <td scope="col">${group.getGroupTopic()}</td>
+                    <td scope="col">${group.getUserID()}</td>
+                    <td scope="col">
+                        <form class="form-inline" method="post" action="/inviteMembers">
+                            <button type="submit" class="btn btn-info">InviteMembers</button>
+                            <input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${group.getGroupDiscussionID()}"/>
+                        </form>
+                    </td>
+					<td scope="col">
+                        <form class="form-inline" method="post" action="/viewMembersInGroup">
+                            <button type="submit" class="btn btn-info">ViewMembers</button>
+                            <input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${group.getGroupDiscussionID()}"/>
+                        </form>
+                    </td>
+					<td scope="col">
+						<a class="btn btn-info" href="/viewGroupChats/${group.getGroupDiscussionID()}">ViewChats</a>
+					</td>
+					<#--  <td scope="col">
+                        <form class="form-inline" method="post" action="/viewGroupChats">
+                            <button type="submit" class="btn btn-info">ViewChats</button>
+                            <input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${group.getGroupDiscussionID()}"/>
+                        </form>
+                    </td>  -->
 				</tr>
 				</#list>
 			</tbody>

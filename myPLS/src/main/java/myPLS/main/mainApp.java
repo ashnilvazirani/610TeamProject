@@ -9,7 +9,9 @@ import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
+import myPLS.controllers.AdminController;
 import myPLS.controllers.CourseController;
+import myPLS.controllers.GroupDiscussionChatController;
 import myPLS.controllers.LearnerController;
 import myPLS.controllers.RegistrationController;
 
@@ -18,7 +20,8 @@ public class mainApp {
 	private final static RegistrationController registraionController = new RegistrationController();
 	private final static CourseController courseController = new CourseController();
 	private final static LearnerController learnerController = new LearnerController();
-
+	private final static AdminController adminController = new AdminController();
+	private final static GroupDiscussionChatController groupDiscussionChatController = new GroupDiscussionChatController();
 	public static int fileCount=0;
 	public static void main(String[] args) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		get("/registerUser", (request, response) -> {
@@ -52,11 +55,35 @@ public class mainApp {
         post("/logIn",(request,response) -> {
             return registraionController.logIn(request, response);
         });
-
+		post("/inviteMembers",(request,response) -> {
+            return adminController.inviteMembers(request, response);
+        });
+		post("/postChat",(request,response) -> {
+            return groupDiscussionChatController.postMessage(request, response);
+        });
+		post("/addMemberToGroup",(request,response) -> {
+            return adminController.addMemberToGroup(request, response);
+        });
+		get("/viewGroupChats/:groupDiscussionID",(request,response) -> {
+            return adminController.viewGroupChats(request, response);
+        });
         get("/addCourse", (request, response) -> {
         	return courseController.getAddCoursePage();
         });
-        
+        get("/createGroup", (request, response) -> {
+        	return adminController.getGroupDiscussionPage();
+        });
+		get("/viewGroups",(request,response) -> {
+        	return adminController.viewAllCourses();
+        });
+		post("/viewMembersInGroup",(request,response) -> {
+        	return adminController.viewMembersInGroupDiscussion(request, response);
+        });
+        post("/addGroupDiscussion", (request, response) -> {
+        	adminController.createADiscussionGroup(request,response);
+    		response.redirect("/courses");
+    		return 0;
+        });
         get("/courses",(request,response) -> {
         	return courseController.getCourses();
         });

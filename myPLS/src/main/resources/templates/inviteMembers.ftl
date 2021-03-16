@@ -39,9 +39,6 @@
 				<form class="form-inline" method="get" action="/createGroup">
 					<button type="submit" class="btn btn-info">Create A group</button>
 				</form>
-				<form class="form-inline" method="get" action="/viewGroups">
-					<button type="submit" class="btn btn-info">View Groups</button>
-				</form>
 			</div>
 		</div>
 	</nav>
@@ -58,21 +55,25 @@
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th scope="col">Course Name</th>
-					<th scope="col">Course Description</th>
-                    <th scope="col">Course Duration</th>
-					<th scope="col">Stream Name</th>
-                    
+					<th scope="col">ID</th>
+					<th scope="col">User Name</th>
+                    <th scope="col">User Email</th>
+					<th scope="col">ADD</th>
 				</tr>
 			</thead>
 			<tbody>
-				<#list courses as course>
+				<#list users as user>
 				<tr>
-					<td scope="col">${course.courseName}</td>
-					<td scope="col">${course.courseDescription}</td>
-                    <td scope="col">${course.courseDuration}</td>
-                    <td scope="col">${course.streamName}</td>
-                    
+					<td scope="col">${user.getUserID()}</td>
+					<td scope="col">${user.getName()}</td>
+                    <td scope="col">${user.getEmail()}</td>
+                    <td scope="col">
+                        <form class="form-inline" method="post" action="/addMemberToGroup">
+                            <button type="submit" class="btn btn-info">ADD</button>
+                            <input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${groupDiscussionID}"/> 
+                            <input id="userID" name="userID" type="hidden" value="${user.getUserID()}"/> 
+                        </form>
+                    </td>
 				</tr>
 				</#list>
 			</tbody>
