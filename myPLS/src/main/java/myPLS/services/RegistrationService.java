@@ -90,10 +90,13 @@ public class RegistrationService {
 		if(user.getEmail() != null && user.getPassword()!= null && user.getEmail().equalsIgnoreCase(email) && user.isAuthorized() && user.getPassword().equals(password)) {
 			map.put("validUser", true);
 			map.put("role", user.getRole());
+			map.put("userID", user.getUserID());
 		}
 		else {
 			map.put("validUser", false);
 			map.put("role", user.getRole());
+			map.put("userID", user.getUserID());
+
 		}
 		return map;
 	}

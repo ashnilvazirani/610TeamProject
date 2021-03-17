@@ -36,9 +36,17 @@
 				<form class="form-inline" method="post" action="Enroll">
 					<button type="submit" class="btn btn-info">Enroll for courses</button>
 				</form>
+				<form class="form-inline" method="get" action="/createGroup">
+					<button type="submit" class="btn btn-info">Create A group</button>
+				</form>
+				<form class="form-inline" method="get" action="/viewGroups">
+					<button type="submit" class="btn btn-info">View Groups</button>
+				</form>
 			</div>
 		</div>
 	</nav>
+	
+	
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<h1 class="display-4">
