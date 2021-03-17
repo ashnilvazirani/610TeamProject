@@ -1,23 +1,24 @@
 package myPLS.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import myPLS.DAO.GroupDiscussionChatDAO;
 import myPLS.DAO.GroupDiscussionDAO;
 import myPLS.DAO.GroupDiscussionMembersDAO;
 import myPLS.beans.GroupDiscussion;
+import myPLS.beans.GroupDiscussionChat;
 import myPLS.beans.GroupDiscussionMembers;
 import myPLS.beans.User;
-import myPLS.controllers.GroupDiscussionController;
 import spark.Request;
 import spark.Response;
-import java.util.List;
-import myPLS.beans.GroupDiscussionChat;
 public class GroupDiscussionService {
-    private GroupDiscussionController groupDiscussionController;
     private GroupDiscussionDAO groupDiscussionDAO;
     private GroupDiscussionMembersDAO groupDiscussionMembersDAO;
     private GroupDiscussionChatDAO groupDiscussionChatDAO;
+    public static ArrayList<GroupDiscussionChat> chat = new ArrayList<GroupDiscussionChat>();
+    
     public GroupDiscussionService(){
-        groupDiscussionController=new GroupDiscussionController();
         groupDiscussionDAO = new GroupDiscussionDAO();
         groupDiscussionMembersDAO = new GroupDiscussionMembersDAO();
         groupDiscussionChatDAO = new GroupDiscussionChatDAO();
@@ -65,4 +66,8 @@ public class GroupDiscussionService {
             response.redirect("/viewGroupChats/"+groupDiscussionID);
         }
     }
+    
+   
 }
+
+

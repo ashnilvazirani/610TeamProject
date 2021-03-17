@@ -46,7 +46,7 @@ public class RegistrationDAO {
 	}
 	
 	public User getUser(String email) {
-		final String GET_USER = "SELECT email, role, authorized, password FROM user where email = ?";
+		final String GET_USER = "SELECT  email, role, authorized, password, userID FROM user where email = ?";
         User user = new User();
 		 try (Connection conn = JDBCConnection.geConnection();
 	         PreparedStatement preparedStatement = conn.prepareStatement(GET_USER)) {
@@ -57,6 +57,7 @@ public class RegistrationDAO {
 	        	 user.setRole(result.getString(2));
 	        	 user.setAuthorized(result.getBoolean(3));
 	        	 user.setPassword(result.getString(4));
+	        	 user.setUserID(result.getInt(5));
 	         }
 	     } catch (SQLException e) {
 	    	 e.printStackTrace();

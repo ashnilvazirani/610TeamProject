@@ -52,6 +52,9 @@ courseDescription varchar(100),
 courseDuration int
 );
 
+Alter table user add 
+userID int Unique key auto_increment;
+
 
 CREATE TABLE groupDiscussion (
     groupDiscussionID int(11) NOT NULL AUTO_INCREMENT,
