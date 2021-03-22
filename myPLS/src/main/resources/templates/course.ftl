@@ -45,6 +45,17 @@
 							  
 							</select>
 							</div>
+							
+							<div class="form-group">
+                            
+
+							<select name="professorId" id="professorId">
+							 <#list professors as professor>
+							  <option value=${professor.userID}>${professor.email}</option>	
+							 </#list>
+							  
+							</select>
+							</div>
                             <div class="form-group form-button">
                                 <input type="submit" name="add" id="add" class="form-submit" value="Add"
                                 />

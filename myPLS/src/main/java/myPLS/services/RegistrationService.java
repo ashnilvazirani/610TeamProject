@@ -100,4 +100,8 @@ public class RegistrationService {
 		}
 		return map;
 	}
+	
+	public List<User> getUsersByRole(String role){
+		return registrationDAO.getUsersByRole(role);
+	}
 }
