@@ -10,4 +10,6 @@ public interface CourseDAO {
 	List<Course> getCourses();
 	boolean deleteCourse(int id);
 	Course getCourse(int id);
+	List<Course> getPreReqOfCourse(int id);
+	List<Course> getCourseById(int id);
 }

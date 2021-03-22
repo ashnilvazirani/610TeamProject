@@ -7,9 +7,9 @@ import spark.Request;
 
 public interface CourseService {
 	boolean addCourse(Request request);
-	boolean updateCourse(Course course);
+	default boolean updateCourse(Request course) {return false;}
 	List<Course> getCourses();
-	boolean deleteCourse(int id);
-	Course getCourse(int id);
-
+	boolean deleteCourse(Request request);
+	Course getCourseByCourseId(Request request);
+	List<Course> getCourseByProfessorId(Request request);
 }

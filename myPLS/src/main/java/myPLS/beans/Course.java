@@ -7,6 +7,7 @@ public class Course {
     private int courseDuration;
     private int streamID;
     private String streamName;
+    private int professorId;
     
     public int getStreamID() {
         return this.streamID;
@@ -63,6 +64,14 @@ public class Course {
     
     public String getStreamName() {
 		return streamName;
+	}
+    
+    public void setProfessorId(int professorId) {
+		this.professorId = professorId;
+	}
+    
+    public int getProfessorId() {
+		return professorId;
 	}
 }
 /**
