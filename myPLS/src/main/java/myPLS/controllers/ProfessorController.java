@@ -27,7 +27,7 @@ public class ProfessorController {
     public StringWriter getProfessorDashboard(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<Course> courses =  courseService.getCourseById(request);
+		List<Course> courses =  courseService.getCourseByProfessorId(request);
 		map.put("courses", courses);
 		Template resultTemplate;
 		try {
