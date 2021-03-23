@@ -3,39 +3,27 @@ package myPLS.main;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
-import java.io.StringWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 import java.io.IOException;
 
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
+import myPLS.controllers.AdminController;
+import myPLS.controllers.CourseController;
+import myPLS.controllers.GroupDiscussionChatController;
+import myPLS.controllers.LearnerController;
+import myPLS.controllers.ProfessorController;
 import myPLS.controllers.RegistrationController;
-import static spark.Spark.*;
 
-import spark.utils.IOUtils;
-
-import javax.servlet.MultipartConfigElement;
-import javax.servlet.http.Part;
-
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import spark.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.*;
-import java.nio.file.*;
-// import static spark.Spark.*;
-public class mainApp extends HttpServlet{
+public class mainApp {
 	
 	private final static RegistrationController registraionController = new RegistrationController();
+	private final static CourseController courseController = new CourseController();
+	private final static LearnerController learnerController = new LearnerController();
+	private final static AdminController adminController = new AdminController();
+	private final static GroupDiscussionChatController groupDiscussionChatController = new GroupDiscussionChatController();
+	private static final ProfessorController professorController = new ProfessorController();
 	public static int fileCount=0;
 	public static void main(String[] args) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		get("/registerUser", (request, response) -> {
@@ -51,11 +39,10 @@ public class mainApp extends HttpServlet{
 		});
 		
 		post("/resetPassword",(request,response) -> {
-			return registraionController.resetPassword(request, response);
+			registraionController.resetPassword(request, response);
+			return 0;
 		});
-		get("/dashboard", (request, response)->{
-			return registraionController.getDashboard(request);
-		});
+		
 		get("/loginPage", (request, response) -> {
             return registraionController.getLoginPage();
         });
@@ -70,6 +57,51 @@ public class mainApp extends HttpServlet{
         post("/logIn",(request,response) -> {
             return registraionController.logIn(request, response);
         });
-		
+		post("/inviteMembers",(request,response) -> {
+            return adminController.inviteMembers(request, response);
+        });
+		post("/postChat",(request,response) -> {
+            return groupDiscussionChatController.postMessage(request, response);
+        });
+		post("/addMemberToGroup",(request,response) -> {
+            return adminController.addMemberToGroup(request, response);
+        });
+		get("/viewGroupChats/:groupDiscussionID",(request,response) -> {
+            return adminController.viewGroupChats(request, response);
+        });
+        get("/addCourse", (request, response) -> {
+        	return courseController.getAddCoursePage();
+        });
+        get("/createGroup", (request, response) -> {
+        	return adminController.getGroupDiscussionPage();
+        });
+		get("/viewGroups",(request,response) -> {
+        	return adminController.viewAllCourses();
+        });
+		post("/viewMembersInGroup",(request,response) -> {
+        	return adminController.viewMembersInGroupDiscussion(request, response);
+        });
+        post("/addGroupDiscussion", (request, response) -> {
+        	adminController.createADiscussionGroup(request,response);
+    		response.redirect("/courses");
+    		return 0;
+        });
+        get("/courses",(request,response) -> {
+        	return courseController.getCourses();
+        });
+        
+        get("/studentDashboard",(request,response) -> {
+        	return learnerController.getLearnerDashboard();
+        });
+        
+        get("/professorDashboard",(request,response) -> {
+        	return professorController.getProfessorDashboard(request);
+        });
+        
+        post("/addCourse", (request, response) -> {
+        	courseController.addCourse(request,response);
+    		response.redirect("/courses");
+    		return 0;
+        });
 	}
 }

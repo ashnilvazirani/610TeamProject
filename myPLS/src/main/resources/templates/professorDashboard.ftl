@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Students Home</title>
+<title>Professor Home</title>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -33,9 +33,7 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav mr-auto"></div>
 			<div class="navbar-nav ml-auto">
-				<form class="form-inline" method="post" action="Enroll">
-					<button type="submit" class="btn btn-info">Enroll for courses</button>
-				</form>
+				
 				<form class="form-inline" method="get" action="/createGroup">
 					<button type="submit" class="btn btn-info">Create A group</button>
 				</form>
@@ -45,14 +43,12 @@
 			</div>
 		</div>
 	</nav>
-	
-	
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<h1 class="display-4">
 				Welcome!
 			</h1>
-			<p class="lead">You have enrolled for the following courses</p>
+			<p class="lead">courses List</p>
 		</div>
 	</div>
 
@@ -60,12 +56,27 @@
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th scope="col">Course ID</th>
 					<th scope="col">Course Name</th>
-					<th scope="col">Course Teacher</th>
-                    <th scope="col">Stream</th>
+					<th scope="col">Course Description</th>
+                    <th scope="col">Course Duration</th>
+					<th scope="col">Stream Name</th>
+					<th scope="col"></th>
+                    
 				</tr>
 			</thead>
+			<tbody>
+				<#list courses as course>
+				<tr>
+					<td scope="col">${course.courseName}</td>
+					<td scope="col">${course.courseDescription}</td>
+                    <td scope="col">${course.courseDuration}</td>
+                    <td scope="col">${course.streamName}</td>
+                    <td scope="col"><form class="form-inline" method="get" action="/addPreReqCourse">
+					<button type="submit" class="btn btn-info">Add Pre-Requisite Course</button>
+				</form></td>
+				</tr>
+				</#list>
+			</tbody>
 			
 		</table>
 	</div>

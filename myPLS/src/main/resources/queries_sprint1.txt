@@ -19,3 +19,89 @@ authorized boolean,
 role varchar(50),
 password varchar(50)
 );
+
+create table stream(
+streamId int primary key auto_increment,
+streamName varchar(50) not null,
+streamDescription varchar(100),
+streamDuration int
+);
+
+insert into stream
+(streamName,streamDescription,streamDuration)
+values
+('DS','Data Science',3);
+
+insert into stream
+(streamName,streamDescription,streamDuration)
+values
+('CS','Computer Science',3);
+
+insert into stream
+(streamName,streamDescription,streamDuration)
+values
+('SE','Software Engineering',3);
+
+select * from stream;
+
+create table course(
+courseId int primary key auto_increment,
+streamId int references Stream(streamId),
+courseName varchar(50) not null,
+courseDescription varchar(100),
+courseDuration int,
+professorId int references user(userID)
+);
+
+Alter table user add 
+userID int Unique key references rit_users(id);
+
+
+CREATE TABLE groupDiscussion (
+    groupDiscussionID int(11) NOT NULL AUTO_INCREMENT,
+    userID int(11),
+    groupName varchar(255),
+    groupTopic varchar(255),
+    flag int(11),
+    PRIMARY KEY (groupDiscussionID),
+	FOREIGN KEY (userID) REFERENCES user(userID)
+);
+
+CREATE TABLE groupDiscussionMembers (
+    groupDiscussionMembersID int(11) NOT NULL AUTO_INCREMENT,
+    userID int(11),
+    groupDiscussionID int(11),
+    flag int(11),
+    PRIMARY KEY (groupDiscussionMembersID),
+	FOREIGN KEY (userID) REFERENCES user(userID),
+	FOREIGN KEY (groupDiscussionID) REFERENCES groupDiscussion(groupDiscussionID)
+);
+CREATE TABLE groupDiscussionChat (
+    groupDiscussionChatID int(11) NOT NULL AUTO_INCREMENT,
+    userID int(11),
+    groupDiscussionID int(11),
+    messageContent varchar(555),
+    flag int(11),
+    PRIMARY KEY (groupDiscussionChatID),
+	FOREIGN KEY (userID) REFERENCES user(userID),
+	FOREIGN KEY (groupDiscussionID) REFERENCES groupDiscussion(groupDiscussionID)
+);
+
+create table preRequisiteCourse(
+courseId int references Course(courseId),
+preReqCourse int references Course(courseId),
+constraint primary key(courseId,preReqCourse)
+);
+
+/** To find the preReq of courses **/
+select p.courseId,streamId,courseName,preReqCourse 
+from preRequisiteCourse p, course c where c.courseId = p.preReqCourse;
+
+
+select * from rit_users; /* ID */
+select * from user; /* userID */
+select * from learner; /* learnerID, userID */
+select * from groupDiscussionMembers;
+truncate table groupDiscussionChat;
+ALTER TABLE groupDiscussionChat AUTO_INCREMENT = 1;
+select * from groupDiscussionChat;

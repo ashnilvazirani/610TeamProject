@@ -55,13 +55,20 @@ public class RegistrationService {
         registrationDAO.updateUser(email,role);
 	}
 	
-	public boolean resetPassword(Request request) {
+	public Map<String,Object> resetPassword(Request request) {
         String email = request.queryParams("email") != null ? request.queryParams("email") : "unknown";
 		User user = registrationDAO.getUser(email);
-		if(user.getEmail().equalsIgnoreCase(email) && user.isAuthorized()) 
-			return true;
-		else
-			return false;
+		Map<String, Object> map = new HashMap<>();
+		if(user.getEmail().equalsIgnoreCase(email) && user.isAuthorized()) {
+			map.put("updated", true);
+			map.put("role", user.getRole());
+		}
+		else {
+			map.put("updated", false);
+			map.put("role", user.getRole());
+		}
+		return map;
+			
 	}
 	
 	public boolean updatePassword(Request request) {
@@ -75,13 +82,26 @@ public class RegistrationService {
 		return users.stream().filter(user -> user.getEmail().equalsIgnoreCase(email)).findFirst();
 	}
 	
-	public boolean logIn(Request request) {
+	public Map<String,Object> logIn(Request request) {
         String email = request.queryParams("email") != null ? request.queryParams("email") : "unknown";
         String password = request.queryParams("password") != null ? request.queryParams("password") : "unknown";
 		User user = registrationDAO.getUser(email);
-		if(user.getEmail() != null && user.getPassword()!= null && user.getEmail().equalsIgnoreCase(email) && user.isAuthorized() && user.getPassword().equals(password)) 
-			return true;
-		else
-			return false;
+		Map<String, Object> map = new HashMap<>();
+		if(user.getEmail() != null && user.getPassword()!= null && user.getEmail().equalsIgnoreCase(email) && user.isAuthorized() && user.getPassword().equals(password)) {
+			map.put("validUser", true);
+			map.put("role", user.getRole());
+			map.put("userID", user.getUserID());
+		}
+		else {
+			map.put("validUser", false);
+			map.put("role", user.getRole());
+			map.put("userID", user.getUserID());
+
+		}
+		return map;
+	}
+	
+	public List<User> getUsersByRole(String role){
+		return registrationDAO.getUsersByRole(role);
 	}
 }

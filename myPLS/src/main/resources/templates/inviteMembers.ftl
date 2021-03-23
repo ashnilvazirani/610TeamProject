@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Students Home</title>
+<title>Admin Home</title>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -33,26 +33,21 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav mr-auto"></div>
 			<div class="navbar-nav ml-auto">
-				<form class="form-inline" method="post" action="Enroll">
-					<button type="submit" class="btn btn-info">Enroll for courses</button>
+				<form class="form-inline" method="get" action="/addCourse">
+					<button type="submit" class="btn btn-info">Add course</button>
 				</form>
 				<form class="form-inline" method="get" action="/createGroup">
 					<button type="submit" class="btn btn-info">Create A group</button>
 				</form>
-				<form class="form-inline" method="get" action="/viewGroups">
-					<button type="submit" class="btn btn-info">View Groups</button>
-				</form>
 			</div>
 		</div>
 	</nav>
-	
-	
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<h1 class="display-4">
 				Welcome!
 			</h1>
-			<p class="lead">You have enrolled for the following courses</p>
+			<p class="lead">courses List</p>
 		</div>
 	</div>
 
@@ -60,12 +55,28 @@
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th scope="col">Course ID</th>
-					<th scope="col">Course Name</th>
-					<th scope="col">Course Teacher</th>
-                    <th scope="col">Stream</th>
+					<th scope="col">ID</th>
+					<th scope="col">User Name</th>
+                    <th scope="col">User Email</th>
+					<th scope="col">ADD</th>
 				</tr>
 			</thead>
+			<tbody>
+				<#list users as user>
+				<tr>
+					<td scope="col">${user.getUserID()}</td>
+					<td scope="col">${user.getName()}</td>
+                    <td scope="col">${user.getEmail()}</td>
+                    <td scope="col">
+                        <form class="form-inline" method="post" action="/addMemberToGroup">
+                            <button type="submit" class="btn btn-info">ADD</button>
+                            <input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${groupDiscussionID}"/> 
+                            <input id="userID" name="userID" type="hidden" value="${user.getUserID()}"/> 
+                        </form>
+                    </td>
+				</tr>
+				</#list>
+			</tbody>
 			
 		</table>
 	</div>
