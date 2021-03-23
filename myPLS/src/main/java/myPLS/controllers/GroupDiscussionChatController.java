@@ -1,11 +1,10 @@
 package myPLS.controllers;
 
 import freemarker.template.Configuration;
-import freemarker.template.Template;
 import freemarker.template.Version;
+import myPLS.services.GroupDiscussionService;
 import spark.Request;
 import spark.Response;
-import myPLS.services.GroupDiscussionService;
 public class GroupDiscussionChatController {
     private final Configuration configuration = new Configuration(new Version(2, 3, 0));
     private static GroupDiscussionService groupDiscussionService;

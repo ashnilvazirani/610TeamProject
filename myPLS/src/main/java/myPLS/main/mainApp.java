@@ -13,6 +13,7 @@ import myPLS.controllers.AdminController;
 import myPLS.controllers.CourseController;
 import myPLS.controllers.GroupDiscussionChatController;
 import myPLS.controllers.LearnerController;
+import myPLS.controllers.ProfessorController;
 import myPLS.controllers.RegistrationController;
 
 public class mainApp {
@@ -22,6 +23,7 @@ public class mainApp {
 	private final static LearnerController learnerController = new LearnerController();
 	private final static AdminController adminController = new AdminController();
 	private final static GroupDiscussionChatController groupDiscussionChatController = new GroupDiscussionChatController();
+	private static final ProfessorController professorController = new ProfessorController();
 	public static int fileCount=0;
 	public static void main(String[] args) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		get("/registerUser", (request, response) -> {
@@ -90,6 +92,10 @@ public class mainApp {
         
         get("/studentDashboard",(request,response) -> {
         	return learnerController.getLearnerDashboard();
+        });
+        
+        get("/professorDashboard",(request,response) -> {
+        	return professorController.getProfessorDashboard(request);
         });
         
         post("/addCourse", (request, response) -> {

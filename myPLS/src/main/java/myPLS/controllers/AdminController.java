@@ -9,35 +9,21 @@ import java.util.Map;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.Version;
-import myPLS.beans.Course;
 import myPLS.beans.GroupDiscussion;
 import myPLS.beans.GroupDiscussionChat;
-import myPLS.beans.Stream;
 import myPLS.beans.User;
-import myPLS.services.CourseService;
-import myPLS.services.CourseServiceImpl;
 import myPLS.services.GroupDiscussionService;
-import myPLS.services.RegistrationService;
-import myPLS.services.StreamService;
-import myPLS.services.StreamServiceImpl;
 import myPLS.services.UserService;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
 public class AdminController {
     private final Configuration configuration = new Configuration(new Version(2, 3, 0));
-	private static CourseService courseService;
-	private static StreamService streamService;
     private static GroupDiscussionService groupDiscussionService;
-    private static RegistrationService registrationService;
     private static UserService userService;
-    private static int userID = 1; //get from session
 	public AdminController() {
 		setConfiguration();
-		courseService = new CourseServiceImpl();
-		streamService = new StreamServiceImpl();
         groupDiscussionService = new GroupDiscussionService();
-        registrationService = new RegistrationService();
         userService = new UserService();
 	}
     private void setConfiguration() {
@@ -69,7 +55,7 @@ public class AdminController {
 		map.put("chats", chats);
 		map.put("users", users);
 		map.put("group", groupDiscussion);
-        map.put("userID", userID);
+        map.put("userID", request.session().attribute("userID"));
 		try {
 			Template formTemplate = configuration.getTemplate("templates/viewChats.ftl");
 			formTemplate.process(map, writer);

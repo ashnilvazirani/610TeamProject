@@ -1,49 +1,74 @@
 package myPLS.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import myPLS.DAO.CourseDAO;
 import myPLS.DAO.CourseDAOImpl;
+import myPLS.DAO.PreReqCourseDAO;
+import myPLS.DAO.PreReqCourseDAOImpl;
 import myPLS.beans.Course;
 import spark.Request;
 
-public class CourseServiceImpl implements CourseService {
-    private CourseDAO courseDao;
+public class CourseServiceImpl implements CourseService{
+	
+	private CourseDAO courseDao;
+	private List<Course> preReqs;
+	private PreReqCourseDAO preReqCourseDao;
 
     public CourseServiceImpl() {
 		this.courseDao = new CourseDAOImpl();
+		this.preReqs = new ArrayList<Course>();
+		this.preReqCourseDao = new PreReqCourseDAOImpl();
 	}
 
+    /**
+     * @param request
+     * This method adds preReq of a course
+     */
 	@Override
 	public boolean addCourse(Request request) {
-		Course course = new Course();
-		course.setCourseName(request.queryParams("courseName") != null ? request.queryParams("courseName") : "unknown");
-		course.setCourseDescription(request.queryParams("courseDescription") != null ? request.queryParams("courseDescription") : "unknown");
-		course.setCourseDuration(Integer.parseInt(request.queryParams("courseDuration") != null ? request.queryParams("courseDuration") : "unknown"));
-		int streamId = Integer.parseInt(request.queryParams("streamId") != null ? request.queryParams("streamId") : "unknown");
-		course.setStreamId(streamId);
+		// TODO get all the preReq courses check if their is no any cycle detection only then add course preReq
 		
-		return courseDao.addCourse(course);
+		int courseId = Integer.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "unknown");
+		int preReqCourseId = Integer.parseInt(request.queryParams("preReqId") != null ? request.queryParams("preReqId") : "unknown");
+		return preReqCourseDao.addCourse(courseId, preReqCourseId);
 	}
 
-	@Override
-	public boolean updateCourse(Course course) {
-		return courseDao.updateCourse(course);
-	}
-
+	
+	/**
+     * This method returns preReq List
+     */
 	@Override
 	public List<Course> getCourses() {
-		return courseDao.getCourses();
+		return preReqs;
 	}
 
+	/**
+     * @param courseId
+     * This method delete preReq of a Course
+     */
 	@Override
-	public boolean deleteCourse(int id) {
-		return courseDao.deleteCourse(id);
+	public boolean deleteCourse(Request request) {
+		int courseId = Integer.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "unknown");
+		int preReqCourseId = Integer.parseInt(request.queryParams("preReqId") != null ? request.queryParams("preReqId") : "unknown");
+		return preReqCourseDao.deleteCourse(courseId, preReqCourseId);
 	}
 
+	/**
+     * @param courseId
+     * This method get the courseDeatils and set the preReq of a Course
+     */
 	@Override
-	public Course getCourse(int id) {
+	public Course getCourseByCourseId(Request request) {
+		int id = Integer.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "unknown");
+		preReqs.addAll(courseDao.getPreReqOfCourse(id));
 		return courseDao.getCourse(id);
 	}
-   
+
+	@Override
+	public List<Course> getCourseByProfessorId(Request request) {
+		return null;
+	}
+
 }

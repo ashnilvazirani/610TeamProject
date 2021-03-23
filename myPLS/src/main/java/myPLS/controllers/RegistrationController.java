@@ -108,7 +108,9 @@ public class RegistrationController {
 	public Object logIn(Request request, Response response) {
 		StringWriter writer = new StringWriter();
 		Template formTemplate;
-		if ((boolean) registrationService.logIn(request).get("validUser")) {
+		Map<String,Object> result = registrationService.logIn(request);
+		if ((boolean) result.get("validUser")) {
+			request.session().attribute("userID", result.get("userID"));
 			try {
 				this.getDashboard(registrationService.logIn(request).get("role").toString(), response);
 			} catch (Exception e) {
