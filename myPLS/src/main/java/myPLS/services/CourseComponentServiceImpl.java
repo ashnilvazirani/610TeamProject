@@ -5,13 +5,16 @@ import java.util.List;
 import myPLS.DAO.CourseDAO;
 import myPLS.DAO.CourseDAOImpl;
 import myPLS.beans.Course;
+import myPLS.beans.CourseGroup;
+import myPLS.beans.CourseGroupChat;
 import spark.Request;
 
 public class CourseComponentServiceImpl implements CourseService {
     private CourseDAO courseDao;
-
+	private UserService userService;
     public CourseComponentServiceImpl() {
 		this.courseDao = new CourseDAOImpl();
+		this.userService = new UserService();
 	}
 
 	@Override
@@ -52,9 +55,42 @@ public class CourseComponentServiceImpl implements CourseService {
 	public Course getCourseByCourseId(Request request) {
 		return courseDao.getCourse(Integer.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "unknown"));
 	}
-   
+
+	@Override
+	public Course getCourseByCourseId(int courseId) {
+		return courseDao.getCourse(courseId);
+	}
 	@Override
 	public List<Course> getCourseByProfessorId(Request request) {
 		return courseDao.getCourseById(request.session().attribute("userID"));
+	}
+
+	@Override
+	public boolean createACourseGroup(Request request) {
+		int courseId = Integer.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "-1");
+		int professorId = Integer.parseInt(request.queryParams("professorId") != null ? request.queryParams("professorId") : "-1");
+		return courseDao.createAGroupForCourse(professorId, courseId);
+	}
+
+	@Override
+	public CourseGroup getCourseGroupByCourseId(int courseId){
+		return this.courseDao.getCourseGroupByCourseId(courseId);
+	}
+	@Override
+	public List<CourseGroupChat> getChatsForCourseGroup(int courseGroupID){
+		return this.courseDao.getCourseGroupChats(courseGroupID);
+	}
+	
+	@Override
+	public int addMessageToCourseGroup(Request request){
+		String messageContent = request.queryParams("messageContent") != null ? request.queryParams("messageContent") : "NONE";
+		int userID = Integer.parseInt(request.queryParams("userID") != null ? request.queryParams("userID") : "-1");
+		String userName = this.userService.getUserByID(userID).getName();
+		int courseGroupID = Integer.parseInt(request.queryParams("courseGroupID") != null ? request.queryParams("courseGroupID") : "-1");
+		CourseGroupChat chat = new CourseGroupChat(courseGroupID, userID, userName, messageContent);
+		if(this.courseDao.postMessageInGroup(chat))
+			return courseGroupID;
+		else
+			return -1;
 	}
 }
