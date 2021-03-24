@@ -8,6 +8,8 @@ import myPLS.DAO.CourseDAOImpl;
 import myPLS.DAO.PreReqCourseDAO;
 import myPLS.DAO.PreReqCourseDAOImpl;
 import myPLS.beans.Course;
+import myPLS.beans.CourseGroup;
+import myPLS.beans.CourseGroupChat;
 import spark.Request;
 
 public class CourseServiceImpl implements CourseService{
@@ -15,11 +17,12 @@ public class CourseServiceImpl implements CourseService{
 	private CourseDAO courseDao;
 	private List<Course> preReqs;
 	private PreReqCourseDAO preReqCourseDao;
-
+	private UserService userService;
     public CourseServiceImpl() {
 		this.courseDao = new CourseDAOImpl();
 		this.preReqs = new ArrayList<Course>();
 		this.preReqCourseDao = new PreReqCourseDAOImpl();
+		this.userService =  new UserService();
 	}
 
     /**
@@ -28,8 +31,6 @@ public class CourseServiceImpl implements CourseService{
      */
 	@Override
 	public boolean addCourse(Request request) {
-		// TODO get all the preReq courses check if their is no any cycle detection only then add course preReq
-		
 		int courseId = Integer.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "unknown");
 		int preReqCourseId = Integer.parseInt(request.queryParams("preReqId") != null ? request.queryParams("preReqId") : "unknown");
 		return preReqCourseDao.addCourse(courseId, preReqCourseId);
@@ -65,10 +66,40 @@ public class CourseServiceImpl implements CourseService{
 		preReqs.addAll(courseDao.getPreReqOfCourse(id));
 		return courseDao.getCourse(id);
 	}
-
+	@Override
+	public Course getCourseByCourseId(int courseId) {
+		return courseDao.getCourse(courseId);
+	}
 	@Override
 	public List<Course> getCourseByProfessorId(Request request) {
 		return null;
 	}
+	
+	@Override
+	public boolean createACourseGroup(Request request) {
+		int courseId = Integer.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "-1");
+		int professorId = Integer.parseInt(request.queryParams("professorId") != null ? request.queryParams("professorId") : "-1");
+		return courseDao.createAGroupForCourse(professorId, courseId);
+	}
+	@Override
+	public CourseGroup getCourseGroupByCourseId(int courseId){
+		return this.courseDao.getCourseGroupByCourseId(courseId);
+	}
 
+	@Override
+	public List<CourseGroupChat> getChatsForCourseGroup(int courseGroupID) {
+		return this.courseDao.getCourseGroupChats(courseGroupID);
+	}
+	@Override
+	public int addMessageToCourseGroup(Request request){
+		String messageContent = request.queryParams("messageContent") != null ? request.queryParams("messageContent") : "NONE";
+		int userID = Integer.parseInt(request.queryParams("userID") != null ? request.queryParams("userID") : "-1");
+		String userName = this.userService.getUserByID(userID).getName();
+		int courseGroupID = Integer.parseInt(request.queryParams("courseGroupID") != null ? request.queryParams("courseGroupID") : "-1");
+		CourseGroupChat chat = new CourseGroupChat(courseGroupID, userID, userName, messageContent);
+		if(this.courseDao.postMessageInGroup(chat))
+			return courseGroupID;
+		else
+			return -1;
+	}
 }

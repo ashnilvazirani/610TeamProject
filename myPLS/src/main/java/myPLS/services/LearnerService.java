@@ -31,6 +31,7 @@ public class LearnerService {
 		}
 		return map;
 	}
+
 	
 	public List<Course> getEnrolledCourses(Request request) {
 		int userId = request.session().attribute("userID");
@@ -47,4 +48,12 @@ public class LearnerService {
 		return learnerDAO.getLearnersEnrolledList(courseId);
 	}
 	
+    public boolean addLearnerForCourse(Request request){
+        int courseId = Integer.parseInt(request.params("courseId") != null ? request.params("courseId") : "-1");
+		int userId = Integer.parseInt(request.params("userId") != null ? request.params("userId") : "-1");
+        System.out.println(courseId);
+        System.out.println(userId);
+        return learnerDAO.enrollLearnerForCourse(userId, courseId);
+    }
+
 }

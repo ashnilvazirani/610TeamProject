@@ -33,7 +33,11 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav mr-auto"></div>
 			<div class="navbar-nav ml-auto">
+
 				<form class="form-inline" method="get" action="/enrollCourse">
+
+				<form class="form-inline" method="get" action="/enrollForCourses">
+
 					<button type="submit" class="btn btn-info">Enroll for courses</button>
 				</form>
 				<form class="form-inline" method="get" action="/createGroup">

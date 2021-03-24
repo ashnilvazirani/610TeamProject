@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Professor Home</title>
+<title>Admin Home</title>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -33,7 +33,9 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav mr-auto"></div>
 			<div class="navbar-nav ml-auto">
-				
+				<form class="form-inline" method="get" action="/addCourse">
+					<button type="submit" class="btn btn-info">Add course</button>
+				</form>
 				<form class="form-inline" method="get" action="/createGroup">
 					<button type="submit" class="btn btn-info">Create A group</button>
 				</form>
@@ -60,8 +62,6 @@
 					<th scope="col">Course Description</th>
                     <th scope="col">Course Duration</th>
 					<th scope="col">Stream Name</th>
-					<th scope="col"></th>
-					<th scope="col"></th>
                     
 				</tr>
 			</thead>
@@ -72,32 +72,7 @@
 					<td scope="col">${course.courseDescription}</td>
                     <td scope="col">${course.courseDuration}</td>
                     <td scope="col">${course.streamName}</td>
-                    <td scope="col"><form class="form-inline" method="get" action="/addPreReqCourse">
-					<button type="submit" class="btn btn-info">Add Pre-Requisite Course</button>
-				</form></td>
-
-				<td>
-				<form class="form-inline" method="get" action="/enrolledLearners">
-					<input name="courseId" id=${course.courseId} value=${course.courseId} hidden/>
-					<button type="submit" class="btn btn-info">Feedback</button>
-				</form>
-
-				<td scope="col"><form class="form-inline" method="POST" action="/createACourseGroup">
-					<button type="submit" class="btn btn-info">Create Course Group</button>
-					<input id="courseId" name="courseId" type="hidden" value="${course.courseId}"/>
-					<input id="professorId" name="professorId" type="hidden" value="${userId}"/>
-				</form></td>
-				<td scope="col">
-					<#list courseGroups as gc>
-						<#if gc.courseID == course.courseId>
-							<form class="form-inline" method="POST" action="/courseGroupChat">
-							<button type="submit" class="btn btn-info">ViewGroupChats</button>
-							<input id="courseGroupID" name="courseGroupID" type="hidden" value="${gc.courseGroupID}"/>
-						</form>
-						</#if>
-					</#list>
-
-				</td>
+                    <td scope="col"><a href="/enroll/${userId}/${course.courseId}" type="submit" class="btn btn-info">enroll</a></td>
 				</tr>
 				</#list>
 			</tbody>

@@ -5,6 +5,8 @@ import static spark.Spark.post;
 
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
@@ -27,7 +29,15 @@ public class mainApp {
 	private static final ProfessorController professorController = new ProfessorController();
 	private static final FeedbackController feedbackController = new FeedbackController();
 	public static int fileCount=0;
-	public static void main(String[] args) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+	public static void main(String[] args) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException, Exception {
+		// get("/*", (request, response) -> {
+		// 	if(request.session().attribute("userID")==null){
+		// 		request.session().attribute("userID", -1);
+        //     	return registraionController.getLoginPage();
+		// 	}
+		// 	return null;
+        // });
+		
 		get("/registerUser", (request, response) -> {
             return registraionController.getRegistrationPage();
         });
@@ -68,6 +78,7 @@ public class mainApp {
 		post("/addMemberToGroup",(request,response) -> {
             return adminController.addMemberToGroup(request, response);
         });
+
 		get("/viewGroupChats/:groupDiscussionID",(request,response) -> {
             return adminController.viewGroupChats(request, response);
         });
@@ -84,9 +95,9 @@ public class mainApp {
         	return adminController.viewMembersInGroupDiscussion(request, response);
         });
         post("/addGroupDiscussion", (request, response) -> {
-        	adminController.createADiscussionGroup(request,response);
-    		response.redirect("/courses");
-    		return 0;
+			adminController.createADiscussionGroup(request,response);
+			response.redirect("/courses");
+			return 0;
         });
         get("/courses",(request,response) -> {
         	return courseController.getCourses();
@@ -95,15 +106,36 @@ public class mainApp {
         get("/studentDashboard",(request,response) -> {
         	return learnerController.getLearnerDashboard(request);
         });
+		get("/enrollForCourses",(request,response) -> {
+        	return learnerController.getCourseListForLearners(request, response);
+        });
+		get("/enroll/:userId/:courseId",(request,response) -> {
+        	return learnerController.enrollLearnerForCourse(request, response);
+        });
         
         get("/professorDashboard",(request,response) -> {
         	return professorController.getProfessorDashboard(request);
         });
         
         post("/addCourse", (request, response) -> {
-        	courseController.addCourse(request,response);
-    		response.redirect("/courses");
-    		return 0;
+			courseController.addCourse(request,response);
+			response.redirect("/courses");
+			return 0;
+        });	
+		post("/courseGroupChat", (request, response) -> {
+			return courseController.getCourseChat(request,response);
+        });
+		get("/courseGroupChat/:courseGroupID", (request, response) -> {
+			return courseController.getCourseChat(request,response);
+        });
+		post("/postMessageForCourseGroup", (request, response) -> {
+			courseController.postGroupMessage(request,response);
+			return null;
+        });
+        post("/createACourseGroup", (request, response) -> {
+			if(professorController.createACourseGroup(request,response))
+				response.redirect("/professorDashboard");
+			return 0;
         });
         
         get("/enrollCourse",(request,response) -> {
