@@ -61,6 +61,7 @@
                     <th scope="col">Course Duration</th>
 					<th scope="col">Stream Name</th>
 					<th scope="col"></th>
+					<th scope="col"></th>
                     
 				</tr>
 			</thead>
@@ -74,6 +75,12 @@
                     <td scope="col"><form class="form-inline" method="get" action="/addPreReqCourse">
 					<button type="submit" class="btn btn-info">Add Pre-Requisite Course</button>
 				</form></td>
+				<td>
+				<form class="form-inline" method="get" action="/enrolledLearners">
+					<input name="courseId" id=${course.courseId} value=${course.courseId} hidden/>
+					<button type="submit" class="btn btn-info">Feedback</button>
+				</form>
+				</td>
 				</tr>
 				</#list>
 			</tbody>

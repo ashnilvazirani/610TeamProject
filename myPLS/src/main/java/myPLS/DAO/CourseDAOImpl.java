@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import myPLS.beans.Course;
-import spark.Request;
 
 public class CourseDAOImpl implements CourseDAO {
 	
