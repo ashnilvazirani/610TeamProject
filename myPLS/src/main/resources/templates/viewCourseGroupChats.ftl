@@ -23,14 +23,14 @@
                 <div class="signin-content">
                     <div class="signin-form">
                         <h2 class="form-title">Chats</h2>
-                       	<p>            	
-                       	<font color ="red">
-                       		<#if status??>${message}</#if>
-                       	</font>
+                        <p>            	
+                        <font color ="red">
+                            <#if status??>${message}</#if>
+                        </font>
                         
                         <#list groupChats as chat>
                         <#--  represnt the chats on UI  -->
-                           <div class="form-group" style="width=100%;">
+                            <div class="form-group" style="width=100%;">
                                 <input type="text" name="message" id="message" placeholder="${chat.getUserName()} : ${chat.getMessageContent()}" readonly/>
                             </div>
 				        </#list>
