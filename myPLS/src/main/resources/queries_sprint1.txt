@@ -117,3 +117,27 @@ select * from groupDiscussionMembers;
 truncate table groupDiscussionChat;
 ALTER TABLE groupDiscussionChat AUTO_INCREMENT = 1;
 select * from groupDiscussionChat;
+
+ CREATE TABLE courseGroup (
+    courseGroupID int(11) NOT NULL AUTO_INCREMENT,
+    userID int(11),
+    courseID int(11),
+    courseName varchar(255),
+    courseStream varchar(255),
+    flag int(11),
+    PRIMARY KEY (courseGroupID),
+	FOREIGN KEY (userID) REFERENCES user(userID),
+	FOREIGN KEY (courseID) REFERENCES course(courseID)
+);
+
+CREATE TABLE courseGroupChat (
+    courseGroupChatID int(11) NOT NULL AUTO_INCREMENT,
+    userID int(11),
+    courseGroupID int(11),
+    messageContent varchar(255),
+    userName varchar(255),
+    flag int(11),
+    PRIMARY KEY (courseGroupChatID),
+	FOREIGN KEY (userID) REFERENCES user(userID),
+	FOREIGN KEY (courseGroupID) REFERENCES courseGroup(courseGroupID)
+);
