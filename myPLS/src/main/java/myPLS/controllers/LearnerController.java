@@ -85,6 +85,8 @@ public class LearnerController {
 			map.put("users", users);
 			int courseId = Integer.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "unknown");
 			map.put("courseId", courseId);
+			resultTemplate.process(map, writer);
+
 		}catch(Exception e){
 			e.printStackTrace();
 		}

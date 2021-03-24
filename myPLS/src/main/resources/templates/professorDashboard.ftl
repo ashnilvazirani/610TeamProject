@@ -62,7 +62,8 @@
 					<th scope="col">Stream Name</th>
 					<th scope="col"></th>
 					<th scope="col"></th>
-                    
+					<th scope="col"></th> 
+					<th scope="col"></th>                    
 				</tr>
 			</thead>
 			<tbody>
@@ -77,16 +78,19 @@
 				</form></td>
 
 				<td>
-				<form class="form-inline" method="get" action="/enrolledLearners">
-					<input name="courseId" id=${course.courseId} value=${course.courseId} hidden/>
-					<button type="submit" class="btn btn-info">Feedback</button>
-				</form>
+					<form class="form-inline" method="GET" action="/enrolledLearners">
+						<input name="courseId" id=${course.courseId} value=${course.courseId} hidden/>
+						<button type="submit" class="btn btn-info">Feedback</button>
+					</form>
+				</td>
 
-				<td scope="col"><form class="form-inline" method="POST" action="/createACourseGroup">
-					<button type="submit" class="btn btn-info">Create Course Group</button>
-					<input id="courseId" name="courseId" type="hidden" value="${course.courseId}"/>
-					<input id="professorId" name="professorId" type="hidden" value="${userId}"/>
-				</form></td>
+				<td scope="col">
+					<form class="form-inline" method="POST" action="/createACourseGroup">
+						<button type="submit" class="btn btn-info">Create Course Group</button>
+						<input id="courseId" name="courseId" type="hidden" value="${course.courseId}"/>
+						<input id="professorId" name="professorId" type="hidden" value="${userId}"/>
+					</form>
+				</td>
 				<td scope="col">
 					<#list courseGroups as gc>
 						<#if gc.courseID == course.courseId>
