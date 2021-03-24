@@ -19,4 +19,11 @@ public class LearnerService {
 		//Connect with UI
         return true;
 	}
+    public boolean addLearnerForCourse(Request request){
+        int courseId = Integer.parseInt(request.params("courseId") != null ? request.params("courseId") : "-1");
+		int userId = Integer.parseInt(request.params("userId") != null ? request.params("userId") : "-1");
+        System.out.println(courseId);
+        System.out.println(userId);
+        return learnerDAO.enrollLearnerForCourse(userId, courseId);
+    }
 }

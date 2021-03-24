@@ -74,6 +74,21 @@
                     <td scope="col"><form class="form-inline" method="get" action="/addPreReqCourse">
 					<button type="submit" class="btn btn-info">Add Pre-Requisite Course</button>
 				</form></td>
+				<td scope="col"><form class="form-inline" method="POST" action="/createACourseGroup">
+					<button type="submit" class="btn btn-info">Create Course Group</button>
+					<input id="courseId" name="courseId" type="hidden" value="${course.courseId}"/>
+					<input id="professorId" name="professorId" type="hidden" value="${userId}"/>
+				</form></td>
+				<td scope="col">
+					<#list courseGroups as gc>
+						<#if gc.courseID == course.courseId>
+							<form class="form-inline" method="POST" action="/courseGroupChat">
+							<button type="submit" class="btn btn-info">ViewGroupChats</button>
+							<input id="courseGroupID" name="courseGroupID" type="hidden" value="${gc.courseGroupID}"/>
+						</form>
+						</#if>
+					</#list>
+				</td>
 				</tr>
 				</#list>
 			</tbody>

@@ -29,4 +29,20 @@ public class LearnerDAO {
             return null;
         }    
     }
+    public boolean enrollLearnerForCourse(int learnerID, int courseID){
+        final String LC = "INSERT INTO learner_course (learnerID, courseID) VALUES (?,?)";
+		boolean result = false;
+		try (Connection conn = JDBCConnection.geConnection();
+				PreparedStatement preparedStatement = conn.prepareStatement(LC)) {
+			preparedStatement.setInt(1, learnerID);
+			preparedStatement.setInt(2, courseID);
+			int row = preparedStatement.executeUpdate();
+			result = row > 0 ? true : false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+    }
 }

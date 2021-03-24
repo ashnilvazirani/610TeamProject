@@ -9,6 +9,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.Version;
 import myPLS.beans.Course;
+import myPLS.beans.CourseGroupChat;
 import myPLS.beans.Stream;
 import myPLS.beans.User;
 import myPLS.services.CourseService;
@@ -48,6 +49,38 @@ public class CourseController {
 		return writer;
 	}
 
+	public StringWriter getCourseChat(Request request, Response response) {
+		StringWriter writer = new StringWriter();
+		Map<String, Object> map = new HashMap<String, Object>();
+		int courseGroupID=-1;
+		if(request.queryParams("courseGroupID") != null){
+			courseGroupID = Integer.parseInt(request.queryParams("courseGroupID"));
+		}else{
+			courseGroupID = Integer.parseInt(request.params("courseGroupID"));
+		}
+		// int courseGroupID = Integer.parseInt(request.queryParams("courseGroupID") != null ? request.queryParams("courseGroupID") : "-1");
+		List<CourseGroupChat> groupChats = courseService.getChatsForCourseGroup(courseGroupID);
+		Template resultTemplate;
+		try {
+			resultTemplate = configuration.getTemplate("templates/viewCourseGroupChats.ftl");
+			map.put("groupChats", groupChats);
+			map.put("userID", request.session().attribute("userID"));
+			map.put("courseGroupID", courseGroupID);
+			resultTemplate.process(map, writer);
+		} catch (Exception e) {
+			Spark.halt(500);
+		}
+		return writer;
+	}
+	public boolean postGroupMessage(Request request, Response response){
+		int courseGroupID = courseService.addMessageToCourseGroup(request);
+		if(courseGroupID!=-1){
+			response.redirect("/courseGroupChat/"+courseGroupID);
+			return true;
+		}
+		return false;
+		
+	}
 	public StringWriter getAddCoursePage() {
 		StringWriter writer = new StringWriter();
 		Map<String,Object> map = new HashMap<String, Object>();
