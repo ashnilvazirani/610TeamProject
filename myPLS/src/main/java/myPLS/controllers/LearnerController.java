@@ -85,7 +85,11 @@ public class LearnerController {
 			map.put("users", users);
 			int courseId = Integer.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "unknown");
 			map.put("courseId", courseId);
-
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return writer;
+	}
 	public StringWriter enrollLearnerForCourse(Request request, Response response) {
 		if(learnerService.addLearnerForCourse(request)){
 			response.redirect("/enrollForCourses");
@@ -112,7 +116,5 @@ public class LearnerController {
 
     }
     
-
-	}
 
 }
