@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import myPLS.beans.Course;
+
 import myPLS.beans.CourseGroup;
 import myPLS.beans.CourseGroupChat;
 import myPLS.beans.Stream;
@@ -15,6 +16,7 @@ import myPLS.services.CourseServiceImpl;
 import myPLS.services.UserService;
 import spark.Request;
 import myPLS.beans.Stream;
+
 
 public class CourseDAOImpl implements CourseDAO {
 	private UserService userService;

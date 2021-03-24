@@ -13,6 +13,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
 import myPLS.controllers.AdminController;
 import myPLS.controllers.CourseController;
+import myPLS.controllers.FeedbackController;
 import myPLS.controllers.GroupDiscussionChatController;
 import myPLS.controllers.LearnerController;
 import myPLS.controllers.ProfessorController;
@@ -26,6 +27,7 @@ public class mainApp {
 	private final static AdminController adminController = new AdminController();
 	private final static GroupDiscussionChatController groupDiscussionChatController = new GroupDiscussionChatController();
 	private static final ProfessorController professorController = new ProfessorController();
+	private static final FeedbackController feedbackController = new FeedbackController();
 	public static int fileCount=0;
 	public static void main(String[] args) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException, Exception {
 		// get("/*", (request, response) -> {
@@ -102,7 +104,7 @@ public class mainApp {
         });
         
         get("/studentDashboard",(request,response) -> {
-        	return learnerController.getLearnerDashboard();
+        	return learnerController.getLearnerDashboard(request);
         });
 		get("/enrollForCourses",(request,response) -> {
         	return learnerController.getCourseListForLearners(request, response);
@@ -135,5 +137,26 @@ public class mainApp {
 				response.redirect("/professorDashboard");
 			return 0;
         });
+        
+        get("/enrollCourse",(request,response) -> {
+        	return learnerController.getAllCourses(request);
+        });
+        
+        post("/enrollCourse",(request,response) -> {
+        	return learnerController.enrollCourse(request,response);
+        });
+        
+        get("/enrolledLearners",(request,response) -> {
+        	return learnerController.getLearnersEnrolledList(request);
+        });
+        
+        post("/learnerFeedback",(request,response) -> {
+        	return feedbackController.getStudentFeedbackPage(request);
+        });
+        
+        post("/addStudentFeedback",(request,response) -> {
+        	return feedbackController.addStudentFeedback(request,response);
+        });
+        
 	}
 }
