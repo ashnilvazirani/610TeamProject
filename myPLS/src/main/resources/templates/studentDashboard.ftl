@@ -33,7 +33,11 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav mr-auto"></div>
 			<div class="navbar-nav ml-auto">
-				<form class="form-inline" method="post" action="Enroll">
+
+				<form class="form-inline" method="get" action="/enrollCourse">
+
+				<form class="form-inline" method="get" action="/enrollForCourses">
+
 					<button type="submit" class="btn btn-info">Enroll for courses</button>
 				</form>
 				<form class="form-inline" method="get" action="/createGroup">
@@ -66,7 +70,17 @@
                     <th scope="col">Stream</th>
 				</tr>
 			</thead>
-			
+			<tbody>
+				<#list courses as course>
+				<tr>
+					<td scope="col">${course.courseName}</td>
+					<td scope="col">${course.courseDescription}</td>
+                    <td scope="col">${course.courseDuration}</td>
+                    <td scope="col">${course.streamName}</td>
+				</form></td>
+				</tr>
+				</#list>
+			</tbody>
 		</table>
 	</div>
 </body>
