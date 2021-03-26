@@ -38,13 +38,13 @@
 
 				<form class="form-inline" method="get" action="/enrollForCourses">
 
-					<button type="submit" class="btn btn-info">Enroll for courses</button>
+					<button type="submit" class="btn btn-info" style="margin:5px;">Enroll for courses</button>
 				</form>
 				<form class="form-inline" method="get" action="/createGroup">
-					<button type="submit" class="btn btn-info">Create A group</button>
+					<button type="submit" class="btn btn-info" style="margin:5px;">Create A group</button>
 				</form>
 				<form class="form-inline" method="get" action="/viewGroups">
-					<button type="submit" class="btn btn-info">View Groups</button>
+					<button type="submit" class="btn btn-info" style="margin:5px;">View Groups</button>
 				</form>
 			</div>
 		</div>
@@ -68,6 +68,9 @@
 					<th scope="col">Course Name</th>
 					<th scope="col">Course Teacher</th>
                     <th scope="col">Stream</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -77,7 +80,17 @@
 					<td scope="col">${course.courseDescription}</td>
                     <td scope="col">${course.courseDuration}</td>
                     <td scope="col">${course.streamName}</td>
-				</form></td>
+                    
+                   		<td scope="col">
+							<button type="submit" class="btn btn-info">Add Course</button>
+						</td>
+						 <td scope="col">
+							<button type="submit" class="btn btn-info">Update Course</button>
+						</td>
+						 <td scope="col">
+							<button type="submit" class="btn btn-info">Delete Course</button>
+						</td>
+				</form>
 				</tr>
 				</#list>
 			</tbody>
