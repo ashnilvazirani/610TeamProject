@@ -24,7 +24,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="http://localhost:4567/">MyPLS</a>
+		<a class="navbar-brand" href="http://localhost:4567/studentDashboard">MyPLS</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -38,14 +38,19 @@
 
 				<form class="form-inline" method="get" action="/enrollForCourses">
 
-					<button type="submit" class="btn btn-info">Enroll for courses</button>
+					<button type="submit" class="btn btn-info" style="margin:5px;">Enroll for courses</button>
 				</form>
 				<form class="form-inline" method="get" action="/createGroup">
-					<button type="submit" class="btn btn-info">Create A group</button>
+					<button type="submit" class="btn btn-info" style="margin:5px;">Create A group</button>
 				</form>
 				<form class="form-inline" method="get" action="/viewGroups">
-					<button type="submit" class="btn btn-info">View Groups</button>
+					<button type="submit" class="btn btn-info" style="margin:5px;">View Groups</button>
 				</form>
+				
+				<a class="navbar-brand" href="http://localhost:4567/">
+					<button type="submit" class="btn btn-info" style="margin:5px;">Logout</button>
+				</a>
+				
 			</div>
 		</div>
 	</nav>
@@ -56,7 +61,7 @@
 			<h1 class="display-4">
 				Welcome!
 			</h1>
-			<p class="lead">You have enrolled for the following courses</p>
+			<p class="lead">You have enrolled for the following courses:</p>
 		</div>
 	</div>
 
@@ -68,20 +73,54 @@
 					<th scope="col">Course Name</th>
 					<th scope="col">Course Teacher</th>
                     <th scope="col">Stream</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
 				</tr>
 			</thead>
 			<tbody>
 				<#list courses as course>
-				<tr>
+				<tr>	
 					<td scope="col">${course.courseName}</td>
 					<td scope="col">${course.courseDescription}</td>
                     <td scope="col">${course.courseDuration}</td>
                     <td scope="col">${course.streamName}</td>
-				</form></td>
+                    
+                    	<form class="form-inline" method="get" action="/enrollCourse">
+                   		<td scope="col">
+							<button type="submit" class="btn btn-info">Add Course</button>
+						</td>
+						</form>
+						
+						<form class="form-inline" method="get" action="/enrollCourse">
+						 <td scope="col">
+							<button type="submit" class="btn btn-info">Update Course</button>
+						</td>
+						</form>
+						
+					<!--	<form class="form-inline" method="get" action="/deleteCourse"> -->
+						 <td scope="col">
+							<button type="submit" class="btn btn-info" name="DeleteCourse" id="DeleteCourse">Delete Course</button>
+						</td>
+					<!--	</form> -->
+					
+						
+				</form>
 				</tr>
 				</#list>
 			</tbody>
 		</table>
 	</div>
+	
+	  <!-- JS -->
+  
+    
+    <script type="text/javascript">
+	    <#include "/static/js/jquery.min.js">
+	</script>
+	<script type="text/javascript">
+	    <#include "/static/js/main.js">
+	</script>
+	
 </body>
 </html>

@@ -22,7 +22,7 @@
             <div class="container">
                 <div class="signin-content">
                     <div class="signin-form">
-                        <h2 class="form-title">Chats: ${group.getGroupName()}</h2>
+                        <h2 class="form-title">View Chats for Group: ${group.getGroupName()}</h2>
                        	<p>            	
                        	<font color ="red">
                        		<#if status??>${message}</#if>
@@ -37,12 +37,12 @@
                         <br><br><br>
                         <form method="POST" class="post-chat" id="post-chat-form" action="/postChat">
                             <div class="form-group">
-                                <input type="text" name="messageContent" id="messageContent" placeholder="Message Content"/>
+                                <input type="text" name="messageContent" id="messageContent" placeholder="Type Message Content"/>
                                 <input type="hidden" name="userID" id="userID" value="${userID}"/>
                                 <input type="hidden" name="groupDiscussionID" id="groupDiscussionID" value="${group.getGroupDiscussionID()}"/>
                             </div>
                             <div class="form-group form-button">
-                                <input type="submit" name="postMessage" id="postMessage" class="form-submit" value="postMessage"/>
+                                <input type="submit" name="postMessage" id="postMessage" class="form-submit" value="Post Message"/>
                             </div>
                         </form>
                     </div>

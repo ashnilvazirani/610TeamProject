@@ -33,22 +33,17 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav mr-auto"></div>
 			<div class="navbar-nav ml-auto">
-				<form class="form-inline" method="get" action="/addCourse">
-					<button type="submit" class="btn btn-info">Add course</button>
-				</form>
-				<form class="form-inline" method="get" action="/createGroup">
-					<button type="submit" class="btn btn-info">Create A group</button>
-				</form>
+				
 			</div>
 		</div>
 	</nav>
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<h1 class="display-4">
-				Welcome!
+				View Members
 			</h1>
-			<p class="lead">Group Name:${groupDiscussion.getGroupName()} </p>
-            <p class="lead">Topic:${groupDiscussion.getGroupTopic()} </p>
+			<p class="lead">Group Name: ${groupDiscussion.getGroupName()} </p>
+            <p class="lead">Topic: ${groupDiscussion.getGroupTopic()} </p>
 		</div>
 	</div>
 
@@ -58,7 +53,7 @@
 				<tr>
 					<th scope="col">ID</th>
 					<th scope="col">User Name</th>
-                    <th scope="col">User Role</th>
+                    <th scope="col">User Email</th>
                     
 				</tr>
 			</thead>
@@ -67,18 +62,25 @@
 				<td scope="col">${user.getUserID()}</td>
 					<td scope="col">${user.getName()}</td>
                     <td scope="col">${user.getEmail()}</td>
-                    <#--  <td scope="col">
-                        <form class="form-inline" method="post" action="/addMemberToGroup">
-                            <button type="submit" class="btn btn-info">ADD</button>
-                            <input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${groupDiscussionID}"/> 
-                            <input id="userID" name="userID" type="hidden" value="${user.getUserID()}"/> 
-                        </form>
-                    </td>  -->
+           
 				</tr>
 				</#list>
 			</tbody>
 			
 		</table>
+		
+		<button onclick="goBack()" class="btn btn-info"	>&laquo; Back</button>
+		
 	</div>
+	
+		  <!-- JS -->
+  
+    
+    <script type="text/javascript">
+	    <#include "/static/js/jquery.min.js">
+	    function goBack() {
+  		window.history.back();}
+	</script>	
+	
 </body>
 </html>
