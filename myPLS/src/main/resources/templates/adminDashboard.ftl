@@ -34,13 +34,13 @@
 			<div class="navbar-nav mr-auto"></div>
 			<div class="navbar-nav ml-auto">
 				<form class="form-inline" method="get" action="/addCourse">
-					<button type="submit" class="btn btn-info">Add course</button>
+					<button type="submit" class="btn btn-info" style="margin:5px;">Add course</button>
 				</form>
 				<form class="form-inline" method="get" action="/createGroup">
-					<button type="submit" class="btn btn-info">Create A group</button>
+					<button type="submit" class="btn btn-info" style="margin:5px;">Create A group</button>
 				</form>
 				<form class="form-inline" method="get" action="/viewGroups">
-					<button type="submit" class="btn btn-info">View Groups</button>
+					<button type="submit" class="btn btn-info" style="margin:5px;">View Groups</button>
 				</form>
 			</div>
 		</div>
@@ -48,9 +48,9 @@
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<h1 class="display-4">
-				Welcome!
+				Welcome Admin!
 			</h1>
-			<p class="lead">courses List</p>
+			<p class="lead">View Courses List</p>
 		</div>
 	</div>
 

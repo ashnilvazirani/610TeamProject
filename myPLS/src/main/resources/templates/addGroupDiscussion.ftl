@@ -22,7 +22,7 @@
             <div class="container">
                 <div class="signup-content">
                     <div class="signup-form">
-                        <h2 class="form-title">Add Group Discussion</h2>
+                        <h2 class="form-title">Add Discussion Group</h2>
                         <form method="POST" class="register-form" id="add-group-form" name="addGroupForm" action="/addGroupDiscussion">
                        	 <font color ="red">
                           </font>
