@@ -48,9 +48,9 @@
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<h1 class="display-4">
-				Welcome!
+				Welcome Admin!
 			</h1>
-			<p class="lead">courses List</p>
+			<p class="lead">View Courses List</p>
 		</div>
 	</div>
 

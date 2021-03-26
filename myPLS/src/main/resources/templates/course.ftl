@@ -35,21 +35,28 @@
                             <div class="form-group">
                                 <input type="text" name="courseDuration" id="name" placeholder="Course Duration" required/>
                             </div>
-                            <div class="form-group">
                             
-
-							<select name="streamId" id="streamId">
-							 <#list streams as stream>
-							  <option value=${stream.streamID}>${stream.streamName}</option>	
-							 </#list>
-							  
-							</select>
+                           <div class="form-group">
+                            	<label for="streamId">Select Stream:</label>
+                            	</div> 
+                            	
+                           <div class="form-group">
+  
+                            		<select name="streamId" id="streamId">
+                            		<option disabled selected>--Select Stream--</option>
+							 			<#list streams as stream>
+							  				<option value=${stream.streamID}>${stream.streamDescription}</option>	
+							 			</#list>						
+									</select>	
+								
 							</div>
+                           
 							
 							<div class="form-group">
                             
 
 							<select name="professorId" id="professorId">
+							<option disabled selected>--Select Professor--</option>
 							 <#list professors as professor>
 							  <option value=${professor.userID}>${professor.email}</option>	
 							 </#list>
