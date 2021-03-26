@@ -64,20 +64,21 @@
 							</select>
 							</div>
                             <div class="form-group form-button">
-                                <input type="submit" name="add" id="add" class="form-submit" value="Add"
-                                />
-                            </div>              
-                        </form>
-                            <div class="signup-image">
-                               <a href="http://localhost:4567/loginPage" class="signup-image-link" rel="link"
-                               >View Courses</a> 
-                            </div>
-                  
-                    </div>                 
+                               <input type="submit" name="add" id="add" class="form-submit" style="margin:5px;" value="Add Course" />
+     
+         	  					<form method="get" action="/enrollCourses">
+                               <input type="submit" name="add" id="add" class="form-submit" style="margin:5px;" value="View Courses" />
+                               </form>
+          
+                               <input onclick="goBack()" type="submit" name="Back" id="Back" style="margin:5px;" class="form-submit" value="<< Back"/>
+                              
+                            </div>                       
+                    </div>   
                 </div>
             </div>
+            
         </section>
-
+        
     </div>
 
   <!-- JS -->
@@ -102,5 +103,12 @@
 	<#include "/static/js/main.js">
 	</script>
     
+     <script type="text/javascript">
+	    <#include "/static/js/jquery.min.js">
+	    function goBack() {
+  		window.history.back();}
+	</script>	
+	
+	
 </body>
 </html>

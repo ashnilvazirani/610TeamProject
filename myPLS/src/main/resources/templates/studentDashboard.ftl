@@ -103,6 +103,7 @@
 							<button type="submit" class="btn btn-info" name="DeleteCourse" id="DeleteCourse">Delete Course</button>
 						</td>
 					<!--	</form> -->
+					
 						
 				</form>
 				</tr>

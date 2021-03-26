@@ -24,7 +24,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="http://localhost:4567/">MyPLS</a>
+		<a class="navbar-brand" href="http://localhost:4567/courses">MyPLS</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,10 @@
 				<form class="form-inline" method="get" action="/viewGroups">
 					<button type="submit" class="btn btn-info" style="margin:5px;">View Groups</button>
 				</form>
+				<a class="navbar-brand" href="http://localhost:4567/">
+					<button type="submit" class="btn btn-info" style="margin:5px;">Logout</button>
+				</a>
+				
 			</div>
 		</div>
 	</nav>
