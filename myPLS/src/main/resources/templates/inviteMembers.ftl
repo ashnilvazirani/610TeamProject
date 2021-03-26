@@ -33,21 +33,16 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav mr-auto"></div>
 			<div class="navbar-nav ml-auto">
-				<form class="form-inline" method="get" action="/addCourse">
-					<button type="submit" class="btn btn-info">Add course</button>
-				</form>
-				<form class="form-inline" method="get" action="/createGroup">
-					<button type="submit" class="btn btn-info">Create A group</button>
-				</form>
+			
 			</div>
 		</div>
 	</nav>
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<h1 class="display-4">
-				Welcome!
+				Invite Members
 			</h1>
-			<p class="lead">courses List</p>
+			<p class="lead">Invite for group discussion</p>
 		</div>
 	</div>
 
