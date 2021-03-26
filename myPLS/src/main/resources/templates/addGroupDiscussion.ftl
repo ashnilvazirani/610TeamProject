@@ -36,28 +36,28 @@
                                 <input type="hidden" name="userID" id="userID" placeholder="Topic Description" value="${userID}" required/>
                             </div>
                             <div class="form-group form-button">
-                                <input type="submit" name="add" id="add" class="form-submit" value="Add"/>
+                                <input type="submit" name="add" id="add" class="form-submit" value="Add"/> 
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input onclick="goBack()" type="submit" name="Back" id="Back" class="form-submit" value="<< Back"/>
                             </div>              
                         </form>
-                            <#--  <div class="signup-image">
-                               <a href="http://localhost:4567/loginPage" class="signup-image-link" rel="link">View Courses</a> 
-                            </div>  -->
-                    </div>                 
-                </div>
-            </div>
-        </section>
+               
+                    
+                    </div>            
+                </div>            	
+      		  </div>
+       </section>
 
     </div>
 
   <!-- JS -->
   
-    
-    <script type="text/javascript">
+  
+      <script type="text/javascript">
 	    <#include "/static/js/jquery.min.js">
-	</script>
-	<script type="text/javascript">
-	    <#include "/static/js/main.js">
-	</script>
-    
+	    function goBack() {
+  		window.history.back();}
+	</script>	
+	
 </body>
 </html>

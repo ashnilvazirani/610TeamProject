@@ -69,6 +69,15 @@
 			</tbody>
 			
 		</table>
+		
+		<button onclick="goBack()" class="btn btn-info"	>&laquo; Back</button>
 	</div>
+	
+	  
+    <script type="text/javascript">
+	    <#include "/static/js/jquery.min.js">
+	    function goBack() {
+  		window.history.back();}
+	</script>	
 </body>
 </html>

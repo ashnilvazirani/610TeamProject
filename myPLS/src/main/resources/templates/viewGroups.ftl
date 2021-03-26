@@ -76,25 +76,20 @@
                     <td scope="col">${group.getUserID()}</td>
                     <td scope="col">
                         <form class="form-inline" method="post" action="/inviteMembers">
-                            <button type="submit" class="btn btn-info">InviteMembers</button>
+                            <button type="submit" class="btn btn-info">Invite Members</button>
                             <input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${group.getGroupDiscussionID()}"/>
                         </form>
                     </td>
 					<td scope="col">
                         <form class="form-inline" method="post" action="/viewMembersInGroup">
-                            <button type="submit" class="btn btn-info">ViewMembers</button>
+                            <button type="submit" class="btn btn-info">View Members</button>
                             <input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${group.getGroupDiscussionID()}"/>
                         </form>
                     </td>
 					<td scope="col">
-						<a class="btn btn-info" href="/viewGroupChats/${group.getGroupDiscussionID()}">ViewChats</a>
+						<a class="btn btn-info" href="/viewGroupChats/${group.getGroupDiscussionID()}">Chat</a>
 					</td>
-					<#--  <td scope="col">
-                        <form class="form-inline" method="post" action="/viewGroupChats">
-                            <button type="submit" class="btn btn-info">ViewChats</button>
-                            <input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${group.getGroupDiscussionID()}"/>
-                        </form>
-                    </td>  -->
+					
 				</tr>
 				</#list>
 			</tbody>

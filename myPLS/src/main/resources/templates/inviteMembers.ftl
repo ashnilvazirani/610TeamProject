@@ -43,6 +43,8 @@
 				Invite Members
 			</h1>
 			<p class="lead">Invite for group discussion</p>
+		<#--	<p class="lead">Group Name: ${groupDiscussion.getGroupName()} </p>
+            <p class="lead">Topic: ${groupDiscussion.getGroupTopic()} </p> -->
 		</div>
 	</div>
 
@@ -74,6 +76,19 @@
 			</tbody>
 			
 		</table>
+		
+		<button onclick="goBack()" class="btn btn-info"	>&laquo; Back</button>
+
 	</div>
+
+	  <!-- JS -->
+  
+    
+    <script type="text/javascript">
+	    <#include "/static/js/jquery.min.js">
+	    function goBack() {
+  		window.history.back();}
+	</script>	
+	
 </body>
 </html>
