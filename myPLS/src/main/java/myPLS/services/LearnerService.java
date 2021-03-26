@@ -47,6 +47,9 @@ public class LearnerService {
 		int courseId = Integer.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "unknown");
 		return learnerDAO.getLearnersEnrolledList(courseId);
 	}
+	public List<User> getLearnersEnrolledList(int courseId) {
+		return learnerDAO.getLearnersEnrolledList(courseId);
+	}
 	
     public boolean addLearnerForCourse(Request request){
         int courseId = Integer.parseInt(request.params("courseId") != null ? request.params("courseId") : "-1");

@@ -13,18 +13,21 @@ import myPLS.beans.CourseGroupChat;
 import myPLS.beans.Stream;
 import myPLS.services.CourseService;
 import myPLS.services.CourseServiceImpl;
+import myPLS.services.LearnerService;
 import myPLS.services.UserService;
 import spark.Request;
-import myPLS.beans.Stream;
+import myPLS.beans.User;
 
 
 public class CourseDAOImpl implements CourseDAO {
 	private UserService userService;
 	private StreamDAO streamDAO;
 	private CourseService  courseService;
+	private LearnerService learnerService;
 	public CourseDAOImpl() {
 		this.streamDAO = new StreamDAOImpl();
 		this.userService = new UserService();
+		this.learnerService = new LearnerService();
 		// this.courseService = new CourseServiceImpl();
 	}
 
@@ -209,17 +212,30 @@ public class CourseDAOImpl implements CourseDAO {
         Course c = getCourse(courseId);
 		Stream s = getStreamById(c.getStreamID());
 		CourseGroup isPresent = getCourseGroupByCourseId(courseId);
+		List<User> getUsersForTheCourse = this.learnerService.getLearnersEnrolledList(courseId);
 		boolean result = false;
 		if(isPresent!=null){
 			final String LC = "INSERT INTO courseGroup (userID, courseID, courseName, courseStream, flag) VALUES (?,?,?,?,?)";
 			try (Connection conn = JDBCConnection.geConnection();
-					PreparedStatement preparedStatement = conn.prepareStatement(LC)) {
+					PreparedStatement preparedStatement = conn.prepareStatement(LC, PreparedStatement.RETURN_GENERATED_KEYS)) {
 				preparedStatement.setInt(1, professorId);
 				preparedStatement.setInt(2, courseId);
 				preparedStatement.setString(3, c.getCourseName());
 				preparedStatement.setString(4, s.getStreamName());
 				preparedStatement.setInt(5, 0);
 				int row = preparedStatement.executeUpdate();
+				ResultSet rs = preparedStatement.getGeneratedKeys();
+				int courseGroupID=-1;
+				if(rs.next()){
+					courseGroupID = Integer.parseInt(rs.getLong(1)+"");
+					for(User u:getUsersForTheCourse){
+						final String LEARNERS_IN_GROUP = "INSERT INTO courseGroupMembers (userID, courseGroupID) VALUES (?,?)";
+						PreparedStatement ps = conn.prepareStatement(LEARNERS_IN_GROUP, PreparedStatement.RETURN_GENERATED_KEYS);
+						ps.setInt(1, u.getUserID());
+						ps.setInt(2, courseGroupID);
+						row = preparedStatement.executeUpdate();
+					}
+				}
 				result = row > 0 ? true : false;
 			} catch (SQLException e) {
 				e.printStackTrace();
