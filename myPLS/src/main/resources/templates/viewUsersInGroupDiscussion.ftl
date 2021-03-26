@@ -42,8 +42,8 @@
 			<h1 class="display-4">
 				View Members
 			</h1>
-			<p class="lead">Group Name:${groupDiscussion.getGroupName()} </p>
-            <p class="lead">Topic:${groupDiscussion.getGroupTopic()} </p>
+			<p class="lead">Group Name: ${groupDiscussion.getGroupName()} </p>
+            <p class="lead">Topic: ${groupDiscussion.getGroupTopic()} </p>
 		</div>
 	</div>
 
@@ -53,7 +53,7 @@
 				<tr>
 					<th scope="col">ID</th>
 					<th scope="col">User Name</th>
-                    <th scope="col">User Role</th>
+                    <th scope="col">User Email</th>
                     
 				</tr>
 			</thead>
@@ -62,18 +62,25 @@
 				<td scope="col">${user.getUserID()}</td>
 					<td scope="col">${user.getName()}</td>
                     <td scope="col">${user.getEmail()}</td>
-                    <#--  <td scope="col">
-                        <form class="form-inline" method="post" action="/addMemberToGroup">
-                            <button type="submit" class="btn btn-info">ADD</button>
-                            <input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${groupDiscussionID}"/> 
-                            <input id="userID" name="userID" type="hidden" value="${user.getUserID()}"/> 
-                        </form>
-                    </td>  -->
+           
 				</tr>
 				</#list>
 			</tbody>
 			
 		</table>
+		
+		<button onclick="goBack()" class="btn btn-info"	>&laquo; Back</button>
+		
 	</div>
+	
+		  <!-- JS -->
+  
+    
+    <script type="text/javascript">
+	    <#include "/static/js/jquery.min.js">
+	    function goBack() {
+  		window.history.back();}
+	</script>	
+	
 </body>
 </html>
