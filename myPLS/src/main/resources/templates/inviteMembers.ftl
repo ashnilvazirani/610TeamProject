@@ -33,21 +33,18 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav mr-auto"></div>
 			<div class="navbar-nav ml-auto">
-				<form class="form-inline" method="get" action="/addCourse">
-					<button type="submit" class="btn btn-info">Add course</button>
-				</form>
-				<form class="form-inline" method="get" action="/createGroup">
-					<button type="submit" class="btn btn-info">Create A group</button>
-				</form>
+			
 			</div>
 		</div>
 	</nav>
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<h1 class="display-4">
-				Welcome!
+				Invite Members
 			</h1>
-			<p class="lead">courses List</p>
+			<p class="lead">Invite for group discussion</p>
+		<#--	<p class="lead">Group Name: ${groupDiscussion.getGroupName()} </p>
+            <p class="lead">Topic: ${groupDiscussion.getGroupTopic()} </p> -->
 		</div>
 	</div>
 
@@ -79,6 +76,19 @@
 			</tbody>
 			
 		</table>
+		
+		<button onclick="goBack()" class="btn btn-info"	>&laquo; Back</button>
+
 	</div>
+
+	  <!-- JS -->
+  
+    
+    <script type="text/javascript">
+	    <#include "/static/js/jquery.min.js">
+	    function goBack() {
+  		window.history.back();}
+	</script>	
+	
 </body>
 </html>

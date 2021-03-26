@@ -24,7 +24,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="http://localhost:4567/">MyPLS</a>
+		<a class="navbar-brand" href="http://localhost:4567/professorDashboard">MyPLS</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -35,20 +35,23 @@
 			<div class="navbar-nav ml-auto">
 				
 				<form class="form-inline" method="get" action="/createGroup">
-					<button type="submit" class="btn btn-info">Create A group</button>
+					<button type="submit" class="btn btn-info" style="margin:5px;">Create Group</button>
 				</form>
 				<form class="form-inline" method="get" action="/viewGroups">
-					<button type="submit" class="btn btn-info">View Groups</button>
+					<button type="submit" class="btn btn-info" style="margin:5px;">View Group</button>
 				</form>
+				<a class="navbar-brand" href="http://localhost:4567/">
+					<button type="submit" class="btn btn-info" style="margin:5px;">Logout</button>
+				</a>
 			</div>
 		</div>
 	</nav>
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<h1 class="display-4">
-				Welcome!
+				Welcome Professor!
 			</h1>
-			<p class="lead">courses List</p>
+			<p class="lead">Courses List</p>
 		</div>
 	</div>
 

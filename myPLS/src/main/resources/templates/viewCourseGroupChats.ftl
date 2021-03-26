@@ -42,7 +42,7 @@
                                 <input type="hidden" name="courseGroupID" id="courseGroupID" value="${courseGroupID}"/>
                             </div>
                             <div class="form-group form-button">
-                                <input type="submit" name="postMessage" id="postMessage" class="form-submit" value="postMessage"/>
+                                <input type="submit" name="postMessage" id="postMessage" class="form-submit" value="Post Message"/>
                             </div>
                         </form>
                     </div>

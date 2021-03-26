@@ -43,10 +43,11 @@
                             </div>              
                         </form>
                             <div class="signup-image">
+                        <!--    <figure><img src="images/signup-image.jpg" alt="sing up image"></figure> -->
                                <a href="http://localhost:4567/loginPage" class="signup-image-link" rel="link"
                                >I am already registered user</a> 
                             </div>
-                  
+                                  
                     </div>                 
                 </div>
             </div>
