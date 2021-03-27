@@ -7,6 +7,7 @@ import java.util.Map;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.Version;
+import myPLS.beans.Feedback;
 import myPLS.services.FeedbackService;
 import spark.Request;
 import spark.Response;
@@ -25,10 +26,8 @@ public class FeedbackController {
 	public StringWriter getStudentFeedbackPage(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String,Object> map = new HashMap<String, Object>();
-		int learnerId = Integer.parseInt(request.queryParams("learnerId") != null ? request.queryParams("learnerId") : "unknown");
-		int courseId = Integer.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "unknown");
-		map.put("learnerId", learnerId);
-		map.put("courseId", courseId);
+		Feedback feedback = this.getStudentFeedback(request);
+		map.put("feedback", feedback);
 		try {
 			Template formTemplate = configuration.getTemplate("templates/studentFeedback.ftl");
 			formTemplate.process(map, writer);
@@ -46,6 +45,9 @@ public class FeedbackController {
 		return null;
 	}
 	
+	public Feedback getStudentFeedback(Request request) {
+		return feedbackService.getStudentFeedback(request);
+	}
 	
 	private void setConfiguration() {
 		configuration.setClassForTemplateLoading(CourseController.class, "/");

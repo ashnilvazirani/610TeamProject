@@ -45,6 +45,7 @@
 				<a class="navbar-brand" href="http://localhost:4567/">
 					<button type="submit" class="btn btn-info" style="margin:5px;">Logout</button>
 				</a>
+				
 			</div>
 		</div>
 	</nav>
