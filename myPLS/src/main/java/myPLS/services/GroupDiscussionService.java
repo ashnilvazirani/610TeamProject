@@ -37,7 +37,8 @@ public class GroupDiscussionService {
     }
     public boolean createADiscussionGroup(Request request, Response response){
         String groupName=request.queryParams("groupName") != null ? (request.queryParams("groupName")) : "unknown";
-        int userID = request.queryParams("userID") != null ? Integer.parseInt(request.queryParams("userID")) : -1;
+        // int userID = request.queryParams("userID") != null ? Integer.parseInt(request.queryParams("userID")) : -1;
+        int userID = request.session().attribute("userID");
         String groupTopic = request.queryParams("groupTopic") != null ? request.queryParams("groupTopic") : "unknown";
         GroupDiscussion groupDiscussion =  new GroupDiscussion(userID, groupName, groupTopic);
         if(groupDiscussionDAO.addGroupDiscussion(groupDiscussion)){
