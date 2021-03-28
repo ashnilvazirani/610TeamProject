@@ -83,27 +83,28 @@
 				<td>
 					<form class="form-inline" method="GET" action="/enrolledLearners">
 						<input name="courseId" id=${course.courseId} value=${course.courseId} hidden/>
-						<button type="submit" class="btn btn-info">Feedback</button>
-					</form>
-				</td>
-
-				<td scope="col">
-					<form class="form-inline" method="POST" action="/createACourseGroup">
-						<button type="submit" class="btn btn-info">Create Course Group</button>
-						<input id="courseId" name="courseId" type="hidden" value="${course.courseId}"/>
-						<input id="professorId" name="professorId" type="hidden" value="${userId}"/>
+						<button type="submit" class="btn btn-info">Manage Students</button>
 					</form>
 				</td>
 				<td scope="col">
+				<#assign courseGroupID = -1>
 					<#list courseGroups as gc>
 						<#if gc.courseID == course.courseId>
-							<form class="form-inline" method="POST" action="/courseGroupChat">
-							<button type="submit" class="btn btn-info">ViewGroupChats</button>
-							<input id="courseGroupID" name="courseGroupID" type="hidden" value="${gc.courseGroupID}"/>
-						</form>
+							<#assign courseGroupID = gc.courseGroupID>
 						</#if>
 					</#list>
-
+						<#if courseGroupID==-1>
+						<form class="form-inline" method="POST" action="/createACourseGroup">
+							<button type="submit" class="btn btn-info">Create Course Group</button>
+							<input id="courseId" name="courseId" type="hidden" value="${course.courseId}"/>
+							<input id="professorId" name="professorId" type="hidden" value="${userId}"/>
+						</form>
+					<#else>
+						<form class="form-inline" method="POST" action="/courseGroupChat">
+							<button type="submit" class="btn btn-info">ViewGroupChats</button>
+							<input id="courseGroupID" name="courseGroupID" type="hidden" value="${courseGroupID}"/>
+						</form>
+					</#if>
 				</td>
 				</tr>
 				</#list>

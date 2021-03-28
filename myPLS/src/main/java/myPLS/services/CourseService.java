@@ -5,6 +5,7 @@ import java.util.List;
 import myPLS.beans.Course;
 import myPLS.beans.CourseGroup;
 import myPLS.beans.CourseGroupChat;
+import myPLS.beans.CourseGroupMembers;
 import spark.Request;
 
 public interface CourseService {
@@ -17,6 +18,11 @@ public interface CourseService {
 	Course getCourseByCourseId(int courseId);
 	boolean createACourseGroup(Request request);
 	CourseGroup getCourseGroupByCourseId(int courseId);
+	List<CourseGroup> getCourseGroupByUserId(int userId);
+	List<CourseGroup> getCourseGroupForUserByUserId(int userId);
 	List<CourseGroupChat> getChatsForCourseGroup(int courseGroupID);
 	int addMessageToCourseGroup(Request request);
+	List<CourseGroupMembers> getCourseGroupMemberFromCourseGroupId(int courseGroupId);
+	boolean addRemoveMemberCourseGroup(int courseId, int userId, int operation);
+	
 }

@@ -49,14 +49,39 @@
 					<td scope="col">${user.name}</td>
 					<td scope="col">${user.email}</td>
 					<td scope="col">
-                    	<form class="form-inline" method="post" action="/learnerFeedback">
-                    		<input name="learnerId" id=${user.userID} value=${user.userID} hidden/>
-                    		<div class="form-group" hidden>
-                                <input type="text" name="courseId" id="courseId" value= ${courseId} />
-                           </div>
+						<form class="form-inline" method="post" action="/learnerFeedback">
+							<input name="learnerId" id=${user.userID} value=${user.userID} hidden/>
+							<div class="form-group" hidden>
+								<input type="text" name="courseId" id="courseId" value= ${courseId} />
+							</div>
 							<button type="submit" class="btn btn-info">Give Feedback</button>
 						</form>
 					</td>
+					<#assign memberPresent = -1>
+					<#list groupMembers as gm>
+						<#if gm.userID == user.userID>
+							<#assign memberPresent = 1>
+							<#break>
+						</#if>
+					</#list>
+					<#if memberPresent == 1>
+					<td scope="col">
+						<form class="form-inline" method="post" action="/addRemoveMemberCourseGroup">
+							<input name="userID" id=${user.userID} value=${user.userID} hidden/>
+							<input type="text" name="courseId" id="courseId" value= ${courseId} hidden/>
+							<button type="submit" class="btn btn-info" name="removeMember">RemoveMember</button>
+						</form>
+					</td>
+					<#else>
+					<td scope="col">
+						<form class="form-inline" method="post" action="/addRemoveMemberCourseGroup">
+							<input name="userID" id=${user.userID} value=${user.userID} hidden/>
+							<input type="text" name="courseId" id="courseId" value= ${courseId} hidden/>
+							<button type="submit" class="btn btn-info" name="addMember">AddMember</button>
+						</form>
+					</td>
+					</#if>
+					<#assign memberPresent = -1>
 				</tr>
 				</#list>
 			</tbody>
