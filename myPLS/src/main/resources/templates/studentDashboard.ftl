@@ -66,6 +66,9 @@
 	</div>
 
 	<div class="container">
+	<form class="form-inline" method="get" action="/enrollCourse">
+		<button type="submit" class="btn btn-info">Add Course</button>	
+	</form>
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
@@ -79,19 +82,23 @@
 				</tr>
 			</thead>
 			<tbody>
+			
 				<#list courses as course>
 				<tr>	
 					<td scope="col">${course.courseName}</td>
 					<td scope="col">${course.courseDescription}</td>
                     <td scope="col">${course.courseDuration}</td>
                     <td scope="col">${course.streamName}</td>
-                    
-                    	<form class="form-inline" method="get" action="/enrollCourse">
-                   		<td scope="col">
-							<button type="submit" class="btn btn-info">Add Course</button>
-						</td>
-						</form>
-						
+					<td scope="col">
+                    <#list myCourseGroups as myGroup>
+						<#if myGroup.courseID == course.courseId>
+							<form class="form-inline" method="POST" action="/courseGroupChat">
+								<button type="submit" class="btn btn-info">ViewGroupChats</button>
+								<input id="courseGroupID" name="courseGroupID" type="hidden" value="${myGroup.courseGroupID}"/>
+							</form>
+						</#if>
+					</#list>
+					</td>				
 						<form class="form-inline" method="get" action="/enrollCourse">
 						 <td scope="col">
 							<button type="submit" class="btn btn-info">Update Course</button>
