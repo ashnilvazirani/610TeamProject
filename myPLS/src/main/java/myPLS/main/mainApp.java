@@ -5,8 +5,6 @@ import static spark.Spark.post;
 
 import java.io.IOException;
 
-import javax.swing.JOptionPane;
-
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
@@ -43,7 +41,7 @@ public class mainApp {
         });
 		
 		post("/registerUser", (request, response) -> {
-           return registraionController.registerUser(request);
+        	return registraionController.registerUser(request);
         });
 		
 		post("/mailVerified",(request,response) -> {
@@ -78,7 +76,6 @@ public class mainApp {
 		post("/addMemberToGroup",(request,response) -> {
             return adminController.addMemberToGroup(request, response);
         });
-
 		get("/viewGroupChats/:groupDiscussionID",(request,response) -> {
             return adminController.viewGroupChats(request, response);
         });
@@ -86,10 +83,10 @@ public class mainApp {
         	return courseController.getAddCoursePage();
         });
         get("/createGroup", (request, response) -> {
-        	return adminController.getGroupDiscussionPage();
+        	return adminController.getGroupDiscussionPage(request, response);
         });
 		get("/viewGroups",(request,response) -> {
-        	return adminController.viewAllCourses();
+        	return adminController.viewAllGroupDiscussion(request, response);
         });
 		post("/viewMembersInGroup",(request,response) -> {
         	return adminController.viewMembersInGroupDiscussion(request, response);
@@ -137,26 +134,29 @@ public class mainApp {
 				response.redirect("/professorDashboard");
 			return 0;
         });
-        
-        get("/enrollCourse",(request,response) -> {
-        	return learnerController.getAllCourses(request);
+        post("/addRemoveMemberCourseGroup",(request,response) -> {
+        	courseController.addRemoveMemberCourseGroup(request, response);
+			return true;
         });
-        
-        post("/enrollCourse",(request,response) -> {
-        	return learnerController.enrollCourse(request,response);
-        });
-        
-        get("/enrolledLearners",(request,response) -> {
-        	return learnerController.getLearnersEnrolledList(request);
-        });
-        
-        post("/learnerFeedback",(request,response) -> {
-        	return feedbackController.getStudentFeedbackPage(request);
-        });
-        
-        post("/addStudentFeedback",(request,response) -> {
-        	return feedbackController.addStudentFeedback(request,response);
-        });
+		get("/enrollCourse",(request,response) -> {
+			return learnerController.getAllCourses(request);
+		});
+		
+		post("/enrollCourse",(request,response) -> {
+			return learnerController.enrollCourse(request,response);
+		});
+		
+		get("/enrolledLearners",(request,response) -> {
+			return learnerController.getLearnersEnrolledList(request);
+		});
+		
+		post("/learnerFeedback",(request,response) -> {
+			return feedbackController.getStudentFeedbackPage(request);
+		});
+		
+		post("/addStudentFeedback",(request,response) -> {
+			return feedbackController.addStudentFeedback(request,response);
+		});
         
 	}
 }
