@@ -10,22 +10,25 @@ import myPLS.beans.Course;
 
 import myPLS.beans.CourseGroup;
 import myPLS.beans.CourseGroupChat;
+import myPLS.beans.CourseGroupMembers;
 import myPLS.beans.Stream;
 import myPLS.services.CourseService;
 import myPLS.services.CourseServiceImpl;
+import myPLS.services.LearnerService;
 import myPLS.services.UserService;
 import spark.Request;
-import myPLS.beans.Stream;
+import myPLS.beans.User;
 
 
 public class CourseDAOImpl implements CourseDAO {
 	private UserService userService;
 	private StreamDAO streamDAO;
 	private CourseService  courseService;
+	private LearnerService learnerService;
 	public CourseDAOImpl() {
 		this.streamDAO = new StreamDAOImpl();
 		this.userService = new UserService();
-		// this.courseService = new CourseServiceImpl();
+		this.learnerService = new LearnerService();
 	}
 
 	@Override
@@ -209,17 +212,29 @@ public class CourseDAOImpl implements CourseDAO {
         Course c = getCourse(courseId);
 		Stream s = getStreamById(c.getStreamID());
 		CourseGroup isPresent = getCourseGroupByCourseId(courseId);
+		List<User> getUsersForTheCourse = this.learnerService.getLearnersEnrolledList(courseId);
 		boolean result = false;
-		if(isPresent!=null){
+		if(!(isPresent.getCourseGroupID()>0)){
 			final String LC = "INSERT INTO courseGroup (userID, courseID, courseName, courseStream, flag) VALUES (?,?,?,?,?)";
 			try (Connection conn = JDBCConnection.geConnection();
-					PreparedStatement preparedStatement = conn.prepareStatement(LC)) {
+					PreparedStatement preparedStatement = conn.prepareStatement(LC, PreparedStatement.RETURN_GENERATED_KEYS)) {
 				preparedStatement.setInt(1, professorId);
 				preparedStatement.setInt(2, courseId);
 				preparedStatement.setString(3, c.getCourseName());
 				preparedStatement.setString(4, s.getStreamName());
 				preparedStatement.setInt(5, 0);
 				int row = preparedStatement.executeUpdate();
+				ResultSet rs = preparedStatement.getGeneratedKeys();
+				if(rs.next()){
+					int courseGroupID = Integer.parseInt(rs.getLong(1)+"");
+					for(User u:getUsersForTheCourse){
+						final String LEARNERS_IN_GROUP = "INSERT INTO courseGroupMembers (userID, courseGroupID) VALUES (?,?)";
+						PreparedStatement ps = conn.prepareStatement(LEARNERS_IN_GROUP, PreparedStatement.RETURN_GENERATED_KEYS);
+						ps.setInt(1, u.getUserID());
+						ps.setInt(2, courseGroupID);
+						row = ps.executeUpdate();
+					}
+				}
 				result = row > 0 ? true : false;
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -232,9 +247,27 @@ public class CourseDAOImpl implements CourseDAO {
 		return result;
     }
 	@Override
+	public List<CourseGroupMembers> getCourseGroupMembersFromCourse(int courseGroupID){
+		final String GET_COURSE_GROUP = "SELECT * FROM courseGroupMembers where courseGroupID = ?";
+		List<CourseGroupMembers> courseGroupMembers = new ArrayList<CourseGroupMembers>();
+		try (Connection conn = JDBCConnection.geConnection();
+				PreparedStatement preparedStatement = conn.prepareStatement(GET_COURSE_GROUP)) {
+			preparedStatement.setInt(1, courseGroupID);
+			ResultSet result = preparedStatement.executeQuery();
+			while (result.next()) {
+				CourseGroupMembers m = new CourseGroupMembers(result.getInt("courseGroupMembersID"), result.getInt("userID"), result.getInt("courseGroupID"));
+				courseGroupMembers.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return courseGroupMembers;
+	}
+	@Override
 	public CourseGroup getCourseGroupByCourseId(int courseId){
 		final String GET_COURSE_GROUP = "SELECT * FROM courseGroup where courseID = ?";
-		List<CourseGroup> courses = new ArrayList<CourseGroup>();
 		CourseGroup gc = new CourseGroup();
 		try (Connection conn = JDBCConnection.geConnection();
 				PreparedStatement preparedStatement = conn.prepareStatement(GET_COURSE_GROUP)) {
@@ -254,6 +287,62 @@ public class CourseDAOImpl implements CourseDAO {
 			e.printStackTrace();
 		}
 		return gc;
+	}
+	@Override
+	public List<CourseGroup> getCourseGroupsForUser(int userId){
+		final String GET_GROUPS_FOR_USER = "SELECT * FROM courseGroupMembers where userID = ?";
+		List<CourseGroup> userGroups = new ArrayList<>();
+		try (Connection conn = JDBCConnection.geConnection();
+				PreparedStatement preparedStatement = conn.prepareStatement(GET_GROUPS_FOR_USER)) {
+			preparedStatement.setInt(1, userId);
+			ResultSet result = preparedStatement.executeQuery();
+			while (result.next()) {
+				final String GET_GROUP_INFO = "SELECT * FROM courseGroup where courseGroupID = ?";
+				PreparedStatement ps = conn.prepareStatement(GET_GROUP_INFO);
+				ps.setInt(1, result.getInt("courseGroupID"));
+				ResultSet RS = ps.executeQuery();
+				while(RS.next()){
+					CourseGroup gc = new CourseGroup();
+					gc.setCourseGroupID(RS.getInt("courseGroupID"));
+					gc.setFlag(RS.getInt("flag"));
+					gc.setCourseName(RS.getString("courseName"));
+					gc.setCourseStream(RS.getString("courseStream"));
+					gc.setUserID(RS.getInt("userID"));
+					gc.setCourseID(RS.getInt("courseID"));
+					userGroups.add(gc);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return userGroups;
+	}
+	@Override
+	public List<CourseGroup> getCourseGroupByUserId(int userId){
+		final String GET_COURSE_GROUP = "SELECT * FROM courseGroup where userID = ?";
+		List<CourseGroup> userGroups = new ArrayList<>();
+		try (Connection conn = JDBCConnection.geConnection();
+				PreparedStatement preparedStatement = conn.prepareStatement(GET_COURSE_GROUP)) {
+			preparedStatement.setInt(1, userId);
+			ResultSet result = preparedStatement.executeQuery();
+			while (result.next()) {
+				CourseGroup gc = new CourseGroup();
+				gc.setCourseGroupID(result.getInt("courseGroupID"));
+				gc.setFlag(result.getInt("flag"));
+				gc.setCourseName(result.getString("courseName"));
+				gc.setCourseStream(result.getString("courseStream"));
+				gc.setUserID(result.getInt("userID"));
+				gc.setCourseID(result.getInt("courseID"));
+				userGroups.add(gc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return userGroups;
 	}
 	@Override
 	public List<CourseGroupChat> getCourseGroupChats(int courseGroupID){
@@ -298,5 +387,35 @@ public class CourseDAOImpl implements CourseDAO {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	@Override
+	public boolean addRemoveMemberCourseGroup(int courseId, int userID, int operation){
+		CourseGroup group = getCourseGroupByCourseId(courseId);
+		if(operation==1){
+			//ADD
+			final String LEARNERS_IN_GROUP = "INSERT INTO courseGroupMembers (userID, courseGroupID) VALUES (?,?)";
+			try (Connection conn = JDBCConnection.geConnection();
+					PreparedStatement ps = conn.prepareStatement(LEARNERS_IN_GROUP, PreparedStatement.RETURN_GENERATED_KEYS)) {
+			ps.setInt(1, userID);
+			ps.setInt(2, group.getCourseGroupID());
+			ps.executeUpdate();
+			return true;
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}else if(operation==2){
+			//REMOVE
+			final String REMOVE_MEMBER = "DELETE FROM courseGroupMembers WHERE userID = ? and courseGroupID = ?";
+			try (Connection conn = JDBCConnection.geConnection();
+					PreparedStatement ps = conn.prepareStatement(REMOVE_MEMBER, PreparedStatement.RETURN_GENERATED_KEYS)) {
+			ps.setInt(1, userID);
+			ps.setInt(2, group.getCourseGroupID());
+			ps.executeUpdate();
+			return true;
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return false;
 	}
 }

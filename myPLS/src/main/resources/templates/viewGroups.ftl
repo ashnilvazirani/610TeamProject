@@ -74,12 +74,6 @@
 					<td scope="col">${group.getGroupName()}</td>
                     <td scope="col">${group.getGroupTopic()}</td>
                     <td scope="col">${group.getUserID()}</td>
-                    <td scope="col">
-                        <form class="form-inline" method="post" action="/inviteMembers">
-                            <button type="submit" class="btn btn-info">Invite Members</button>
-                            <input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${group.getGroupDiscussionID()}"/>
-                        </form>
-                    </td>
 					<td scope="col">
                         <form class="form-inline" method="post" action="/viewMembersInGroup">
                             <button type="submit" class="btn btn-info">View Members</button>
@@ -89,7 +83,14 @@
 					<td scope="col">
 						<a class="btn btn-info" href="/viewGroupChats/${group.getGroupDiscussionID()}">Chat</a>
 					</td>
-					
+					<#if userID == group.userID>
+						<td scope="col">
+							<form class="form-inline" method="post" action="/inviteMembers">
+								<button type="submit" class="btn btn-info">Invite Members</button>
+								<input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${group.getGroupDiscussionID()}"/>
+							</form>
+						</td>
+					</#if>
 				</tr>
 				</#list>
 			</tbody>

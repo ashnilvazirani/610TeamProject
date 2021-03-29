@@ -81,6 +81,21 @@ public class CourseController {
 		return false;
 		
 	}
+	public boolean addRemoveMemberCourseGroup(Request request, Response response){
+		int operation = -1;
+		int courseId=Integer.parseInt(request.queryParams("courseId"));
+		int userID=Integer.parseInt(request.queryParams("userID"));
+		if(request.queryParams("addMember")!=null){
+			operation=1;
+		}else if(request.queryParams("removeMember")!=null){
+			operation=2;
+		}
+
+		if(operation!=-1)
+			if(courseService.addRemoveMemberCourseGroup(courseId, userID, operation))
+				response.redirect("/enrolledLearners?courseId="+courseId);
+		return true;
+	}
 	public StringWriter getAddCoursePage() {
 		StringWriter writer = new StringWriter();
 		Map<String,Object> map = new HashMap<String, Object>();

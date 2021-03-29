@@ -39,3 +39,14 @@ public class CourseGroupMembers {
         this.courseGroupID = courseGroupID;
     }
 }
+
+/**
+ * CREATE TABLE courseGroupMembers (
+    courseGroupMembersID int(11) NOT NULL AUTO_INCREMENT,
+    userID int(11),
+    courseGroupID int(11),
+    PRIMARY KEY (courseGroupMembersID),
+	FOREIGN KEY (userID) REFERENCES user(userID),
+	FOREIGN KEY (courseGroupID) REFERENCES courseGroup(courseGroupID)
+);
+ */

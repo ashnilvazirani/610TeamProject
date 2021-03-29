@@ -29,11 +29,12 @@ public class AdminController {
     private void setConfiguration() {
 		configuration.setClassForTemplateLoading(AdminController.class, "/");
 	}
-    public StringWriter viewAllCourses() {
+    public StringWriter viewAllGroupDiscussion(Request request, Response response) {
 		StringWriter writer = new StringWriter();
 		Map<String,Object> map = new HashMap<String, Object>();
 		List<GroupDiscussion> groups = groupDiscussionService.getGroups();
 		map.put("groups", groups);
+		map.put("userID", request.session().attribute("userID"));
 		try {
 			Template formTemplate = configuration.getTemplate("templates/viewGroups.ftl");
 			formTemplate.process(map, writer);
@@ -111,10 +112,10 @@ public class AdminController {
 
 		return writer;
     }
-    public StringWriter getGroupDiscussionPage() {
+    public StringWriter getGroupDiscussionPage(Request request, Response  response) {
 		StringWriter writer = new StringWriter();
 		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("userID", 1);
+		map.put("userID", request.session().attribute("userID"));
 		try {
 			Template formTemplate = configuration.getTemplate("templates/addGroupDiscussion.ftl");
 			formTemplate.process(map, writer);

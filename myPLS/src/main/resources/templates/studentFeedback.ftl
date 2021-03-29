@@ -26,17 +26,25 @@
                         <form method="POST" class="register-form" id="student-feedback-form" name="studentFeedbackForm" action="/addStudentFeedback">
                           </font>
                           	<div class="form-group" hidden>
-                                <input type="text" name="learnerId" id="learnerId" value= ${learnerId} />
+                                <input type="text" name="learnerId" id="learnerId" value= ${feedback.feedbackEntityId} />
                            </div>
                            <div class="form-group" hidden>
-                                <input type="text" name="courseId" id="courseId" value= ${courseId} />
+                                <input type="text" name="courseId" id="courseId" value= ${feedback.courseId} />
                            </div>
                             <div class="form-group">
+                            	<#if (feedback.rating)!=0>
+                                <input type="number" name="rating" value= ${feedback.rating} id="rating" placeholder="Rating (between 1 and 5)" min="1" max="5" required/>
+                                <#else>
                                 <input type="number" name="rating" id="rating" placeholder="Rating (between 1 and 5)" min="1" max="5" required/>
+                                </#if>
                             </div>
                             
                             <div class="form-group">
-                                <input name="comment" id="comment" placeholder="Comment"/>
+                            	<#if (feedback.comments)??>
+                                <input name="comment" id="comment" value= ${feedback.comments} placeholder="Comment"/>
+                                 <#else>
+                                <input name="comment" id="comment"  placeholder="Comment"/>
+                                </#if>
                             </div>
                           
                             <div class="form-group form-button">

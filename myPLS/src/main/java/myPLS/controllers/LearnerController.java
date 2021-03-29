@@ -1,5 +1,6 @@
 package myPLS.controllers;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,8 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.Version;
 import myPLS.beans.Course;
-
+import myPLS.beans.CourseGroup;
+import myPLS.beans.CourseGroupMembers;
 import myPLS.beans.User;
 
 import myPLS.services.CourseComponentServiceImpl;
@@ -35,10 +37,16 @@ public class LearnerController {
     public StringWriter getLearnerDashboard(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
+		List<Course> courses = learnerService.getEnrolledCourses(request);
+		System.out.println("USER ID: "+request.session().attribute("userID"));
+		List<CourseGroup> myCourseGroups = this.courseService.getCourseGroupForUserByUserId(request.session().attribute("userID"));
+		System.out.println("MY H+GRP:"+myCourseGroups.size());
 		Template resultTemplate;
 		try {
 			resultTemplate = configuration.getTemplate("templates/studentDashboard.ftl");
-			map.put("courses", learnerService.getEnrolledCourses(request));
+			map.put("courses", courses);
+			map.put("userID", request.session().attribute("userID"));
+			map.put("myCourseGroups", myCourseGroups);
 			resultTemplate.process(map, writer);
 		} catch (Exception e) {
 			Spark.halt(500);
@@ -80,11 +88,14 @@ public class LearnerController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Template resultTemplate;
     	List<User> users= learnerService.getLearnersEnrolledList(request);
+		int courseId= Integer.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "-1");
+		CourseGroup group =  this.courseService.getCourseGroupByCourseId(courseId);
+		List<CourseGroupMembers> groupMembers = this.courseService.getCourseGroupMemberFromCourseGroupId(group.getCourseGroupID());
 		try {
 			resultTemplate = configuration.getTemplate("templates/enrolledLearners.ftl");
 			map.put("users", users);
-			int courseId = Integer.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "unknown");
 			map.put("courseId", courseId);
+			map.put("groupMembers", groupMembers);
 			resultTemplate.process(map, writer);
 
 		}catch(Exception e){
