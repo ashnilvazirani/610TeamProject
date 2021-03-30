@@ -63,6 +63,8 @@
 					<th scope="col">Course Description</th>
                     <th scope="col">Course Duration</th>
 					<th scope="col">Stream Name</th>
+					<th scope="col">PreReq Course Names</th>
+					
 					<th scope="col"></th>
 					<th scope="col"></th>
 					<th scope="col"></th> 
@@ -72,11 +74,31 @@
 			<tbody>
 				<#list courses as course>
 				<tr>
-					<td scope="col">${course.courseName}</td>
+					<td scope="col">
+					${course.courseName}</td>
 					<td scope="col">${course.courseDescription}</td>
                     <td scope="col">${course.courseDuration}</td>
                     <td scope="col">${course.streamName}</td>
-                    <td scope="col"><form class="form-inline" method="get" action="/addPreReqCourse">
+                    <td>
+                    <#list preReqs as k,v>
+                    <#if k == course.courseId>
+                     <#list 0..v?size-1 as i>
+                     <#if v[i]??>
+ 					 <span>${v[i].courseName}
+ 					 <#assign ls = v?size-1>
+ 					  <#if ls != i>, </#if>
+ 					 </span>
+ 					 </#if>
+ 					 </#list>
+ 					 </#if>
+					</#list>
+					</td>
+                    </td>
+                    <td scope="col">
+                    <form class="form-inline" method="POST" action="/preReqCourse">
+                    
+					<input name="courseId" id=${course.courseId} value=${course.courseId} hidden> </input>
+					
 					<button type="submit" class="btn btn-info">Add Pre-Requisite Course</button>
 				</form></td>
 

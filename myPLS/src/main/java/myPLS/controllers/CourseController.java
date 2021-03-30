@@ -13,6 +13,7 @@ import myPLS.beans.CourseGroupChat;
 import myPLS.beans.Stream;
 import myPLS.beans.User;
 import myPLS.services.CourseService;
+import myPLS.services.CourseServiceImpl;
 import myPLS.services.RegistrationService;
 import myPLS.services.CourseComponentServiceImpl;
 import myPLS.services.StreamService;
@@ -26,19 +27,23 @@ public class CourseController {
 	private static CourseService courseService;
 	private static StreamService streamService;
 	private static RegistrationService registrationService;
+	private static CourseService preReqService;
+	private ProfessorController pfController;
 
 	public CourseController() {
 		setConfiguration();
 		courseService = new CourseComponentServiceImpl();
 		streamService = new StreamServiceImpl();
 		registrationService = new RegistrationService(); 
+		preReqService = new CourseServiceImpl();
+		pfController = new ProfessorController();
 	}
 
 	public StringWriter getCourses() {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
 		Template resultTemplate;
-		List<Course> courses = courseService.getCourses();
+		List<Course> courses = (List<Course>)courseService.getCourses();
 		try {
 			resultTemplate = configuration.getTemplate("templates/adminDashboard.ftl");
 			map.put("courses", courses);
@@ -111,6 +116,47 @@ public class CourseController {
 		}
 
 		return writer;
+	}
+	
+	public StringWriter getAddPreReqCoursePage(Request request, Response response) {
+		StringWriter writer = new StringWriter();
+		Map<String, Object> map = new HashMap<String, Object>();
+		Template resultTemplate;
+		List<Course> courses = (List<Course>)courseService.getCourses();
+		try {
+			resultTemplate = configuration.getTemplate("templates/addPreReq.ftl");
+			map.put("courses", courses);
+			map.put("courseId", Integer.parseInt(request.queryParams("courseId")));
+			String msg = request.queryParams("errorMsg");
+			map.put("errorMsg", msg);
+			resultTemplate.process(map, writer);
+		} catch (Exception e) {
+			Spark.halt(500);
+		}
+		return writer;
+	}
+	
+	public StringWriter addPreReqCourse(Request request, Response response) {
+		boolean result = preReqService.addCourse(request);
+		StringWriter writer = new StringWriter();
+		Map<String, Object> map = new HashMap<String, Object>();
+		Template resultTemplate;
+		try {
+			if(result) {
+				return pfController.getProfessorDashboard(request);
+			} else {
+				resultTemplate = configuration.getTemplate("templates/addPreReq.ftl");
+				List<Course> courses = (List<Course>) courseService.getCourses();
+				map.put("courses", courses);
+				map.put("courseId", Integer.parseInt(request.queryParams("courseId")));
+				map.put("errorMsg", "Course preReq cannot be added as it's creating cyclic dependency");
+			}
+			
+			resultTemplate.process(map, writer);
+		} catch (Exception e) {
+			Spark.halt(500);
+			}
+			return writer;
 	}
 
 	public void addCourse(Request request, Response response) {
