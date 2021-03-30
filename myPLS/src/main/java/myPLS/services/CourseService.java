@@ -11,10 +11,10 @@ import spark.Request;
 public interface CourseService {
 	boolean addCourse(Request request);
 	default boolean updateCourse(Request course) {return false;}
-	List<Course> getCourses();
+	Object getCourses();
 	boolean deleteCourse(Request request);
 	Course getCourseByCourseId(Request request);
-	List<Course> getCourseByProfessorId(Request request);
+	List<Course> getCoursesById(Request request);
 	Course getCourseByCourseId(int courseId);
 	boolean createACourseGroup(Request request);
 	CourseGroup getCourseGroupByCourseId(int courseId);
