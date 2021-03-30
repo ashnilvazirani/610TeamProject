@@ -113,7 +113,7 @@ public class LearnerController {
 	}
 	public StringWriter getCourseListForLearners(Request request, Response response) {
 		StringWriter writer = new StringWriter();
-		List<Course> courses = courseService.getCourses();
+		List<Course> courses = (List<Course>)courseService.getCourses();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("courses", courses);
 		map.put("userId", request.session().attribute("userID").toString());
