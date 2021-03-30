@@ -83,10 +83,12 @@
                     <#list preReqs as k,v>
                     <#if k == course.courseId>
                      <#list 0..v?size-1 as i>
+                     <#if v[i]??>
  					 <span>${v[i].courseName}
  					 <#assign ls = v?size-1>
  					  <#if ls != i>, </#if>
  					 </span>
+ 					 </#if>
  					 </#list>
  					 </#if>
 					</#list>
