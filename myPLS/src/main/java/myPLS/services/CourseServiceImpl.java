@@ -119,4 +119,9 @@ public class CourseServiceImpl implements CourseService{
 	public List<CourseGroup> getCourseGroupForUserByUserId(int userId){
 		return this.courseDao.getCourseGroupsForUser(userId);
 	}
+	@Override
+	public boolean modifyCourse(int courseId, String operation){
+		Course c = getCourseByCourseId(courseId);
+		return this.courseDao.modifyCourse(c, operation);
+	}
 }

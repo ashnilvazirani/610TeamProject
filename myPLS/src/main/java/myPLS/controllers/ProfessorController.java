@@ -43,7 +43,6 @@ public class ProfessorController {
 		map.put("courses", courses);
 		map.put("courseGroups", courseGroups);
 		map.put("userId", request.session().attribute("userID"));
-
 		Template resultTemplate;
 		try {
 			resultTemplate = configuration.getTemplate("templates/professorDashboard.ftl");

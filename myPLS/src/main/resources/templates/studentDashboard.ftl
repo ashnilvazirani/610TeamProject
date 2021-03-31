@@ -99,18 +99,7 @@
 						</#if>
 					</#list>
 					</td>				
-						<form class="form-inline" method="get" action="/enrollCourse">
-						 <td scope="col">
-							<button type="submit" class="btn btn-info">Update Course</button>
-						</td>
-						</form>
 						
-					<!--	<form class="form-inline" method="get" action="/deleteCourse"> -->
-						 <td scope="col">
-							<button type="submit" class="btn btn-info" name="DeleteCourse" id="DeleteCourse">Delete Course</button>
-						</td>
-					<!--	</form> -->
-					
 						
 				</form>
 				</tr>
