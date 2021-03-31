@@ -46,11 +46,14 @@
                              
                             </div>
                         </form>
+                        
+                        <input onclick="goBack()" type="submit" name="Back" id="Back" style="margin:5px;" class="form-submit" value="<< Back"/>   
+                                   
                     </div>
                 </div>
             </div>
         </section>
-        
+        	
 
     </div>
     

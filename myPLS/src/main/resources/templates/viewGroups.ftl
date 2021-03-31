@@ -66,6 +66,7 @@
 					<th scope="col">Created By</th>
                     <th scope="col">View Members</th>
                     <th scope="col">Chat</th>
+                    <th scope="col">Invite Members</th>
 				</tr>
 			</thead>
 			<tbody>
