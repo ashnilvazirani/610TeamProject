@@ -46,7 +46,7 @@ public class CourseComponentServiceImpl implements CourseService {
 	}
 
 	@Override
-	public List<Course> getCourses() {
+	public Object getCourses() {
 		return courseDao.getCourses();
 	}
 
@@ -65,8 +65,9 @@ public class CourseComponentServiceImpl implements CourseService {
 		return courseDao.getCourse(courseId);
 	}
 	@Override
-	public List<Course> getCourseByProfessorId(Request request) {
-		return courseDao.getCourseById(request.session().attribute("userID"));
+	public List<Course> getCoursesById(Request request) {
+		int id = request.session().attribute("userID");
+		return courseDao.getCourseById(id);
 	}
 
 	@Override

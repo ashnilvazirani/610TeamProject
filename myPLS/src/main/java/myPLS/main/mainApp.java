@@ -162,6 +162,14 @@ public class mainApp {
 		post("/addStudentFeedback",(request,response) -> {
 			return feedbackController.addStudentFeedback(request,response);
 		});
+		
+		post("/preReqCourse", (request, response) -> {
+				return courseController.getAddPreReqCoursePage(request,response);
+	    });
+		
+		post("/addPreReqCourse", (request, response) -> {
+			return courseController.addPreReqCourse(request,response);
+    });
         
 	}
 }
