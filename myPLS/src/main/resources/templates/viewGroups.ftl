@@ -64,7 +64,8 @@
 					<th scope="col">Group Name</th>
                     <th scope="col">Group Topic</th>
 					<th scope="col">Created By</th>
-                    
+                    <th scope="col">View Members</th>
+                    <th scope="col">Chat</th>
 				</tr>
 			</thead>
 			<tbody>
