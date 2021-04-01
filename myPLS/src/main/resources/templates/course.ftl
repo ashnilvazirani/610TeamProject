@@ -111,6 +111,7 @@
 							</div>
                             <div class="form-group form-button">
                                <input type="submit" name="add" id="add" class="form-submit" style="margin:5px;" value="Add Course" />
+
 							</div>
 							</form>
 								
@@ -118,7 +119,7 @@
          	  					<form method="get" action="/enrollCourses">
                                <input type="submit" name="add" id="add" class="form-submit" style="margin:5px;" value="View Courses" />
                                </form>
-          
+      
                                <input onclick="goBack()" type="submit" name="Back" id="Back" style="margin:5px;" class="form-submit" value="<< Back"/>
                               
                             </div>                       

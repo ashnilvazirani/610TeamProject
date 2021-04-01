@@ -40,7 +40,8 @@
 				<tr>
 					<th scope="col">Student Name</th>
 					<th scope="col">Student Email</th>
-					<th scope="col"></th>
+					<th scope="col">Feedback</th>
+					<th scope="col">Add Member</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -86,6 +87,14 @@
 				</#list>
 			</tbody>
 		</table>
+			<button onclick="goBack()" class="btn btn-info"	>&laquo; Back</button>
 	</div>
+	
+		 <script type="text/javascript">
+	    <#include "/static/js/jquery.min.js">
+	    function goBack() {
+  		window.history.back();}
+	</script>	
+	
 </body>
 </html>

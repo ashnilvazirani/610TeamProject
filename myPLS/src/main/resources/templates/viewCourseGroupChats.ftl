@@ -43,17 +43,30 @@
                             </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="postMessage" id="postMessage" class="form-submit" value="Post Message"/>
+                             
                             </div>
                         </form>
+                        
+                        <input onclick="goBack()" type="submit" name="Back" id="Back" style="margin:5px;" class="form-submit" value="<< Back"/>   
+                                   
                     </div>
                 </div>
             </div>
         </section>
+        	
 
     </div>
+    
+    	
 
     <!-- JS -->
     <script src="js/jquery.min.js"></script>
     <script src="js/main.js"></script>
+    
+    	 <script type="text/javascript">
+	    <#include "/static/js/jquery.min.js">
+	    function goBack() {
+  		window.history.back();}
+	</script>	
 </body>
 </html>
