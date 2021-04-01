@@ -74,8 +74,14 @@
 					<th scope="col">Course Name</th>
 					<th scope="col">Course Teacher</th>
                     <th scope="col">Stream</th>
+
+                    <th scope="col">Active Groups</th>
+                    <#--  <th scope="col"></th>
+                    <th scope="col"></th>  -->
+
                     <th scope="col"></th>
                    
+
 				</tr>
 			</thead>
 			<tbody>
@@ -86,14 +92,26 @@
 					<td scope="col">${course.courseDescription}</td>
                     <td scope="col">${course.courseDuration}</td>
                     <td scope="col">${course.streamName}</td>
+
+					<td scope="col">
+                    <#list myCourseGroups as myGroup>
+						<#if myGroup.courseID == course.courseId>
+							<form class="form-inline" method="POST" action="/courseGroupChat">
+								<button type="submit" class="btn btn-info">ViewGroupChats</button>
+								<input id="courseGroupID" name="courseGroupID" type="hidden" value="${myGroup.courseGroupID}"/>
+							</form>
+						</#if>
+					</#list>
+					</td>				
 						
+
 					<!--	<form class="form-inline" method="get" action="/deleteCourse"> -->
 						 <td scope="col">
 							<button type="submit" class="btn btn-info" name="DeleteCourse" id="DeleteCourse">Remove Course</button>
 						</td>
 					<!--	</form> -->
 					
-						
+
 				</form>
 				</tr>
 				</#list>

@@ -152,6 +152,13 @@ public class CourseServiceImpl implements CourseService {
 		return this.courseDao.getCourseGroupsForUser(userId);
 	}
 
+	@Override
+	public boolean modifyCourse(int courseId, String operation){
+		Course c = getCourseByCourseId(courseId);
+		return this.courseDao.modifyCourse(c, operation);
+	}
+
+
 	private boolean detectCycle(int courseId, int preReqCourseId) {
 		final Map<Integer, List<Integer>> adj = this.preReqs;
 		if (adj.get(courseId) != null) {

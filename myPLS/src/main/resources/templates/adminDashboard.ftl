@@ -76,7 +76,20 @@
 					<td scope="col">${course.courseDescription}</td>
                     <td scope="col">${course.courseDuration}</td>
                     <td scope="col">${course.streamName}</td>
-                    
+					<#--  <form class="form-inline" method="POST" action="/modifyCourse">
+						<td scope="col">
+							<button type="submit" name="updateCourse" class="btn btn-info">Update Course</button>
+							<input name="courseId" value="${course.courseId}" hidden/>
+						</td>
+					</form>  -->
+						
+					<form class="form-inline" method="POST" action="/modifyCourse"> 
+						 <td scope="col">
+							<button type="submit" class="btn btn-info" name="deleteCourse" id="DeleteCourse">Delete Course</button>
+							<input name="courseId" value="${course.courseId}" hidden/>
+						</td>
+					</form> 
+					
 				</tr>
 				</#list>
 			</tbody>
