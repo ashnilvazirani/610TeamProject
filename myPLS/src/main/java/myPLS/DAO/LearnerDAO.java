@@ -175,6 +175,21 @@ public class LearnerDAO {
 		}
 		return users;
 	}
-
+	public boolean leaveCourseForStudent(int courseId, int userId){
+		final String LC = "UPDATE learner SET isDeleted=1 WHERE courseId=? AND userId = ?";
+		boolean result = false;
+		try (Connection conn = JDBCConnection.geConnection();
+				PreparedStatement preparedStatement = conn.prepareStatement(LC)) {
+			preparedStatement.setInt(1, courseId);
+			preparedStatement.setInt(2, userId);
+			int row = preparedStatement.executeUpdate();
+			result = row > 0 ? true : false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
 
