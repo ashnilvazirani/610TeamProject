@@ -76,9 +76,9 @@
 					<th scope="col">Course Name</th>
 					<th scope="col">Course Teacher</th>
                     <th scope="col">Stream</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
+                    <th scope="col">Active Groups</th>
+                    <#--  <th scope="col"></th>
+                    <th scope="col"></th>  -->
 				</tr>
 			</thead>
 			<tbody>

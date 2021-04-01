@@ -43,7 +43,7 @@ public class LearnerDAO {
 	}
 
 	public boolean enrollCourse(Learner learner) {
-		final String LEARNER_EROLLMENT = "INSERT INTO LEARNER (userId, courseId, streamId, isDeleted) VALUES (?,?,?)";
+		final String LEARNER_EROLLMENT = "INSERT INTO LEARNER (userId, courseId, streamId, isDeleted) VALUES (?,?,?,?)";
 		boolean result = false;
 		try (Connection conn = JDBCConnection.geConnection();
 				PreparedStatement preparedStatement = conn.prepareStatement(LEARNER_EROLLMENT)) {
@@ -51,9 +51,6 @@ public class LearnerDAO {
 			preparedStatement.setInt(2, learner.getCourseID());
 			preparedStatement.setInt(3, learner.getStreamID());
 			preparedStatement.setInt(4, 0);
-
-
-
 			int row = preparedStatement.executeUpdate();
 			result = row > 0 ? true : false;
 		} catch (SQLException e) {
