@@ -24,5 +24,7 @@ public interface CourseService {
 	int addMessageToCourseGroup(Request request);
 	List<CourseGroupMembers> getCourseGroupMemberFromCourseGroupId(int courseGroupId);
 	boolean addRemoveMemberCourseGroup(int courseId, int userId, int operation);
-	
+	public boolean modifyCourse(int courseId, String operation);
+	public boolean leaveCourseForStudent(int courseId,int userId);
+
 }

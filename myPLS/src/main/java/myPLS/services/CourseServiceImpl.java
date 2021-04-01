@@ -7,6 +7,7 @@ import java.util.Map;
 
 import myPLS.DAO.CourseDAO;
 import myPLS.DAO.CourseDAOImpl;
+import myPLS.DAO.LearnerDAO;
 import myPLS.DAO.PreReqCourseDAO;
 import myPLS.DAO.PreReqCourseDAOImpl;
 import myPLS.beans.Course;
@@ -21,12 +22,13 @@ public class CourseServiceImpl implements CourseService {
 	private Map<Integer, List<Integer>> preReqs;
 	private PreReqCourseDAO preReqCourseDao;
 	private UserService userService;
-
+	private LearnerDAO learnerDAO;
 	public CourseServiceImpl() {
 		this.courseDao = new CourseDAOImpl();
 		this.preReqs = new HashMap<Integer, List<Integer>>();
 		this.preReqCourseDao = new PreReqCourseDAOImpl();
 		this.userService = new UserService();
+		this.learnerDAO = new LearnerDAO();
 	}
 
 	/**
@@ -152,6 +154,13 @@ public class CourseServiceImpl implements CourseService {
 		return this.courseDao.getCourseGroupsForUser(userId);
 	}
 
+	@Override
+	public boolean modifyCourse(int courseId, String operation){
+		Course c = getCourseByCourseId(courseId);
+		return this.courseDao.modifyCourse(c, operation);
+	}
+
+
 	private boolean detectCycle(int courseId, int preReqCourseId) {
 		final Map<Integer, List<Integer>> adj = this.preReqs;
 		if (adj.get(courseId) != null) {
@@ -203,5 +212,8 @@ public class CourseServiceImpl implements CourseService {
 		recStack.put(i, false);
 		return false;
 	}
-
+	@Override
+	public boolean leaveCourseForStudent(int courseId,int userId){
+		return this.learnerDAO.leaveCourseForStudent(courseId, userId);
+	}
 }

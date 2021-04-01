@@ -101,11 +101,30 @@ public class CourseController {
 				response.redirect("/enrolledLearners?courseId="+courseId);
 		return true;
 	}
-	public StringWriter getAddCoursePage() {
+	public void modifyCourse(Request request,Response response){
+		int courseId = Integer.parseInt(request.queryParams("courseId"));
+		String operation="";
+		if(request.queryParams("deleteCourse")!=null){
+			operation="DELETE";
+		}else if(request.queryParams("updateCourse")!=null){
+			operation="UPDATE";
+			this.getAddCoursePage(operation, courseId);
+		}
+		if(this.courseService.modifyCourse(courseId, operation)){
+			response.redirect("/courses");
+		}else{
+			System.out.println("ERROR");
+		}
+	}
+	public StringWriter getAddCoursePage(String operation, int courseId) {
 		StringWriter writer = new StringWriter();
 		Map<String,Object> map = new HashMap<String, Object>();
 		List<Stream> streams = streamService.getStreams();
 		List<User> professors = registrationService.getUsersByRole("professor");
+		if(operation.equalsIgnoreCase("UPDATE") && courseId>0){
+			Course c = this.courseService.getCourseByCourseId(courseId);
+			map.put("courseToUpdate", c);
+		}
 		map.put("streams", streams);
 		map.put("professors", professors);
 		try {

@@ -80,7 +80,7 @@ public class mainApp {
             return adminController.viewGroupChats(request, response);
         });
         get("/addCourse", (request, response) -> {
-        	return courseController.getAddCoursePage();
+        	return courseController.getAddCoursePage("", -1);
         });
         get("/createGroup", (request, response) -> {
         	return adminController.getGroupDiscussionPage(request, response);
@@ -99,10 +99,20 @@ public class mainApp {
         get("/courses",(request,response) -> {
         	return courseController.getCourses();
         });
+		post("/modifyCourse",(request,response) -> {
+        	courseController.modifyCourse(request, response);
+			return 0;
+        });
+		
         
         get("/studentDashboard",(request,response) -> {
         	return learnerController.getLearnerDashboard(request);
         });
+		post("/leaveCourse",(request,response) -> {
+        	learnerController.leaveCourse(request, response);
+			return 0;
+        });
+			
 		get("/enrollForCourses",(request,response) -> {
         	return learnerController.getCourseListForLearners(request, response);
         });
@@ -153,7 +163,7 @@ public class mainApp {
 		post("/learnerFeedback",(request,response) -> {
 			return feedbackController.getStudentFeedbackPage(request);
 		});
-		
+
 		post("/addStudentFeedback",(request,response) -> {
 			return feedbackController.addStudentFeedback(request,response);
 		});

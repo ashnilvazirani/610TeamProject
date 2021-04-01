@@ -23,4 +23,5 @@ public interface CourseDAO {
 	boolean addRemoveMemberCourseGroup(int courseId, int userID, int operation);
 	List<CourseGroup> getCourseGroupByUserId(int userId);
 	List<CourseGroup> getCourseGroupsForUser(int userId);
+	public boolean modifyCourse(Course c, String operation);
 }
