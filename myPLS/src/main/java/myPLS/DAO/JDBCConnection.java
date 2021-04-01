@@ -8,7 +8,7 @@ public class JDBCConnection {
 	private static Connection con;
 
 	public static Connection geConnection() {
-		String jdbcURL = "jdbc:mysql://localhost:3306/myPLS?allowPublicKeyRetrieval=true&useSSL=false";
+		String jdbcURL = "jdbc:mysql://localhost:3306/myPLS?allowPublicKeyRetrieval=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		String jdbcUser = "root";
 		String jdbcPwd = "Ashnil@1998";
 		try {

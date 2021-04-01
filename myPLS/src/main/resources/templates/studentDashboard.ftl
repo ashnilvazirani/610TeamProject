@@ -66,9 +66,7 @@
 	</div>
 
 	<div class="container">
-	<form class="form-inline" method="get" action="/enrollCourse">
-		<button type="submit" class="btn btn-info">Add Course</button>	
-	</form>
+	
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
@@ -76,9 +74,14 @@
 					<th scope="col">Course Name</th>
 					<th scope="col">Course Teacher</th>
                     <th scope="col">Stream</th>
+
+                    <th scope="col">Active Groups</th>
+                    <#--  <th scope="col"></th>
+                    <th scope="col"></th>  -->
+
                     <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
+                   
+
 				</tr>
 			</thead>
 			<tbody>
@@ -89,6 +92,7 @@
 					<td scope="col">${course.courseDescription}</td>
                     <td scope="col">${course.courseDuration}</td>
                     <td scope="col">${course.streamName}</td>
+
 					<td scope="col">
                     <#list myCourseGroups as myGroup>
 						<#if myGroup.courseID == course.courseId>
@@ -99,19 +103,16 @@
 						</#if>
 					</#list>
 					</td>				
-						<form class="form-inline" method="get" action="/enrollCourse">
-						 <td scope="col">
-							<button type="submit" class="btn btn-info">Update Course</button>
-						</td>
-						</form>
 						
-					<!--	<form class="form-inline" method="get" action="/deleteCourse"> -->
+
+					<form class="form-inline" method="POST" action="/leaveCourse"> 
 						 <td scope="col">
-							<button type="submit" class="btn btn-info" name="DeleteCourse" id="DeleteCourse">Delete Course</button>
+							<button type="submit" class="btn btn-info" name="leaveCourse" id="leaveCourse">Leave Course</button>
+							<input id="courseId" name="courseId" type="hidden" value="${course.courseId}"/>
+							<input id="userId" name="userId" type="hidden" value="${userID}"/>
 						</td>
-					<!--	</form> -->
+					</form>
 					
-						
 				</form>
 				</tr>
 				</#list>

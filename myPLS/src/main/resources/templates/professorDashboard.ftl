@@ -65,10 +65,10 @@
 					<th scope="col">Stream Name</th>
 					<th scope="col">PreReq Course Names</th>
 					
-					<th scope="col"></th>
-					<th scope="col"></th>
-					<th scope="col"></th> 
-					<th scope="col"></th>                    
+					<th scope="col">Add Pre-Requisite Course</th>
+					<th scope="col">Manage Students</th>
+					<th scope="col">View Group Chats</th> 
+					                 
 				</tr>
 			</thead>
 			<tbody>
@@ -99,13 +99,13 @@
                     
 					<input name="courseId" id=${course.courseId} value=${course.courseId} hidden> </input>
 					
-					<button type="submit" class="btn btn-info">Add Pre-Requisite Course</button>
+					<button type="submit" class="btn btn-info">Add Pre-Req</button>
 				</form></td>
 
 				<td>
 					<form class="form-inline" method="GET" action="/enrolledLearners">
 						<input name="courseId" id=${course.courseId} value=${course.courseId} hidden/>
-						<button type="submit" class="btn btn-info">Manage Students</button>
+						<button type="submit" class="btn btn-info">Manage</button>
 					</form>
 				</td>
 				<td scope="col">
@@ -123,7 +123,7 @@
 						</form>
 					<#else>
 						<form class="form-inline" method="POST" action="/courseGroupChat">
-							<button type="submit" class="btn btn-info">ViewGroupChats</button>
+							<button type="submit" class="btn btn-info">View Chats</button>
 							<input id="courseGroupID" name="courseGroupID" type="hidden" value="${courseGroupID}"/>
 						</form>
 					</#if>

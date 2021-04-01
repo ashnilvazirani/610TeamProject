@@ -8,7 +8,16 @@ public class Course {
     private int streamID;
     private String streamName;
     private int professorId;
-    
+    private int isDeleted;
+
+    public int getIsDeleted() {
+        return this.isDeleted;
+    }
+
+    public void setIsDeleted(int isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
     public int getStreamID() {
         return this.streamID;
     }
