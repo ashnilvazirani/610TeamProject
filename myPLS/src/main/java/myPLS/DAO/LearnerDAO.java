@@ -24,7 +24,7 @@ public class LearnerDAO {
 	}
 
 	public Map<Integer, Learner> getAllLearners() {
-		final String selectQuery = "SELECT * FROM LEARNER WHERE isDeleted=0";
+		final String selectQuery = "SELECT * FROM LEARNER";
 		try (Connection conn = JDBCConnection.geConnection(); Statement stmt = conn.createStatement();) {
 			ResultSet rs = stmt.executeQuery(selectQuery);
 			Map<Integer, Learner> data = new HashMap<>();
@@ -43,14 +43,13 @@ public class LearnerDAO {
 	}
 
 	public boolean enrollCourse(Learner learner) {
-		final String LEARNER_EROLLMENT = "INSERT INTO LEARNER (userId, courseId, streamId, isDeleted) VALUES (?,?,?,?)";
+		final String LEARNER_EROLLMENT = "INSERT INTO LEARNER (userId, courseId, streamId) VALUES (?,?,?)";
 		boolean result = false;
 		try (Connection conn = JDBCConnection.geConnection();
 				PreparedStatement preparedStatement = conn.prepareStatement(LEARNER_EROLLMENT)) {
 			preparedStatement.setInt(1, learner.getUserID());
 			preparedStatement.setInt(2, learner.getCourseID());
 			preparedStatement.setInt(3, learner.getStreamID());
-			preparedStatement.setInt(4, 0);
 			int row = preparedStatement.executeUpdate();
 			result = row > 0 ? true : false;
 		} catch (SQLException e) {
@@ -100,7 +99,7 @@ public class LearnerDAO {
 	}
 
 	public List<Course> getEnrolledCourses(int userId) {
-		final String ENROLLED_COURSES = "select * from course where courseId in (select courseId from learner where userId = ? AND isDeleted=0)";
+		final String ENROLLED_COURSES = "select * from course where courseId in (select courseId from learner where userId = ?)";
 		List<Course> courses = new ArrayList<Course>();
 		try (Connection conn = JDBCConnection.geConnection();
 				PreparedStatement preparedStatement = conn.prepareStatement(ENROLLED_COURSES)) {
@@ -126,7 +125,7 @@ public class LearnerDAO {
 	}
 	
 	public List<Course> getUnEnrolledCourses(int userId) {
-		final String ENROLLED_COURSES = "select * from course where courseId not in (select courseId from learner where userId = ? AND isDeleted=0)";
+		final String ENROLLED_COURSES = "select * from course where courseId not in (select courseId from learner where userId = ?)";
 		List<Course> courses = new ArrayList<Course>();
 		try (Connection conn = JDBCConnection.geConnection();
 				PreparedStatement preparedStatement = conn.prepareStatement(ENROLLED_COURSES)) {
@@ -153,7 +152,7 @@ public class LearnerDAO {
 	
 	public List<User> getLearnersEnrolledList(int courseId) {
         System.out.println(courseId);
-		final String ENROLLED_STUDENTS = "select * from user where userId in (select userId from learner where courseId = ? AND isDeleted=0)";
+		final String ENROLLED_STUDENTS = "select * from user where userId in (select userId from learner where courseId = ?)";
 		List<User> users = new ArrayList<User>();
 		try (Connection conn = JDBCConnection.geConnection();
 				PreparedStatement preparedStatement = conn.prepareStatement(ENROLLED_STUDENTS)) {
@@ -175,21 +174,6 @@ public class LearnerDAO {
 		}
 		return users;
 	}
-	public boolean leaveCourseForStudent(int courseId, int userId){
-		final String LC = "UPDATE learner SET isDeleted=1 WHERE courseId=? AND userId = ?";
-		boolean result = false;
-		try (Connection conn = JDBCConnection.geConnection();
-				PreparedStatement preparedStatement = conn.prepareStatement(LC)) {
-			preparedStatement.setInt(1, courseId);
-			preparedStatement.setInt(2, userId);
-			int row = preparedStatement.executeUpdate();
-			result = row > 0 ? true : false;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
+
 }
 
