@@ -68,7 +68,7 @@
 					<th scope="col">Add Pre-Requisite Course</th>
 					<th scope="col">Manage Students</th>
 					<th scope="col">View Group Chats</th> 
-					                 
+
 				</tr>
 			</thead>
 			<tbody>
@@ -82,15 +82,15 @@
                     <td>
                     <#list preReqs as k,v>
                     <#if k == course.courseId>
-                     <#list 0..v?size-1 as i>
-                     <#if v[i]??>
- 					 <span>${v[i].courseName}
- 					 <#assign ls = v?size-1>
- 					  <#if ls != i>, </#if>
- 					 </span>
- 					 </#if>
- 					 </#list>
- 					 </#if>
+                    <#list 0..v?size-1 as i>
+                    <#if v[i]??>
+					<span>${v[i].courseName}
+					<#assign ls = v?size-1>
+						<#if ls != i>, </#if>
+							</span>
+						</#if>
+					</#list>
+					</#if>
 					</#list>
 					</td>
                     </td>
@@ -106,6 +106,12 @@
 					<form class="form-inline" method="GET" action="/enrolledLearners">
 						<input name="courseId" id=${course.courseId} value=${course.courseId} hidden/>
 						<button type="submit" class="btn btn-info">Manage</button>
+					</form>
+				</td>
+				<td>
+					<form class="form-inline" method="GET" action="/addQuestions">
+						<input name="courseId" id=${course.courseId} value=${course.courseId} hidden/>
+						<button type="submit" class="btn btn-info">Create Questions</button>
 					</form>
 				</td>
 				<td scope="col">
