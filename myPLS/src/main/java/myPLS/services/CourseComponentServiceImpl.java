@@ -4,7 +4,6 @@ import java.util.List;
 
 import myPLS.DAO.CourseDAO;
 import myPLS.DAO.CourseDAOImpl;
-import myPLS.DAO.LearnerDAO;
 import myPLS.beans.Course;
 import myPLS.beans.CourseGroup;
 import myPLS.beans.CourseGroupChat;
@@ -14,11 +13,9 @@ import spark.Request;
 public class CourseComponentServiceImpl implements CourseService {
     private CourseDAO courseDao;
 	private UserService userService;
-	private LearnerDAO learnerDAO;
     public CourseComponentServiceImpl() {
 		this.courseDao = new CourseDAOImpl();
 		this.userService = new UserService();
-		this.learnerDAO = new LearnerDAO();
 	}
 	@Override
 	public List<CourseGroupMembers> getCourseGroupMemberFromCourseGroupId(int courseGroupId){
@@ -117,9 +114,5 @@ public class CourseComponentServiceImpl implements CourseService {
 	public boolean modifyCourse(int courseId, String operation){
 		Course c = getCourseByCourseId(courseId);
 		return this.courseDao.modifyCourse(c, operation);
-	}
-	@Override
-	public boolean leaveCourseForStudent(int courseId,int userId){
-		return this.learnerDAO.leaveCourseForStudent(courseId, userId);
 	}
 }

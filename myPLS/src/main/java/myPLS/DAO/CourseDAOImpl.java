@@ -52,23 +52,23 @@ public class CourseDAOImpl implements CourseDAO {
 		return result;
 	}
 	public boolean modifyCourse(Course c, String operation){
-		if(operation.equalsIgnoreCase("DELETE")){
-			final String DELETE_COURSE = "UPDATE Course SET isDeleted = 1 WHERE courseId = ?";
-			final String REMOVE_LEARNERS = "UPDATE learner SET isDeleted=1 WHERE courseId=?";
-			try (Connection conn = JDBCConnection.geConnection();
-			PreparedStatement preparedStatement = conn.prepareStatement(DELETE_COURSE)) {
-				preparedStatement.setInt(1, c.getCourseId());
-				preparedStatement.executeUpdate();
-				PreparedStatement ps = conn.prepareStatement(REMOVE_LEARNERS);
-				ps.setInt(1, c.getCourseId());
-				ps.executeUpdate();
-				return true;
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-		}else if(operation.equalsIgnoreCase("UPDATE")){
-			
-		}
+//		if(operation.equalsIgnoreCase("DELETE")){
+////			final String DELETE_COURSE = "UPDATE Course SET isDeleted = 1 WHERE courseId = ?";
+////			final String REMOVE_LEARNERS = "UPDATE learner SET isDeleted=1 WHERE courseId=?";
+//			try (Connection conn = JDBCConnection.geConnection();
+//			PreparedStatement preparedStatement = conn.prepareStatement(DELETE_COURSE)) {
+//				preparedStatement.setInt(1, c.getCourseId());
+//				preparedStatement.executeUpdate();
+//				PreparedStatement ps = conn.prepareStatement(REMOVE_LEARNERS);
+//				ps.setInt(1, c.getCourseId());
+//				ps.executeUpdate();
+//				return true;
+//			}catch(Exception e){
+//				e.printStackTrace();
+//			}
+//		}else if(operation.equalsIgnoreCase("UPDATE")){
+//			
+//		}
 		return false;
 	}
 	@Override
@@ -93,7 +93,7 @@ public class CourseDAOImpl implements CourseDAO {
 
 	@Override
 	public List<Course> getCourses() {
-		final String GET_COURSES = "SELECT * FROM Course WHERE isDeleted=0";
+		final String GET_COURSES = "SELECT * FROM Course";
 		List<Course> courses = new ArrayList<>();
 		try (Connection conn = JDBCConnection.geConnection();
 				PreparedStatement preparedStatement = conn.prepareStatement(GET_COURSES)) {
@@ -118,24 +118,24 @@ public class CourseDAOImpl implements CourseDAO {
 
 	@Override
 	public boolean deleteCourse(int id) {
-		final String DELETE_COURSE = "DELETE from Course where courseId = ? and isDeleted=0";
+//		final String DELETE_COURSE = "DELETE from Course where courseId = ? and isDeleted=0";
 		boolean result = false;
-		try (Connection conn = JDBCConnection.geConnection();
-				PreparedStatement preparedStatement = conn.prepareStatement(DELETE_COURSE)) {
-			preparedStatement.setInt(1, id);
-			int row = preparedStatement.executeUpdate();
-			result = row > 0 ? true : false;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try (Connection conn = JDBCConnection.geConnection();
+//				PreparedStatement preparedStatement = conn.prepareStatement(DELETE_COURSE)) {
+//			preparedStatement.setInt(1, id);
+//			int row = preparedStatement.executeUpdate();
+//			result = row > 0 ? true : false;
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		return result;
 	}
 
 	@Override
 	public Course getCourse(int id) {
-		final String GET_COURSES = "SELECT * FROM Course where courseId = ? AND isDeleted=0";
+		final String GET_COURSES = "SELECT * FROM Course where courseId = ?";
 		Course course = new Course();
 		try (Connection conn = JDBCConnection.geConnection();
 				PreparedStatement preparedStatement = conn.prepareStatement(GET_COURSES)) {
@@ -203,7 +203,7 @@ public class CourseDAOImpl implements CourseDAO {
 	}
 	@Override
 	public List<Course> getCourseById(int id) {
-		final String GET_COURSES = "SELECT * FROM Course where professorId = ? and isDeleted=0";
+		final String GET_COURSES = "SELECT * FROM Course where professorId = ?";
 		List<Course> courses = new ArrayList<Course>();
 		try (Connection conn = JDBCConnection.geConnection();
 				PreparedStatement preparedStatement = conn.prepareStatement(GET_COURSES)) {

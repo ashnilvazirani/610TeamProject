@@ -108,11 +108,6 @@ public class mainApp {
         get("/studentDashboard",(request,response) -> {
         	return learnerController.getLearnerDashboard(request);
         });
-		post("/leaveCourse",(request,response) -> {
-        	learnerController.leaveCourse(request, response);
-			return 0;
-        });
-			
 		get("/enrollForCourses",(request,response) -> {
         	return learnerController.getCourseListForLearners(request, response);
         });

@@ -38,7 +38,9 @@ public class LearnerController {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Course> courses = learnerService.getEnrolledCourses(request);
+		System.out.println("USER ID: "+request.session().attribute("userID"));
 		List<CourseGroup> myCourseGroups = this.courseService.getCourseGroupForUserByUserId(request.session().attribute("userID"));
+		System.out.println("MY H+GRP:"+myCourseGroups.size());
 		Template resultTemplate;
 		try {
 			resultTemplate = configuration.getTemplate("templates/studentDashboard.ftl");
@@ -51,13 +53,7 @@ public class LearnerController {
 		}
 		return writer;
 	}
-    public void leaveCourse(Request request, Response response){
-		int courseId = Integer.parseInt(request.queryParams("courseId"));
-		int userId = Integer.parseInt(request.queryParams("userId"));
-		if(this.courseService.leaveCourseForStudent(courseId, userId)){
-			response.redirect("/studentDashboard");
-		}
-	}
+    
     public StringWriter getAllCourses(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
