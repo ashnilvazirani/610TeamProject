@@ -105,14 +105,13 @@
 					</td>				
 						
 
-					<form class="form-inline" method="POST" action="/leaveCourse"> 
+					<!--	<form class="form-inline" method="get" action="/deleteCourse"> 
 						 <td scope="col">
-							<button type="submit" class="btn btn-info" name="leaveCourse" id="leaveCourse">Leave Course</button>
-							<input id="courseId" name="courseId" type="hidden" value="${course.courseId}"/>
-							<input id="userId" name="userId" type="hidden" value="${userID}"/>
+							<button type="submit" class="btn btn-info" name="DeleteCourse" id="DeleteCourse">Remove Course</button>
 						</td>
-					</form>
+					</form> -->
 					
+
 				</form>
 				</tr>
 				</#list>
