@@ -83,12 +83,12 @@
 						</td>
 					</form>  -->
 						
-					<form class="form-inline" method="POST" action="/modifyCourse"> 
+					<!-- <form class="form-inline" method="POST" action="/modifyCourse"> 
 						 <td scope="col">
 							<button type="submit" class="btn btn-info" name="deleteCourse" id="DeleteCourse">Delete Course</button>
 							<input name="courseId" value="${course.courseId}" hidden/>
 						</td>
-					</form> 
+					</form>  -->
 					
 				</tr>
 				</#list>
