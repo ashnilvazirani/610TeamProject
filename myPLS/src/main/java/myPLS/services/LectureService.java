@@ -11,4 +11,5 @@ public interface LectureService {
 	void upload(Request request);
 	List<Lecture> getLectures(Request request);
 	List<Lecture> getLecture(Request request);
+	Map<String, String> updateLecture(Request request);
 }

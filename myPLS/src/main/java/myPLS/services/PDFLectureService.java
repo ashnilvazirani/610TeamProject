@@ -33,7 +33,6 @@ public class PDFLectureService implements LectureService {
 				request.queryParams("lectureName") != null ? request.queryParams("lectureName") : "unknown");
 		lecture.setLectureDescription(
 				request.queryParams("lectureDesc") != null ? request.queryParams("lectureDesc") : "unknown");
-		request.session().attribute("lectureId", map);
 		if (lectureDAO.addLecture(lecture)) {
 			map.put("message", "Course enrolled successfully");
 		}
@@ -70,6 +69,23 @@ public class PDFLectureService implements LectureService {
 		int lectureId = Integer
 				.parseInt(request.queryParams("lectureId") != null ? request.queryParams("lectureId") : "unknown");
 		return lectureDAO.getLecture(lectureId);
+	}
+	
+	@Override
+	public Map<String, String> updateLecture(Request request) {
+		Lecture lecture = new Lecture();
+		Map<String, String> map = new HashMap<>();
+		lecture.setLectureName(
+				request.queryParams("lectureName") != null ? request.queryParams("lectureName") : "unknown");
+		lecture.setLectureDescription(
+				request.queryParams("lectureDescription") != null ? request.queryParams("lectureDescription") : "unknown");
+		lecture.setLectureId(Integer
+				.parseInt(request.queryParams("lectureId") != null ? request.queryParams("lectureId") : "unknown"));
+		if (lectureDAO.updateLecture(lecture)) {
+			map.put("message", "lecture updated successfully");
+		}
+		return map;
+
 	}
 
 }

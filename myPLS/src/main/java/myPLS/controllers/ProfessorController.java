@@ -298,6 +298,33 @@ public class ProfessorController {
 			}
 			return writer;
 		}
+		public Object getEditLecturePage(Request request, Response response) {
+			StringWriter writer = new StringWriter();
+			Map<String, Object> map = new HashMap<String, Object>();
+			int lectureId = Integer.parseInt(request.queryParams("lectureId"));
+			List<Lecture> lectures =  lectureDao.getLecture(lectureId);
+			map.put("lecture", lectures.get(0));
+			Template resultTemplate;
+			try {
+				resultTemplate = configuration.getTemplate("templates/editLecture.ftl");
+				resultTemplate.process(map, writer);
+			} catch (Exception e) {
+				Spark.halt(500);
+			}
+			return writer;
+		}
+		public Object updateLecture(Request request, Response response) {
+	    	LectureService lectureService =  lectureFactory.createLecture("PDF");
+	    	lectureService.updateLecture(request);
+			response.redirect("/getLectures");
+			return null;
+		}
+		public Object deleteLecture(Request request, Response response) {
+			int lectureId = Integer.parseInt(request.queryParams("lectureId"));
+	    	lectureDao.deleteLecture(lectureId);
+			response.redirect("/getLectures");
+			return null;
+		}
 		
 		
 		

@@ -39,7 +39,8 @@
 					<th scope="col">Lecture Description</th>
 					<th scope="col"></th>
 					<th scope="col"></th>
-                    
+					<th scope="col"></th>
+					<th scope="col"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -65,6 +66,21 @@
 							<button type="submit" class="btn btn-info">Get Lectures Content</button></td>
 						</form>
 						
+						<form method="POST" class="register-form" id="get-form" name="editLecture"  action="/editLecture">
+						<td scope="col" hidden>
+							<input name="lectureId" id=${lectures[i].lectureId} value=${lectures[i].lectureId} hidden>${lectures[i].lectureId} </input>
+							</td>
+							<td scope="col">
+							<button type="submit" class="btn btn-info">Edit Lecture</button></td>
+						</form>
+						
+						<form method="POST" class="register-form" id="get-form" name="editLecture"  action="/deleteLecture">
+						<td scope="col" hidden>
+							<input name="lectureId" id=${lectures[i].lectureId} value=${lectures[i].lectureId} hidden>${lectures[i].lectureId} </input>
+							</td>
+							<td scope="col">
+							<button type="submit" class="btn btn-info">Delete Lecture</button></td>
+						</form>
 					</tr>
 				</#list>
 			</tbody>

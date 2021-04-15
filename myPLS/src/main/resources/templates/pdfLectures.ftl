@@ -27,7 +27,7 @@
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<h1 class="lead">
-			Lectures List
+			Lectures Content
 			</h1>
 		</div>
 	</div>

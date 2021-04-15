@@ -157,5 +157,58 @@ public class LectureDAO {
 		return lectures;
 	}
 
+	public boolean updateLecture(Lecture lecture) {
+		final String UPDATE_LECTURE = "UPDATE LECTURE set lectureName = ?, lectureDescription = ? where lectureId = ?";
+		boolean result = false;
+		try (Connection conn = JDBCConnection.geConnection();
+				PreparedStatement preparedStatement = conn.prepareStatement(UPDATE_LECTURE)) {
+			preparedStatement.setString(1, lecture.getLectureName());
+			preparedStatement.setString(2, lecture.getLectureDescription());
+			preparedStatement.setInt(3, lecture.getLectureId());
+			int row = preparedStatement.executeUpdate();
+			result = row > 0 ? true : false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+
+	}
+	
+	public boolean deleteLecture(int lectureId) {
+		this.deletePdfLecture(lectureId);
+		final String DELETE_LECTURE = "delete from  LECTURE where lectureId = ?";
+		boolean result = false;
+		try (Connection conn = JDBCConnection.geConnection();
+				PreparedStatement preparedStatement = conn.prepareStatement(DELETE_LECTURE)) {
+			preparedStatement.setInt(1, lectureId);
+			int row = preparedStatement.executeUpdate();
+			result = row > 0 ? true : false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+
+	}
+	
+	public boolean deletePdfLecture(int lectureId) {
+		final String DELETE_LECTURE_Content = "delete from  pdfLecture where lectureId = ?";
+		boolean result = false;
+		try (Connection conn = JDBCConnection.geConnection();
+				PreparedStatement preparedStatement = conn.prepareStatement(DELETE_LECTURE_Content)) {
+			preparedStatement.setInt(1, lectureId);
+			int row = preparedStatement.executeUpdate();
+			result = row > 0 ? true : false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+
+	}
 
 }
