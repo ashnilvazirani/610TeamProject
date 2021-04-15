@@ -43,10 +43,6 @@
 				<a class="navbar-brand" href="http://localhost:4567/">
 					<button type="submit" class="btn btn-info" style="margin:5px;">Logout</button>
 				</a>
-				<form class="form-inline" method="POST" action="/question">
-					<button type="submit" class="btn btn-info" style="margin:5px;">View Question</button>
-					<input id="courseID" name="courseID" type="hidden" value="0"/>
-				</form>
 			</div>
 		</div>
 	</nav>
@@ -73,7 +69,7 @@
 					<th scope="col">Manage Students</th>
 					<th scope="col">Create Quiz</th> 
 					<th scope="col">View Group Chats</th> 
-
+					<th scope="col">View Question</th>
 					<th scope="col">View Lecture</th> 
 					                 
 
@@ -104,7 +100,7 @@
                     <td scope="col">
                     <form class="form-inline" method="POST" action="/preReqCourse">
 					<input name="courseId" id=${course.courseId} value=${course.courseId} hidden /> 
-					<button type="submit" class="btn btn-info">Add Pre-Req</button>
+					<button type="submit" class="btn btn-info">Add</button>
 				</form></td>
 
 				<td>
@@ -115,10 +111,10 @@
 				</td>
 				<td>
 				<a class="navbar-brand" href="http://localhost:4567/createQuiz/${course.courseId}">
-					<button type="submit" class="btn btn-info" style="margin:5px;">Create Quiz - ${quizNumbers[course?counter -1]}</button>
+					<button type="submit" class="btn btn-info">Create Quiz - ${quizNumbers[course?counter -1]}</button>
 				</a>
 				<a class="navbar-brand" href="http://localhost:4567/viewQuiz/${course.courseId}">
-					<button type="submit" class="btn btn-info" style="margin:5px;">View Quiz</button>
+					<button type="submit" class="btn btn-info">View Quiz - ${quizNumbers[course?counter -1]}</button>
 				</a>
 				</td>
 				<td scope="col">
@@ -136,11 +132,17 @@
 						</form>
 					<#else>
 						<form class="form-inline" method="POST" action="/courseGroupChat">
-							<button type="submit" class="btn btn-info">View Chats</button>
+							<button type="submit" class="btn btn-info">View</button>
 							<input id="courseGroupID" name="courseGroupID" type="hidden" value="${courseGroupID}"/>
 						</form>
 						
 					</#if>
+				</td>
+				<td>
+					<form class="form-inline" method="POST" action="/question">
+					<button type="submit" class="btn btn-info">View</button>
+					<input id="courseID" name="courseID" type="hidden" value="0"/>
+					</form>
 				</td>
 				
 				<td>

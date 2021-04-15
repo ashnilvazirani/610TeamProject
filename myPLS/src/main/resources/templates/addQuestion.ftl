@@ -29,21 +29,23 @@
 						<div class="form-group">
 							<input type="text" name="problem" id="problem" placeholder="Enter Problem Description" required/>
 						</div>
-							<div class="form-group">
+						
+						<div class="form-group">
 							<input type="text" name="option1" id="option1" placeholder="Choice 1" required/>
 						</div>
-						</div>
-							<div class="form-group">
+						
+						<div class="form-group">
 							<input type="text" name="option2" id="option1" placeholder="Choice 2" required/>
 						</div>
-						</div>
-							<div class="form-group">
+						
+						<div class="form-group">
 							<input type="text" name="option3" id="option1" placeholder="Choice 3" required/>
 						</div>
-						</div>
-							<div class="form-group">
+						
+						<div class="form-group">
 							<input type="text" name="option4" id="option1" placeholder="Choice 4" required/>
 						</div>
+						
 						<div class="form-group">
 							<label for="correctAnswer">Corrrect Choice:</label>
 						</div> 
@@ -60,7 +62,11 @@
 							<input type="hidden" name="professorID" id="professorID" value="${userId}" />
 						</div>
 						<div class="form-group form-button">
-							<input type="submit" name="addQuestion" id="add" class="form-submit" style="margin:5px;" value="Add Question" />
+							<input type="submit" name="addQuestion" id="add" class="form-submit" value="Add Question" />
+							
+							 <input onclick="goBack()" type="submit" name="Back" id="Back" style="margin:5px;" class="form-submit" value="<< Back"/>
+                              
+                                              
 						</div>
 						</form>
 						</div>                       
@@ -77,18 +83,6 @@
 
 	<script type="text/javascript">
 <#include "/static/js/jquery.min.js">
-</script>
-<script>
-function ValidateEmail(inputText)
-	{
-	var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-	if(inputText.value.match(mailformat))
-	{
-	document.form1.text1.focus();
-	return true;
-	}
-	
-	}
 </script>
 	<script type="text/javascript">
 <#include "/static/js/main.js">
