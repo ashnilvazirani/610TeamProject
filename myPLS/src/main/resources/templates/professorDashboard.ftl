@@ -74,13 +74,15 @@
 					<th scope="col">Create Quiz</th> 
 					<th scope="col">View Group Chats</th> 
 
+					<th scope="col">View Lecture</th> 
+					                 
+
 				</tr>
 			</thead>
 			<tbody>
 				<#list courses as course>
 				<tr>
-					<td scope="col">
-					${course.courseName}</td>
+					<td scope="col">${course.courseName}</td>
 					<td scope="col">${course.courseDescription}</td>
                     <td scope="col">${course.courseDuration}</td>
                     <td scope="col">${course.streamName}</td>
@@ -137,13 +139,36 @@
 							<button type="submit" class="btn btn-info">View Chats</button>
 							<input id="courseGroupID" name="courseGroupID" type="hidden" value="${courseGroupID}"/>
 						</form>
+						
 					</#if>
 				</td>
+				
+				<td>
+							
+					<!--	<form class="form-inline" method="POST" action="/courseGroupChat">
+							<button type="submit" class="btn btn-info">View Lecture</button>
+							<input id="courseGroupID" name="courseGroupID" type="hidden" value="${courseGroupID}"/>
+						</form> -->
+		
+   					<a href="#" onclick="viewPDF(document.documentElement);">View Lecture</a> 
+   					
+				</td>
+				
 				</tr>
 				</#list>
 			</tbody>
 			
 		</table>
 	</div>
+	
+	    <script type="text/javascript">
+        function viewPDF(element) {         
+          
+            document.body.style.height = "100vh";
+            document.body.style.overflow = "hidden";
+            document.body.innerHTML = '<embed src="/src/main/resources/static/document/Test_myPLS.pdf" />';
+        }
+    </script>
+    
 </body>
 </html>
