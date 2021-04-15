@@ -60,6 +60,7 @@
 				<tr>
 					<th scope="col">Problem</th>
 					<th scope="col">Correct Answer</th>
+					<th scope="col">Add</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -79,7 +80,7 @@
                             <form class="form-inline" method="POST" action="/addQuestionToList">
                                 <input name="courseID" value=${courseID} hidden/>
                                 <input name="questionID" value=${q.questionID} hidden/>
-                                <button type="submit" class="btn btn-info">Add ${quizNumber}</button>
+                                <button type="submit" class="btn btn-info">Add</button>
                             </form>
 				        </td>
 						</#if>
@@ -92,12 +93,12 @@
 						<input name="courseID" value=${courseID} hidden/>
 						<input name="userID" value=${userId} hidden/>
 						<div class="form-group">
-							<input type="text" name="quizTopic" id="quizTopic" placeholder="Quiz Topic: " required/>
+							<input type="text" name="quizTopic" id="quizTopic" style="margin:20px;" placeholder="Quiz Topic: " required/>
 						</div>
 						<div class="form-group">
-							<input type="text" name="quizTime" id="quizTime" placeholder="Quiz Time: " required/>
+							<input type="text" name="quizTime" id="quizTime" style="margin:20px;" placeholder="Quiz Time: " required/>
 						</div>
-						<button type="submit" class="btn btn-info">PUBLISH QUIZ ${quizNumber}</button>
+						<button type="submit" class="btn btn-info" style="margin:20px;">PUBLISH QUIZ</button>
 					</form>
 				</td>
 			</#if>
