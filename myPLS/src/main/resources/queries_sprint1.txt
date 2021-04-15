@@ -153,3 +153,43 @@ CREATE TABLE courseGroupMembers (
 	FOREIGN KEY (userID) REFERENCES user(userID),
 	FOREIGN KEY (courseGroupID) REFERENCES courseGroup(courseGroupID)
 );
+
+///////////QUIZ QUERIES
+CREATE TABLE `question` (
+  `questionID` int NOT NULL AUTO_INCREMENT,
+  `problem` varchar(255) DEFAULT NULL,
+  `option1` varchar(255) DEFAULT NULL,
+  `option2` varchar(255) DEFAULT NULL,
+  `option3` varchar(255) DEFAULT NULL,
+  `option4` varchar(255) DEFAULT NULL,
+  `numberOfCorrectAnswers` int DEFAULT NULL,
+  `correctAnswer` varchar(255) DEFAULT NULL,
+  `courseID` int DEFAULT NULL,
+  `professorID` int DEFAULT NULL,
+  PRIMARY KEY (`questionID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `quiz` (
+  `quizID` int NOT NULL AUTO_INCREMENT,
+  `quizTime` varchar(255) DEFAULT NULL,
+  `userID` int DEFAULT NULL,
+  `courseID` int DEFAULT NULL,
+  `numberOfQuestions` int DEFAULT NULL,
+  `quizTopic` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`quizID`),
+  KEY `userID` (`userID`),
+  KEY `courseID` (`courseID`),
+  CONSTRAINT `quiz_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`),
+  CONSTRAINT `quiz_ibfk_2` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `quizQuestion` (
+  `quizQuestionID` int NOT NULL AUTO_INCREMENT,
+  `quizID` int DEFAULT NULL,
+  `questionID` int DEFAULT NULL,
+  PRIMARY KEY (`quizQuestionID`),
+  KEY `quizID` (`quizID`),
+  KEY `questionID` (`questionID`),
+  CONSTRAINT `quizquestion_ibfk_1` FOREIGN KEY (`quizID`) REFERENCES `quiz` (`quizID`),
+  CONSTRAINT `quizquestion_ibfk_2` FOREIGN KEY (`questionID`) REFERENCES `question` (`questionID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

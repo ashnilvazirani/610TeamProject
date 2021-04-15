@@ -9,6 +9,15 @@ public class Question {
     String option4;
     int correctOption;
     int courseID;
+    int professorID;
+
+    public int getProfessorID() {
+        return this.professorID;
+    }
+
+    public void setProfessorID(int professorID) {
+        this.professorID = professorID;
+    }
 
     public int getCourseID() {
         return this.courseID;
@@ -74,7 +83,7 @@ public class Question {
         this.option4 = option4;
     }
 
-    public Question(int questionID, String problem, String option1, String option2, String option3, String option4, int correctOption, int courseID) {
+    public Question(int questionID, String problem, String option1, String option2, String option3, String option4, int correctOption, int courseID, int professorID) {
         this.questionID = questionID;
         this.problem = problem;
         this.option1 = option1;
@@ -83,8 +92,9 @@ public class Question {
         this.option4 = option4;
         this.correctOption = correctOption;
         this.courseID = courseID;
+        this.professorID = professorID;
     }
-    public Question(String problem, String option1, String option2, String option3, String option4, int correctOption, int courseID) {
+    public Question(String problem, String option1, String option2, String option3, String option4, int correctOption, int courseID, int professorID) {
         this.problem = problem;
         this.option1 = option1;
         this.option2 = option2;
@@ -92,8 +102,9 @@ public class Question {
         this.option4 = option4;
         this.correctOption = correctOption;
         this.courseID = courseID;
+        this.professorID = professorID;
     }
-    public Question(String problem, String option1, String option2, String option3, String option4, int correctOption) {
+    public Question(String problem, String option1, String option2, String option3, String option4, int correctOption, int professorID) {
         this.problem = problem;
         this.option1 = option1;
         this.option2 = option2;
@@ -101,7 +112,9 @@ public class Question {
         this.option4 = option4;
         this.correctOption = correctOption;
         this.courseID=-1;
+        this.professorID = professorID;
     }
+    public Question(){}
     @Override
     public String toString(){
         return this.getProblem()+"\n"+
