@@ -111,7 +111,11 @@
 						</td>
 					</form> -->
 					
-
+				<td>
+					<a class="navbar-brand" href="http://localhost:4567/viewQuiz/${course.courseId}">
+						<button type="submit" class="btn btn-info" style="margin:5px;">View Quiz</button>
+					</a>
+				</td>
 				</form>
 				</tr>
 				</#list>
