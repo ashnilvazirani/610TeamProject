@@ -230,6 +230,19 @@ public class mainApp {
 			return professorController.getPdfLectures(request,response);
 		});
 		
+		post("/editLecture",(request,response) -> {
+			return professorController.getEditLecturePage(request,response);
+		});
+		
+		post("/updateLecture",(request,response) -> {
+			return professorController.updateLecture(request,response);
+		});
+		
+		post("/deleteLecture",(request,response) -> {
+			return professorController.deleteLecture(request,response);
+		});
+		
+		
 		
 	}
 }
