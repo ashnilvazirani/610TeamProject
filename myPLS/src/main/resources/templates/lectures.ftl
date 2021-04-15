@@ -32,6 +32,10 @@
 		</div>
 	</div>
 	<div class="container">
+	<#if lectures?size == 0>
+	<div>No Lectures present</div>
+	</#if>
+	<#if lectures?size gt 0>
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
@@ -86,6 +90,7 @@
 			</tbody>
 			
 		</table>
+		</#if>
 	</div>
 	
 </body>
