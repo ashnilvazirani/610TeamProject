@@ -43,6 +43,10 @@
 				<a class="navbar-brand" href="http://localhost:4567/">
 					<button type="submit" class="btn btn-info" style="margin:5px;">Logout</button>
 				</a>
+				<form class="form-inline" method="POST" action="/question">
+					<button type="submit" class="btn btn-info" style="margin:5px;">View Question</button>
+					<input id="courseID" name="courseID" type="hidden" value="0"/>
+				</form>
 			</div>
 		</div>
 	</nav>
@@ -67,9 +71,12 @@
 					
 					<th scope="col">Add Pre-Requisite Course</th>
 					<th scope="col">Manage Students</th>
+					<th scope="col">Create Quiz</th> 
 					<th scope="col">View Group Chats</th> 
+
 					<th scope="col">View Lecture</th> 
 					                 
+
 				</tr>
 			</thead>
 			<tbody>
@@ -82,23 +89,21 @@
                     <td>
                     <#list preReqs as k,v>
                     <#if k == course.courseId>
-                     <#list 0..v?size-1 as i>
-                     <#if v[i]??>
- 					 <span>${v[i].courseName}
- 					 <#assign ls = v?size-1>
- 					  <#if ls != i>, </#if>
- 					 </span>
- 					 </#if>
- 					 </#list>
- 					 </#if>
+                    <#list 0..v?size-1 as i>
+                    <#if v[i]??>
+					<span>${v[i].courseName}
+					<#assign ls = v?size-1>
+						<#if ls != i>, </#if>
+							</span>
+						</#if>
+					</#list>
+					</#if>
 					</#list>
 					</td>
                     </td>
                     <td scope="col">
                     <form class="form-inline" method="POST" action="/preReqCourse">
-                    
-					<input name="courseId" id=${course.courseId} value=${course.courseId} hidden> </input>
-					
+					<input name="courseId" id=${course.courseId} value=${course.courseId} hidden /> 
 					<button type="submit" class="btn btn-info">Add Pre-Req</button>
 				</form></td>
 
@@ -107,6 +112,14 @@
 						<input name="courseId" id=${course.courseId} value=${course.courseId} hidden/>
 						<button type="submit" class="btn btn-info">Manage</button>
 					</form>
+				</td>
+				<td>
+				<a class="navbar-brand" href="http://localhost:4567/createQuiz/${course.courseId}">
+					<button type="submit" class="btn btn-info" style="margin:5px;">Create Quiz - ${quizNumbers[course?counter -1]}</button>
+				</a>
+				<a class="navbar-brand" href="http://localhost:4567/viewQuiz/${course.courseId}">
+					<button type="submit" class="btn btn-info" style="margin:5px;">View Quiz</button>
+				</a>
 				</td>
 				<td scope="col">
 				<#assign courseGroupID = -1>

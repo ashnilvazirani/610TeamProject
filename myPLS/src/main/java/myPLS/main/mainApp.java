@@ -91,11 +91,42 @@ public class mainApp {
 		post("/viewMembersInGroup",(request,response) -> {
         	return adminController.viewMembersInGroupDiscussion(request, response);
         });
-        post("/addGroupDiscussion", (request, response) -> {
-			adminController.createADiscussionGroup(request,response);
-			response.redirect("/courses");
-			return 0;
+		// -----------------QUESTION MODULE---------------------
+		post("/question",(request,response) -> {
+        	return professorController.getQuestionPage(request, response);
         });
+		get("/question",(request,response) -> {
+        	return professorController.getQuestionPage(request, response);
+        });
+		get("/addQuestion",(request,response) -> {
+        	return professorController.addQuestionPage(request, response);
+        });
+		post("/addQuestion",(request,response) -> {
+        	return professorController.addQuestion(request, response);
+        });
+		post("/addQuestion",(request,response) -> {
+        	return professorController.addQuestion(request, response);
+        });
+		post("/publishQuiz",(request,response) -> {
+        	return professorController.publishQuiz(request, response);
+        });
+		post("/addQuestionToList",(request,response) -> {
+        	return professorController.addQuestionToList(request, response);
+        });
+		get("/createQuiz/:courseID", (request, response) -> {
+			return professorController.getQuestionPage(request, response);
+        });
+		get("/viewQuiz/:courseID", (request, response) -> {
+			return professorController.getQuizListPage(request, response);
+        });
+		
+		get("/createQuiz", (request, response) -> {
+			return professorController.getQuestionPage(request, response);
+        });
+		get("/quizAnswerKey/:quizID", (request, response) -> {
+			return professorController.getAnswerKey(request, response);
+        });
+		// -----------------QUESTION MODULE---------------------
         get("/courses",(request,response) -> {
         	return courseController.getCourses();
         });
