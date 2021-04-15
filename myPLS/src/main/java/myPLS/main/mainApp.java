@@ -200,7 +200,36 @@ public class mainApp {
 		
 		post("/addPreReqCourse", (request, response) -> {
 			return courseController.addPreReqCourse(request,response);
-    });
+		});
         
+		post("/addLecture", (request, response) -> {
+			return professorController.addLecture(request,response);
+		});
+		
+		get("/addLecture",(request,response) -> {
+			return professorController.getAddLecturePage(request);
+		});
+		
+		get("/getLectures",(request,response) -> {
+			return professorController.getLectures(request);
+		});
+		
+		get("/getUploadPdfPage",(request,response) -> {
+			return professorController.getUploadPage(request);
+		});
+		
+		post("/uploadPdf", (request, response) -> {
+			return professorController.uploadPdf(request,response);
+		});
+		
+		post("/downloadPdf",(request,response) -> {
+			return professorController.downloadPdfLecture(request,response);
+		});
+		
+		post("/getPdfs",(request,response) -> {
+			return professorController.getPdfLectures(request,response);
+		});
+		
+		
 	}
 }
