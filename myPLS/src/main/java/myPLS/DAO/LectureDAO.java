@@ -78,11 +78,12 @@ public class LectureDAO {
 		return lectures;
 	}
 	
-	public List<Lecture> getLectures() {
-		final String GET_LECTURES = "select * from LECTURE";
+	public List<Lecture> getLectures(int courseId) {
+		final String GET_LECTURES = "select * from LECTURE where courseId=?";
 		List<Lecture> lectures = new ArrayList<>();
 		try (Connection conn = JDBCConnection.geConnection();
 				PreparedStatement preparedStatement = conn.prepareStatement(GET_LECTURES)) {
+			preparedStatement.setInt(1, courseId);
 			ResultSet result = preparedStatement.executeQuery();
 			while (result.next()) {
 				Lecture lecture = new Lecture();

@@ -218,8 +218,7 @@ public class ProfessorController {
 	    	String type = request.queryParams("type") != null ? request.queryParams("type") : "unknown";
 	    	LectureService lectureService =  lectureFactory.createLecture(type);
 	    	lectureService.addLecture(request);
-			response.redirect("/getLectures");
-			return null;
+	    	return this.getLectures(request);
 		}
 	    
 		public Object getAddLecturePage(Request request) {
@@ -261,7 +260,10 @@ public class ProfessorController {
 			try {
 				resultTemplate = configuration.getTemplate("templates/uploadPdf.ftl");
 				request.session().attribute("lectureId",Integer.parseInt(request.queryParams("lectureId")));
-				resultTemplate.process(null, writer);
+				Map<String, Object> map = new HashMap<String, Object>();
+				int courseId = Integer.parseInt(request.queryParams("courseId"));
+				map.put("courseId", courseId);
+				resultTemplate.process(map, writer);
 			} catch (Exception e) {
 				Spark.halt(500);
 			}
@@ -271,16 +273,14 @@ public class ProfessorController {
 		public Object uploadPdf(Request request, Response response) {
 			LectureService lectureService =  lectureFactory.createLecture("PDF");
 	    	lectureService.upload(request);
-	    	response.redirect("/getLectures");
-			return null;
+	    	return this.getLectures(request);
 		}
 		
 		public Object downloadPdfLecture(Request request, Response response) {
 			int lectureId = Integer.parseInt(request.queryParams("lectureId"));
 			String lectureName = request.queryParams("lectureName");
 			lectureDao.getPdf(lectureId,lectureName);
-			response.redirect("/getLectures");
-			return null;
+			return this.getLectures(request);
 		}
 		
 		public Object getPdfLectures(Request request, Response response) {
@@ -289,6 +289,8 @@ public class ProfessorController {
 			int lectureId = Integer.parseInt(request.queryParams("lectureId"));
 			List<PDFLecture> lectures =  lectureDao.getPdfNames(lectureId);
 			map.put("lectures", lectures);
+			int courseId = Integer.parseInt(request.queryParams("courseId"));
+			map.put("courseId", courseId);
 			Template resultTemplate;
 			try {
 				resultTemplate = configuration.getTemplate("templates/pdfLectures.ftl");
@@ -316,14 +318,12 @@ public class ProfessorController {
 		public Object updateLecture(Request request, Response response) {
 	    	LectureService lectureService =  lectureFactory.createLecture("PDF");
 	    	lectureService.updateLecture(request);
-			response.redirect("/getLectures");
-			return null;
+	    	return this.getLectures(request);
 		}
 		public Object deleteLecture(Request request, Response response) {
 			int lectureId = Integer.parseInt(request.queryParams("lectureId"));
 	    	lectureDao.deleteLecture(lectureId);
-			response.redirect("/getLectures");
-			return null;
+			return this.getLectures(request);
 		}
 		
 		

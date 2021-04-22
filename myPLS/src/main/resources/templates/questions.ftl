@@ -86,6 +86,10 @@
 						</#if>
 				</tr>
 				</#list>
+				<a class="navbar-brand" href="http://localhost:4567/professorDashboard">
+					<button type="submit" class="btn btn-info">Back</button>
+				</a>
+				
 			</tbody>
 			<#if courseID??>
 					<td>

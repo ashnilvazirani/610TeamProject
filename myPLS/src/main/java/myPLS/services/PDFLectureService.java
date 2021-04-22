@@ -61,7 +61,9 @@ public class PDFLectureService implements LectureService {
 
 	@Override
 	public List<Lecture> getLectures(Request request) {
-		return lectureDAO.getLectures();
+		int courseId = Integer
+				.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "unknown");
+		return lectureDAO.getLectures(courseId);
 	}
 
 	@Override

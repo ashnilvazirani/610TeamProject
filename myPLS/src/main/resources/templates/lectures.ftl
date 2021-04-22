@@ -59,12 +59,18 @@
 							<td scope="col" hidden>
 							<input type="text" name="type" id="type" value="PDF" />
 							</td>
+							<td scope="col" hidden>
+							<input name="courseId" id=${lectures[i].courseId} value=${lectures[i].courseId} hidden/>
+							</td>
 		                    <td scope="col">
 							<button type="submit" class="btn btn-info">upload Lecture</button></td>
 							</form>
 						<form method="POST" class="register-form" id="get-form" name="getPdf"  action="/getPdfs">
 						<td scope="col" hidden>
 							<input name="lectureId" id=${lectures[i].lectureId} value=${lectures[i].lectureId} hidden>${lectures[i].lectureId} </input>
+							</td>
+							<td scope="col" hidden>
+							<input name="courseId" id=${lectures[i].courseId} value=${lectures[i].courseId} hidden>${lectures[i].courseId} </input>
 							</td>
 							<td scope="col">
 							<button type="submit" class="btn btn-info">Get Lectures Content</button></td>
@@ -74,6 +80,9 @@
 						<td scope="col" hidden>
 							<input name="lectureId" id=${lectures[i].lectureId} value=${lectures[i].lectureId} hidden>${lectures[i].lectureId} </input>
 							</td>
+							<td scope="col" hidden>
+							<input name="courseId" id=${lectures[i].courseId} value=${lectures[i].courseId} hidden>${lectures[i].courseId} </input>
+							</td>
 							<td scope="col">
 							<button type="submit" class="btn btn-info">Edit Lecture</button></td>
 						</form>
@@ -81,6 +90,9 @@
 						<form method="POST" class="register-form" id="get-form" name="editLecture"  action="/deleteLecture">
 						<td scope="col" hidden>
 							<input name="lectureId" id=${lectures[i].lectureId} value=${lectures[i].lectureId} hidden>${lectures[i].lectureId} </input>
+							</td>
+							<td scope="col" hidden>
+							<input name="courseId" id=${lectures[i].courseId} value=${lectures[i].courseId} hidden>${lectures[i].courseId} </input>
 							</td>
 							<td scope="col">
 							<button type="submit" class="btn btn-info">Delete Lecture</button></td>
