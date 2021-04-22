@@ -21,7 +21,7 @@
             <div class="container">
                 <div class="signup-content">
                     <div class="signup-form">
-                        <h2 class="form-title">Upload PDF</h2>
+                        <h2 class="form-title">Upload Lecture Content</h2>
                         
                           <form method="POST" class="add-lecture-form" id="pdfForm" name="pdfForm" enctype="multipart/form-data" action="/uploadPdf">
                             <div class="form-group">
@@ -31,8 +31,14 @@
                             <div hidden>
                             <input type="text" name="type" id="type" value="PDF"/>
                             </div>
+                            
                             <div class="form-group form-button">
-                                <input type="submit" name="upload" id="upload" class="form-submit" value="upload PDF"/>
+                                <input type="submit" name="upload" id="upload" class="form-submit" value="upload Lecture"/>
+                                <div hidden>
+                                <td scope="col">
+							<input name="courseId" id=courseId value=${courseId} hidden>${courseId} </input>
+							</div>
+							</td>
                             </div> 
                             </form>
                     </div>                 

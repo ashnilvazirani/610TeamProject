@@ -241,8 +241,5 @@ public class mainApp {
 		post("/deleteLecture",(request,response) -> {
 			return professorController.deleteLecture(request,response);
 		});
-		
-		
-		
 	}
 }

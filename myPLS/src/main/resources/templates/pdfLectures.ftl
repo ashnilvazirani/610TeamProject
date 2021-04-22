@@ -63,6 +63,9 @@
 							</td>
 		                    <td scope="col">
 							<button type="submit" class="btn btn-info">Download Lecture</button></td>
+							<div class="form-group" hidden>
+                            <input type="text" name="courseId" id="courseId" value=${courseId} hidden/> 
+                             </div>
 							</form>
 					</tr>
 				</#list>

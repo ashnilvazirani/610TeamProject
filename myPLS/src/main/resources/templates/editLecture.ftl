@@ -33,6 +33,9 @@
                             <input name="lectureId" id="lectureId" value=${lecture.lectureId} hidden/> 
                                 <input type="text" name="type" id="type" value="PDF" hidden/>
                              </div>
+                             <div class="form-group" hidden>
+                            <input type="text" name="courseId" id="courseId" value=${lecture.courseId} hidden/> 
+                             </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="add" id="add" class="form-submit" value="Add Lecture"/>
                             </div>      
