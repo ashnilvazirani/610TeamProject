@@ -193,3 +193,21 @@ CREATE TABLE `quizQuestion` (
   CONSTRAINT `quizquestion_ibfk_1` FOREIGN KEY (`quizID`) REFERENCES `quiz` (`quizID`),
   CONSTRAINT `quizquestion_ibfk_2` FOREIGN KEY (`questionID`) REFERENCES `question` (`questionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+///// LCETURE TABLES
+
+create table lecture(
+lectureId int auto_increment primary key,
+courseId int references course(courseId),
+professorId int references user(userId),
+lectureName varchar(30) unique key,
+lectureDescription varchar(100)
+);
+
+create table pdfLecture(
+lectureId int references lecture(lectureId),
+pdfID int auto_increment primary key,
+content LONGBLOB not null,
+fileName varchar(30)
+);
