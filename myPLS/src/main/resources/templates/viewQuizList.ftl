@@ -43,10 +43,6 @@
 				<a class="navbar-brand" href="http://localhost:4567/">
 					<button type="submit" class="btn btn-info" style="margin:5px;">Logout</button>
 				</a>
-				<form class="form-inline" method="POST" action="/question">
-					<button type="submit" class="btn btn-info" style="margin:5px;">View Question</button>
-					<input id="courseID" name="courseID" type="hidden" value="0"/>
-				</form>
 			</div>
 		</div>
 	</nav>
@@ -64,6 +60,9 @@
 			<thead>
 				<tr>
 					<th scope="col">Quiz</th>
+					<th scope="col">Description</th>
+					<th scope="col">View Quiz</th>
+					<th scope="col">View Question</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -79,8 +78,14 @@
 				</td>  -->
 				<td>
 				<a class="navbar-brand" href="http://localhost:4567/quizAnswerKey/${quiz.quizID}">
-					<button type="submit" class="btn btn-info" style="margin:5px;">View</button>
+					<button type="submit" class="btn btn-info">View Quiz</button>
 				</a>
+				</td>
+				<td>
+					<form class="form-inline" method="POST" action="/question">
+					<button type="submit" class="btn btn-info">View Question</button>
+					<input id="courseID" name="courseID" type="hidden" value="0"/>
+					</form>
 				</td>
 				</tr>
 				</#list>

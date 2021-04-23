@@ -1,4 +1,5 @@
 package myPLS.controllers;
+import java.io.OutputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,14 +10,19 @@ import java.util.Map;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.Version;
+import myPLS.DAO.LectureDAO;
 import myPLS.beans.Course;
 import myPLS.beans.CourseGroup;
+import myPLS.beans.Lecture;
+import myPLS.beans.PDFLecture;
 import myPLS.beans.Question;
 import myPLS.beans.Quiz;
 import myPLS.beans.QuizQuestion;
 import myPLS.services.CourseComponentServiceImpl;
 import myPLS.services.CourseService;
 import myPLS.services.CourseServiceImpl;
+import myPLS.services.LectureFactory;
+import myPLS.services.LectureService;
 import myPLS.services.QuizService;
 import spark.Request;
 import spark.Response;
@@ -28,12 +34,16 @@ public class ProfessorController {
     private CourseService preReqService;
 	private QuizService quizService;
 	public ArrayList<Integer> questionList;
+	private LectureFactory lectureFactory;
+    private LectureDAO lectureDao;
     public ProfessorController(){
         this.setConfiguration();
         this.courseService = new CourseComponentServiceImpl();
         this.preReqService = new CourseServiceImpl();
 		this.quizService = new QuizService();
 		this.questionList = new ArrayList<>();
+		lectureFactory = new LectureFactory();
+        lectureDao = new LectureDAO();
     }
     private void setConfiguration() {
         configuration.setClassForTemplateLoading(ProfessorController.class, "/");
@@ -203,4 +213,119 @@ public class ProfessorController {
 		}
 		return writer;
     }
+	
+	 public StringWriter addLecture(Request request, Response response){
+	    	String type = request.queryParams("type") != null ? request.queryParams("type") : "unknown";
+	    	LectureService lectureService =  lectureFactory.createLecture(type);
+	    	lectureService.addLecture(request);
+	    	return this.getLectures(request);
+		}
+	    
+		public Object getAddLecturePage(Request request) {
+			StringWriter writer = new StringWriter();
+			Map<String, Object> map = new HashMap<String, Object>();
+			Template resultTemplate;
+			try {
+				resultTemplate = configuration.getTemplate("templates/addLecture.ftl");
+				map.put("courseId", Integer.parseInt(request.queryParams("courseId")));
+				String msg = request.queryParams("errorMsg");
+				map.put("errorMsg", msg);
+				resultTemplate.process(map, writer);
+			} catch (Exception e) {
+				Spark.halt(500);
+			}
+			return writer;
+		}
+		
+		 public StringWriter getLectures(Request request) {
+				StringWriter writer = new StringWriter();
+				Map<String, Object> map = new HashMap<String, Object>();
+		    	String type = request.queryParams("type") != null ? request.queryParams("type") : "unknown";
+				LectureService lectureService =  lectureFactory.createLecture(type);
+		    	List<Lecture> lectures = lectureService.getLectures(request);
+				map.put("lectures", lectures);
+				Template resultTemplate;
+				try {
+					resultTemplate = configuration.getTemplate("templates/lectures.ftl");
+					resultTemplate.process(map, writer);
+				} catch (Exception e) {
+					Spark.halt(500);
+				}
+				return writer;
+		}
+		 
+		public Object getUploadPage(Request request) {
+			StringWriter writer = new StringWriter();
+			Template resultTemplate;
+			try {
+				resultTemplate = configuration.getTemplate("templates/uploadPdf.ftl");
+				request.session().attribute("lectureId",Integer.parseInt(request.queryParams("lectureId")));
+				Map<String, Object> map = new HashMap<String, Object>();
+				int courseId = Integer.parseInt(request.queryParams("courseId"));
+				map.put("courseId", courseId);
+				resultTemplate.process(map, writer);
+			} catch (Exception e) {
+				Spark.halt(500);
+			}
+			return writer;
+		}
+		
+		public Object uploadPdf(Request request, Response response) {
+			LectureService lectureService =  lectureFactory.createLecture("PDF");
+	    	lectureService.upload(request);
+	    	return this.getLectures(request);
+		}
+		
+		public Object downloadPdfLecture(Request request, Response response) {
+			int lectureId = Integer.parseInt(request.queryParams("lectureId"));
+			String lectureName = request.queryParams("lectureName");
+			lectureDao.getPdf(lectureId,lectureName);
+			return this.getLectures(request);
+		}
+		
+		public Object getPdfLectures(Request request, Response response) {
+			StringWriter writer = new StringWriter();
+			Map<String, Object> map = new HashMap<String, Object>();
+			int lectureId = Integer.parseInt(request.queryParams("lectureId"));
+			List<PDFLecture> lectures =  lectureDao.getPdfNames(lectureId);
+			map.put("lectures", lectures);
+			int courseId = Integer.parseInt(request.queryParams("courseId"));
+			map.put("courseId", courseId);
+			Template resultTemplate;
+			try {
+				resultTemplate = configuration.getTemplate("templates/pdfLectures.ftl");
+				resultTemplate.process(map, writer);
+			} catch (Exception e) {
+				Spark.halt(500);
+			}
+			return writer;
+		}
+		public Object getEditLecturePage(Request request, Response response) {
+			StringWriter writer = new StringWriter();
+			Map<String, Object> map = new HashMap<String, Object>();
+			int lectureId = Integer.parseInt(request.queryParams("lectureId"));
+			List<Lecture> lectures =  lectureDao.getLecture(lectureId);
+			map.put("lecture", lectures.get(0));
+			Template resultTemplate;
+			try {
+				resultTemplate = configuration.getTemplate("templates/editLecture.ftl");
+				resultTemplate.process(map, writer);
+			} catch (Exception e) {
+				Spark.halt(500);
+			}
+			return writer;
+		}
+		public Object updateLecture(Request request, Response response) {
+	    	LectureService lectureService =  lectureFactory.createLecture("PDF");
+	    	lectureService.updateLecture(request);
+	    	return this.getLectures(request);
+		}
+		public Object deleteLecture(Request request, Response response) {
+			int lectureId = Integer.parseInt(request.queryParams("lectureId"));
+	    	lectureDao.deleteLecture(lectureId);
+			return this.getLectures(request);
+		}
+		
+		
+		
 }

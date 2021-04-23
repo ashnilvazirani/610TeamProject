@@ -43,10 +43,6 @@
 				<a class="navbar-brand" href="http://localhost:4567/">
 					<button type="submit" class="btn btn-info" style="margin:5px;">Logout</button>
 				</a>
-				<form class="form-inline" method="POST" action="/question">
-					<button type="submit" class="btn btn-info" style="margin:5px;">View Question</button>
-					<input id="courseID" name="courseID" type="hidden" value="0"/>
-				</form>
 			</div>
 		</div>
 	</nav>
@@ -73,10 +69,9 @@
 					<th scope="col">Manage Students</th>
 					<th scope="col">Create Quiz</th> 
 					<th scope="col">View Group Chats</th> 
-
-					<th scope="col">View Lecture</th> 
-					                 
-
+					<th scope="col">View Question</th>
+					<th scope="col">Get Lectures</th> 
+					<th scope="col">Add Lecture</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -104,7 +99,7 @@
                     <td scope="col">
                     <form class="form-inline" method="POST" action="/preReqCourse">
 					<input name="courseId" id=${course.courseId} value=${course.courseId} hidden /> 
-					<button type="submit" class="btn btn-info">Add Pre-Req</button>
+					<button type="submit" class="btn btn-info">Add</button>
 				</form></td>
 
 				<td>
@@ -115,10 +110,10 @@
 				</td>
 				<td>
 				<a class="navbar-brand" href="http://localhost:4567/createQuiz/${course.courseId}">
-					<button type="submit" class="btn btn-info" style="margin:5px;">Create Quiz - ${quizNumbers[course?counter -1]}</button>
+					<button type="submit" class="btn btn-info">Create Quiz - ${quizNumbers[course?counter -1]}</button>
 				</a>
 				<a class="navbar-brand" href="http://localhost:4567/viewQuiz/${course.courseId}">
-					<button type="submit" class="btn btn-info" style="margin:5px;">View Quiz</button>
+					<button type="submit" class="btn btn-info">View Quiz</button>
 				</a>
 				</td>
 				<td scope="col">
@@ -136,11 +131,17 @@
 						</form>
 					<#else>
 						<form class="form-inline" method="POST" action="/courseGroupChat">
-							<button type="submit" class="btn btn-info">View Chats</button>
+							<button type="submit" class="btn btn-info">View</button>
 							<input id="courseGroupID" name="courseGroupID" type="hidden" value="${courseGroupID}"/>
 						</form>
 						
 					</#if>
+				</td>
+				<td>
+					<form class="form-inline" method="POST" action="/question">
+					<button type="submit" class="btn btn-info">View</button>
+					<input id="courseID" name="courseID" type="hidden" value="0"/>
+					</form>
 				</td>
 				
 				<td>
@@ -150,7 +151,22 @@
 							<input id="courseGroupID" name="courseGroupID" type="hidden" value="${courseGroupID}"/>
 						</form> -->
 		
-   					<a href="#" onclick="viewPDF(document.documentElement);">View Lecture</a> 
+   						<!-- <a href="#" onclick="viewPDF(document.documentElement);">View Lecture</a> -->
+   					
+   					<form class="form-inline" method="GET" action="/getLectures">
+   					<input name="courseId" id=${course.courseId} value=${course.courseId} hidden/>
+							<button type="submit" class="btn btn-info">Get Lectures</button>
+						</form> 
+   					
+				</td>
+				
+				<td>
+					<form class="form-inline" method="GET" action="/addLecture">
+						<input name="courseId" id=${course.courseId} value=${course.courseId} hidden/>
+						<button type="submit" class="btn btn-info">Add Lecture</button>
+					</form>
+				</td>
+				
    					
 				</td>
 				
@@ -164,9 +180,8 @@
 	    <script type="text/javascript">
         function viewPDF(element) {         
           
-            document.body.style.height = "100vh";
-            document.body.style.overflow = "hidden";
-            document.body.innerHTML = '<embed src="/src/main/resources/static/document/Test_myPLS.pdf" />';
+             myWindow = window.open("file:///Users/sandeepkaur/eclipse-workspace/610TeamProject/myPLS/downloadTest.pdf","","_blank");
+            myWindow.foucus();
         }
     </script>
     
