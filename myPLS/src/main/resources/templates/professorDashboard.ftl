@@ -67,7 +67,7 @@
 					
 					<th scope="col">Add Pre-Requisite Course</th>
 					<th scope="col">Manage Students</th>
-					<th scope="col">Create Quiz</th> 
+					<#--  <th scope="col">Create Quiz</th>   -->
 					<th scope="col">View Group Chats</th> 
 					<th scope="col">View Question</th>
 					<th scope="col">Get Lectures</th> 
@@ -109,12 +109,12 @@
 					</form>
 				</td>
 				<td>
-				<a class="navbar-brand" href="http://localhost:4567/createQuiz/${course.courseId}">
+				<#--  <a class="navbar-brand" href="http://localhost:4567/createQuiz/${course.courseId}">
 					<button type="submit" class="btn btn-info">Create Quiz - ${quizNumbers[course?counter -1]}</button>
 				</a>
 				<a class="navbar-brand" href="http://localhost:4567/viewQuiz/${course.courseId}">
 					<button type="submit" class="btn btn-info">View Quiz</button>
-				</a>
+				</a>  -->
 				</td>
 				<td scope="col">
 				<#assign courseGroupID = -1>
@@ -153,10 +153,10 @@
 		
    						<!-- <a href="#" onclick="viewPDF(document.documentElement);">View Lecture</a> -->
    					
-   					<form class="form-inline" method="GET" action="/getLectures">
+   				<form class="form-inline" method="GET" action="/getLectures">
    					<input name="courseId" id=${course.courseId} value=${course.courseId} hidden/>
 							<button type="submit" class="btn btn-info">Get Lectures</button>
-						</form> 
+				</form> 
    					
 				</td>
 				

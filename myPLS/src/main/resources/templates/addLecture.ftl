@@ -30,7 +30,7 @@
                                 <input type="text" name="lectureDesc" id="lectureDesc" placeholder="Lecture Description"/>
                             </div>
                             <div class="form-group" hidden>
-                            <input name="courseId" id="courseId" value=${courseId} hidden/> 
+                                <input name="courseId" id="courseId" value=${courseId} hidden/> 
                                 <input type="text" name="type" id="type" value="PDF" hidden/>
                              </div>
                             <div class="form-group form-button">

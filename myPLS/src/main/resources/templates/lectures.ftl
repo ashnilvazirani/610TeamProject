@@ -97,6 +97,17 @@
 							<td scope="col">
 							<button type="submit" class="btn btn-info">Delete Lecture</button></td>
 						</form>
+
+
+						<td>
+						<#--  - ${quizNumbers[course?counter -1]}  -->
+							<a class="navbar-brand" href="http://localhost:4567/createQuiz/${lectures[i].courseId}/${lectures[i].lectureId}">
+								<button type="submit" class="btn btn-info">Create NEW Quiz</button>
+							</a>
+							<a class="navbar-brand" href="http://localhost:4567/viewQuiz/${lectures[i].courseId}/${lectures[i].lectureId}">
+								<button type="submit" class="btn btn-info">View Quiz</button>
+							</a>
+						</td>
 					</tr>
 				</#list>
 			</tbody>
