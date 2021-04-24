@@ -113,10 +113,10 @@ public class mainApp {
 		post("/addQuestionToList",(request,response) -> {
         	return professorController.addQuestionToList(request, response);
         });
-		get("/createQuiz/:courseID", (request, response) -> {
+		get("/createQuiz/:courseID/:lectureId", (request, response) -> {
 			return professorController.getQuestionPage(request, response);
         });
-		get("/viewQuiz/:courseID", (request, response) -> {
+		get("/viewQuiz/:courseID/:lectureId", (request, response) -> {
 			return professorController.getQuizListPage(request, response);
         });
 		
@@ -139,17 +139,27 @@ public class mainApp {
         get("/studentDashboard",(request,response) -> {
         	return learnerController.getLearnerDashboard(request);
         });
+		post("/takeQuiz",(request,response) -> {
+			return learnerController.takeQuiz(request);
+        });
 		get("/enrollForCourses",(request,response) -> {
         	return learnerController.getCourseListForLearners(request, response);
         });
 		get("/enroll/:userId/:courseId",(request,response) -> {
         	return learnerController.enrollLearnerForCourse(request, response);
         });
-        
+        post("/submitQuiz",(request,response) -> {
+			return learnerController.submitQuizToGetGrades(request, response);
+        });
         get("/professorDashboard",(request,response) -> {
         	return professorController.getProfessorDashboard(request);
         });
-        
+        get("/learnerLectures/:courseId",(request,response) -> {
+        	return learnerController.getLearnerLectureDetails(request);
+        });
+		get("/learnerQuiz/:courseId/:lectureId",(request,response) -> {
+			return learnerController.getLearnerQuizPage(request);
+        });
         post("/addCourse", (request, response) -> {
 			courseController.addCourse(request,response);
 			response.redirect("/courses");

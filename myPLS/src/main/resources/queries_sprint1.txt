@@ -194,8 +194,26 @@ CREATE TABLE `quizQuestion` (
   CONSTRAINT `quizquestion_ibfk_2` FOREIGN KEY (`questionID`) REFERENCES `question` (`questionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+ALTER TABLE quiz
+ADD lectureId INTEGER,
+ADD CONSTRAINT FOREIGN KEY(lectureId) REFERENCES lecture(lectureId);
 
-///// LCETURE TABLES
+CREATE TABLE grade (
+    gradeID int(11) NOT NULL AUTO_INCREMENT,
+    userID int(11),
+    quizID int(11),
+    courseID int(11),
+    lectureID int(11),
+    totalPoints int(255),
+    pointSecured int(11),
+    PRIMARY KEY (gradeID),
+	  FOREIGN KEY (userID) REFERENCES user(userID),
+    FOREIGN KEY (courseID) REFERENCES course(courseID),
+    FOREIGN KEY (lectureID) REFERENCES lecture(lectureID),
+	  FOREIGN KEY (quizID) REFERENCES quiz(quizID));
+
+
+/////////////// LECTURE TABLES
 
 create table lecture(
 lectureId int auto_increment primary key,
