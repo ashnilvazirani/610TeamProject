@@ -229,3 +229,7 @@ pdfID int auto_increment primary key,
 content LONGBLOB not null,
 fileName varchar(30)
 );
+
+// add sharingDate in lecture table
+alter table lecture
+add column sharingDate TIMESTAMP;
