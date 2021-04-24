@@ -2,6 +2,7 @@ package myPLS.services;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,13 @@ public class PDFLectureService implements LectureService {
 				.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "unknown");
 		return lectureDAO.getLectures(courseId);
 	}
+	
+	@Override
+	public List<Lecture> getScheduledLectures(Request request) {
+		int courseId = Integer
+				.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "unknown");
+		return lectureDAO.getScheduledLectures(courseId);
+	}
 
 	@Override
 	public List<Lecture> getLecture(Request request) {
@@ -84,6 +92,16 @@ public class PDFLectureService implements LectureService {
 		lecture.setLectureId(Integer
 				.parseInt(request.queryParams("lectureId") != null ? request.queryParams("lectureId") : "unknown"));
 		if (lectureDAO.updateLecture(lecture)) {
+			map.put("message", "lecture updated successfully");
+		}
+		return map;
+
+	}
+	
+	@Override
+	public Map<String, String> scheduleLectureSharing(LocalDateTime date,int lectureId) {
+		Map<String, String> map = new HashMap<>();
+		if (lectureDAO.scheduleLectureSharing(date,lectureId)) {
 			map.put("message", "lecture updated successfully");
 		}
 		return map;

@@ -108,14 +108,7 @@
 						<button type="submit" class="btn btn-info">Manage</button>
 					</form>
 				</td>
-				<td>
-				<#--  <a class="navbar-brand" href="http://localhost:4567/createQuiz/${course.courseId}">
-					<button type="submit" class="btn btn-info">Create Quiz - ${quizNumbers[course?counter -1]}</button>
-				</a>
-				<a class="navbar-brand" href="http://localhost:4567/viewQuiz/${course.courseId}">
-					<button type="submit" class="btn btn-info">View Quiz</button>
-				</a>  -->
-				</td>
+				
 				<td scope="col">
 				<#assign courseGroupID = -1>
 					<#list courseGroups as gc>
@@ -145,14 +138,6 @@
 				</td>
 				
 				<td>
-							
-					<!--	<form class="form-inline" method="POST" action="/courseGroupChat">
-							<button type="submit" class="btn btn-info">View Lecture</button>
-							<input id="courseGroupID" name="courseGroupID" type="hidden" value="${courseGroupID}"/>
-						</form> -->
-		
-   						<!-- <a href="#" onclick="viewPDF(document.documentElement);">View Lecture</a> -->
-   					
    				<form class="form-inline" method="GET" action="/getLectures">
    					<input name="courseId" id=${course.courseId} value=${course.courseId} hidden/>
 							<button type="submit" class="btn btn-info">Get Lectures</button>
@@ -168,7 +153,6 @@
 				</td>
 				
    					
-				</td>
 				
 				</tr>
 				</#list>
