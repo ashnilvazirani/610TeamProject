@@ -111,16 +111,16 @@ public class ProfessorController {
 		int userId = request.session().attribute("userID");
 		int courseID = Integer.parseInt(request.queryParams("courseID"));
 		int numberOfQuestions = this.questionList.size();
-		Quiz test = new Quiz(quizTime, quizTopic, userId, courseID, numberOfQuestions);
+		int lectureId = Integer.parseInt(request.queryParams("lectureId"));
+		Quiz test = new Quiz(quizTime, quizTopic, userId, courseID, numberOfQuestions, lectureId);
 		int quizID = this.quizService.publishQuiz(test);
-		System.out.println("QUIZ PUBLISHED: "+test.getQuizTopic());
 		if(quizID>0){
 			for(int questionID : this.questionList){
 				QuizQuestion q = new QuizQuestion(quizID, questionID);
 				this.quizService.addQuizQuestion(q);
 				System.out.println("ADDED PROBLEM: "+questionID+" to "+quizID);
 			}
-		}
+		} 
 		response.redirect("/professorDashboard");
 		return true;
 	}
@@ -133,7 +133,9 @@ public class ProfessorController {
 		if(request.params("courseId") != null){
 			map.put("courseID", Integer.parseInt(request.params("courseId")));
 			map.put("courseName", this.courseService.getCourseGroupByCourseId(Integer.parseInt(request.params("courseId"))).getCourseName());
+			map.put("lectureId", Integer.parseInt(request.params("lectureId")));
 		}
+		
 		map.put("quizNumber", -11);
 		map.put("userId", request.session().attribute("userID"));
 		Template resultTemplate;
@@ -148,10 +150,11 @@ public class ProfessorController {
 	public boolean addQuestionToList(Request request, Response response){
 		int courseID = Integer.parseInt(request.queryParams("courseID"));
 		int questionID = Integer.parseInt(request.queryParams("questionID"));
+		int lectureId = Integer.parseInt(request.queryParams("lectureId"));
 		if(!this.questionList.contains(questionID))
 			this.questionList.add(questionID);
 		System.out.println(this.questionList.toString());
-		response.redirect("/createQuiz/"+courseID);
+		response.redirect("/createQuiz/"+courseID+"/"+lectureId);
 		return true;
 	}
 	public StringWriter addQuestionPage(Request request, Response response) {
@@ -325,7 +328,7 @@ public class ProfessorController {
 	    	lectureDao.deleteLecture(lectureId);
 			return this.getLectures(request);
 		}
-		
-		
-		
+		public Object getLearnerLectureDetails(Request request) {
+			return null;
+		}		
 }

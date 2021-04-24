@@ -80,6 +80,7 @@
                             <form class="form-inline" method="POST" action="/addQuestionToList">
                                 <input name="courseID" value=${courseID} hidden/>
                                 <input name="questionID" value=${q.questionID} hidden/>
+                                <input name="lectureId" value=${lectureId} hidden/>
                                 <button type="submit" class="btn btn-info">Add</button>
                             </form>
 				        </td>
@@ -101,6 +102,9 @@
 						</div>
 						<div class="form-group">
 							<input type="text" name="quizTime" id="quizTime" style="margin:20px;" placeholder="Quiz Time: " required/>
+						</div>
+						<div class="form-group">
+							<input type="text" value="${lectureId}" name="lectureId" id="lectureId" style="margin:20px;" hidden/>
 						</div>
 						<button type="submit" class="btn btn-info" style="margin:20px;">PUBLISH QUIZ</button>
 					</form>
