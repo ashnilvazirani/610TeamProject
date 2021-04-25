@@ -70,19 +70,15 @@
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th scope="col">Course ID</th>
 					<th scope="col">Course Name</th>
-					<th scope="col">Course Teacher</th>
+					<th scope="col">Course Description</th>
+					<th scope="col">Course Duration</th>
                     <th scope="col">Stream</th>
 
                     <th scope="col">Active Groups</th>
-                    <#--  <th scope="col"></th>
-                    <th scope="col"></th>  -->
-
-                    <th scope="col"></th>
-                   
-
+                    <th scope="col">View Lectures</th>
 				</tr>
+
 			</thead>
 			<tbody>
 			
@@ -103,20 +99,15 @@
 						</#if>
 					</#list>
 					</td>				
-						
-
-					<!--	<form class="form-inline" method="get" action="/deleteCourse"> 
+							
+				<form class="form-inline" method="get" action="/viewLectures"> 
 						 <td scope="col">
-							<button type="submit" class="btn btn-info" name="DeleteCourse" id="DeleteCourse">Remove Course</button>
+							<button type="submit" class="btn btn-info" name="ViewLectures" id="ViewLectures">View Lectures</button>
 						</td>
-					</form> -->
-					
-				<td>
-					<a class="navbar-brand" href="http://localhost:4567/learnerLectures/${course.courseId}">
-						<button type="submit" class="btn btn-info">view lecture</button>
-					</a>
-				</td>
-				</form>
+						<td scope="col" hidden>
+							<input name="courseId" id=${course.courseId} value=${course.courseId} hidden>${course.courseId} </input>
+							</td>
+					</form>
 				</tr>
 				</#list>
 			</tbody>

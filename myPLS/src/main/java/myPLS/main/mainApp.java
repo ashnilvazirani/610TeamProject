@@ -251,5 +251,29 @@ public class mainApp {
 		post("/deleteLecture",(request,response) -> {
 			return professorController.deleteLecture(request,response);
 		});
+		
+		get("/viewLectures",(request,response) -> {
+			return professorController.viewLectures(request);
+		});
+		
+		get("/scheduleLectureSharing",(request,response) -> {
+			return professorController.scheduleLectureSharing(request);
+		});
+		
+		get("/jquery.datetimepicker.min.css",(request,response) -> {
+			return professorController.getCss(request);
+		});
+		
+		get("/jquery.js",(request,response) -> {
+			return professorController.getJs(request);
+		});
+		
+		get("/jquery.datetimepicker.full.js",(request,response) -> {
+			return professorController.getJsFull(request);
+		});
+		
+		post("/scheduleLecture",(request,response) -> {
+			return professorController.scheduleLecture(request,response);
+		});
 	}
 }

@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,6 +82,30 @@ public class LectureDAO {
 	
 	public List<Lecture> getLectures(int courseId) {
 		final String GET_LECTURES = "select * from LECTURE where courseId=?";
+		List<Lecture> lectures = new ArrayList<>();
+		try (Connection conn = JDBCConnection.geConnection();
+				PreparedStatement preparedStatement = conn.prepareStatement(GET_LECTURES)) {
+			preparedStatement.setInt(1, courseId);
+			ResultSet result = preparedStatement.executeQuery();
+			while (result.next()) {
+				Lecture lecture = new Lecture();
+				lecture.setLectureId(result.getInt("lectureId"));
+				lecture.setCourseId(result.getInt("courseId"));
+				lecture.setLectureName(result.getString("lectureName"));
+				lecture.setProfessorId(result.getInt("professorId"));
+				lecture.setLectureDescription(result.getString("lectureDescription"));
+				lectures.add(lecture);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lectures;
+	}
+	
+	public List<Lecture> getScheduledLectures(int courseId) {
+		final String GET_LECTURES = "select * from LECTURE where courseId=? and sharingDate<=sysdate()";
 		List<Lecture> lectures = new ArrayList<>();
 		try (Connection conn = JDBCConnection.geConnection();
 				PreparedStatement preparedStatement = conn.prepareStatement(GET_LECTURES)) {
@@ -210,6 +236,23 @@ public class LectureDAO {
 		}
 		return result;
 
+	}
+
+	public boolean scheduleLectureSharing(LocalDateTime date, int lectureId) {
+		final String UPDATE_LECTURE = "UPDATE LECTURE set sharingDate = ? where lectureId = ?";
+		boolean result = false;
+		try (Connection conn = JDBCConnection.geConnection();
+				PreparedStatement preparedStatement = conn.prepareStatement(UPDATE_LECTURE)) {
+			preparedStatement.setTimestamp(1, Timestamp.valueOf(date.minusHours(4)));
+			preparedStatement.setInt(2, lectureId);
+			int row = preparedStatement.executeUpdate();
+			result = row > 0 ? true : false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }
