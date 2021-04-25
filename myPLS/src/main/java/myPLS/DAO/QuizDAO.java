@@ -255,30 +255,53 @@ public class QuizDAO {
                 return null;
             }   
     }
-    public int submitGradeForStudent(Grade g) {
-        final String quiz = "INSERT INTO grade(userID, quizID, courseID, lectureID, totalPoints, pointSecured) VALUES(?,?,?,?,?,?)";
-		try (Connection conn = JDBCConnection.geConnection();
-				PreparedStatement preparedStatement = conn.prepareStatement(quiz, PreparedStatement.RETURN_GENERATED_KEYS)) {
-			preparedStatement.setInt(1, g.getUserID());
-            preparedStatement.setInt(2, g.getQuizID());
-            preparedStatement.setInt(3, g.getCourseID());
-            preparedStatement.setInt(4, g.getQuizID());
-			preparedStatement.setInt(5, g.getTotalPoints());
-            preparedStatement.setInt(6, g.getPointSecured());
-			int row = preparedStatement.executeUpdate();
-            if(row>0){
-                System.out.println("GRADED!!" +row);
-                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    return Integer.parseInt((generatedKeys.getLong(1)+""));
-                }
+    public boolean hasLearnerAttemptedQuiz(Grade g){
+        final String selectQuery = "SELECT * FROM grade WHERE quizID = "+g.getQuizID()+" AND userID = "+g.getUserID()+" AND lectureID ="+g.getLectureID();
+        try (Connection conn = JDBCConnection.geConnection();
+            Statement stmt = conn.createStatement();) {
+            ResultSet rs = stmt.executeQuery(selectQuery);
+            if(rs.next()){
+                return true;
             }
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        return -1;
+            return false;
+            }catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            } 
+    }
+    public int submitGradeForStudent(Grade g) {
+        String query;
+        if(!hasLearnerAttemptedQuiz(g)){
+            query= "INSERT INTO grade(userID, quizID, courseID, lectureID, totalPoints, pointSecured) VALUES(?,?,?,?,?,?)";
+        }else{
+            query = "UPDATE grade SET userID = ?, quizID = ?, courseID = ?, lectureID = ?, totalPoints = ?, pointSecured = ? WHERE userID = "+g.getUserID()+" AND quizID = "+g.getQuizID();
+        }
+        try (Connection conn = JDBCConnection.geConnection();
+                    PreparedStatement preparedStatement = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                preparedStatement.setInt(1, g.getUserID());
+                preparedStatement.setInt(2, g.getQuizID());
+                preparedStatement.setInt(3, g.getCourseID());
+                preparedStatement.setInt(4, g.getQuizID());
+                preparedStatement.setInt(5, g.getTotalPoints());
+                preparedStatement.setInt(6, g.getPointSecured());
+                int row = preparedStatement.executeUpdate();
+                if(row>0){
+                    System.out.println("GRADED!!" +row);
+                    return row;
+                    // ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                    // if (generatedKeys.next()) {
+                    //     return Integer.parseInt((generatedKeys.getLong(1)+""));
+                    // }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return -1;
     }
     public List<Grade> getGradesForStudent(int userId) {
         final String selectQuery = "SELECT * FROM grade WHERE userId = "+userId;
