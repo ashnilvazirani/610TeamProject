@@ -100,13 +100,13 @@
 					</#list>
 					</td>				
 							
-				<form class="form-inline" method="get" action="/viewLectures"> 
-						 <td scope="col">
-							<button type="submit" class="btn btn-info" name="ViewLectures" id="ViewLectures">View Lectures</button>
-						</td>
+				<form class="form-inline" method="get" action="/learnerLectures"> 
 						<td scope="col" hidden>
 							<input name="courseId" id=${course.courseId} value=${course.courseId} hidden>${course.courseId} </input>
-							</td>
+						</td>
+						<td scope="col">
+							<input type="submit" value="ViewLectures" class="btn btn-info"/>
+						</td>
 					</form>
 				</tr>
 				</#list>

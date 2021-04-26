@@ -157,6 +157,9 @@ public class mainApp {
         get("/learnerLectures/:courseId",(request,response) -> {
         	return learnerController.getLearnerLectureDetails(request);
         });
+		get("/learnerLectures",(request,response) -> {
+			return learnerController.getLearnerLectureDetails(request);
+        });
 		get("/learnerQuiz/:courseId/:lectureId",(request,response) -> {
 			return learnerController.getLearnerQuizPage(request);
         });
