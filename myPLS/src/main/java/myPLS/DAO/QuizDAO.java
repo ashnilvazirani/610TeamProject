@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import myPLS.beans.Grade;
 import myPLS.beans.Question;
 import myPLS.beans.Quiz;
 import myPLS.beans.QuizQuestion;
@@ -111,7 +112,7 @@ public class QuizDAO {
             }    
     }
     public int publishQuiz(Quiz test) {
-        final String quiz = "INSERT INTO quiz (quizTime, userID, courseID, numberOfQuestions, quizTopic) VALUES (?,?,?,?,?)";
+        final String quiz = "INSERT INTO quiz (quizTime, userID, courseID, numberOfQuestions, quizTopic, lectureId) VALUES (?,?,?,?,?,?)";
 		try (Connection conn = JDBCConnection.geConnection();
 				PreparedStatement preparedStatement = conn.prepareStatement(quiz, PreparedStatement.RETURN_GENERATED_KEYS)) {
 			preparedStatement.setString(1, test.getQuizTime());
@@ -119,8 +120,8 @@ public class QuizDAO {
             preparedStatement.setInt(3, test.getCourseID());
             preparedStatement.setInt(4, test.getNumberOfQuestions());
 			preparedStatement.setString(5, test.getQuizTopic());
+            preparedStatement.setInt(6, test.getLectureId());
 			int row = preparedStatement.executeUpdate();
-            System.out.println("INSERTED ID: "+row);
             if(row>0){
                 ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
                 if (generatedKeys.next()) {
@@ -166,6 +167,57 @@ public class QuizDAO {
                 q.setQuizTime(rs.getString("quizTime"));
                 q.setQuizID(rs.getInt("quizID"));
                 q.setUserID(rs.getInt("userID"));
+                q.setLectureId(rs.getInt("lectureId"));
+                quizzes.add(q);
+            }
+            return quizzes;
+            }catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }   
+    }
+    public Quiz getQuizByQuizID(int quizID) {
+        final String selectQuery = "SELECT * FROM quiz WHERE quizID = "+quizID;
+        try (Connection conn = JDBCConnection.geConnection();
+            Statement stmt = conn.createStatement();) {
+            ResultSet rs = stmt.executeQuery(selectQuery);
+            Quiz q = new Quiz();
+            if(rs.next()){
+                q.setCourseID(rs.getInt("courseID"));
+                q.setNumberOfQuestions(rs.getInt("numberOfQuestions"));
+                q.setQuizTopic(rs.getString("quizTopic"));
+                q.setQuizTime(rs.getString("quizTime"));
+                q.setQuizID(rs.getInt("quizID"));
+                q.setUserID(rs.getInt("userID"));
+                q.setLectureId(rs.getInt("lectureId"));
+            }
+            return q;
+            }catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }   
+    }
+    public List<Quiz> getQuizForLecture(int courseId, int lectureId) {
+        final String selectQuery = "SELECT * FROM quiz WHERE courseID = "+courseId+" AND lectureId = "+lectureId;
+        try (Connection conn = JDBCConnection.geConnection();
+            Statement stmt = conn.createStatement();) {
+            ResultSet rs = stmt.executeQuery(selectQuery);
+            List<Quiz> quizzes= new ArrayList<>();
+            while(rs.next()){
+                Quiz q = new Quiz();
+                q.setCourseID(rs.getInt("courseID"));
+                q.setNumberOfQuestions(rs.getInt("numberOfQuestions"));
+                q.setQuizTopic(rs.getString("quizTopic"));
+                q.setQuizTime(rs.getString("quizTime"));
+                q.setQuizID(rs.getInt("quizID"));
+                q.setUserID(rs.getInt("userID"));
+                q.setLectureId(rs.getInt("lectureId"));
                 quizzes.add(q);
             }
             return quizzes;
@@ -191,6 +243,7 @@ public class QuizDAO {
                 q.setOption3(rs.getString("option3"));
                 q.setOption4(rs.getString("option4"));
                 q.setCorrectOption(rs.getInt("correctAnswer"));
+                q.setQuestionID(rs.getInt("questionID"));
                 questions.add(q);
             }
             return questions;
@@ -201,5 +254,79 @@ public class QuizDAO {
                 e.printStackTrace();
                 return null;
             }   
+    }
+    public boolean hasLearnerAttemptedQuiz(Grade g){
+        final String selectQuery = "SELECT * FROM grade WHERE quizID = "+g.getQuizID()+" AND userID = "+g.getUserID()+" AND lectureID ="+g.getLectureID();
+        try (Connection conn = JDBCConnection.geConnection();
+            Statement stmt = conn.createStatement();) {
+            ResultSet rs = stmt.executeQuery(selectQuery);
+            if(rs.next()){
+                return true;
+            }
+            return false;
+            }catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            } 
+    }
+    public int submitGradeForStudent(Grade g) {
+        String query;
+        if(!hasLearnerAttemptedQuiz(g)){
+            query= "INSERT INTO grade(userID, quizID, courseID, lectureID, totalPoints, pointSecured) VALUES(?,?,?,?,?,?)";
+        }else{
+            query = "UPDATE grade SET userID = ?, quizID = ?, courseID = ?, lectureID = ?, totalPoints = ?, pointSecured = ? WHERE userID = "+g.getUserID()+" AND quizID = "+g.getQuizID();
+        }
+        try (Connection conn = JDBCConnection.geConnection();
+                    PreparedStatement preparedStatement = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                preparedStatement.setInt(1, g.getUserID());
+                preparedStatement.setInt(2, g.getQuizID());
+                preparedStatement.setInt(3, g.getCourseID());
+                preparedStatement.setInt(4, g.getQuizID());
+                preparedStatement.setInt(5, g.getTotalPoints());
+                preparedStatement.setInt(6, g.getPointSecured());
+                int row = preparedStatement.executeUpdate();
+                if(row>0){
+                    System.out.println("GRADED!!" +row);
+                    return row;
+                    // ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                    // if (generatedKeys.next()) {
+                    //     return Integer.parseInt((generatedKeys.getLong(1)+""));
+                    // }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return -1;
+    }
+    public List<Grade> getGradesForStudent(int userId) {
+        final String selectQuery = "SELECT * FROM grade WHERE userId = "+userId;
+        try (Connection conn = JDBCConnection.geConnection();
+            Statement stmt = conn.createStatement();) {
+            ResultSet rs = stmt.executeQuery(selectQuery);
+            List<Grade> grades = new ArrayList<>();
+            while(rs.next()){
+                Grade g = new Grade();
+                g.setCourseID(rs.getInt("courseID"));
+                g.setGradeID(rs.getInt("gradeID"));
+                g.setLectureID(rs.getInt("lectureID"));
+                g.setPointSecured(rs.getInt("pointSecured"));
+                g.setQuizID(rs.getInt("quizID"));
+                g.setTotalPoints(rs.getInt("totalPoints"));
+                g.setPointSecured(rs.getInt("pointSecured"));
+                grades.add(g);
+            }
+            return grades;
+            }catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }  
     }
 }

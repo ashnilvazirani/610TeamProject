@@ -112,7 +112,9 @@ public class RegistrationController {
 		if ((boolean) result.get("validUser")) {
 			request.session().attribute("userID", result.get("userID"));
 			try {
-				this.getDashboard(registrationService.logIn(request).get("role").toString(), response);
+				String role = registrationService.logIn(request).get("role").toString();
+				request.session().attribute("role", role);
+				this.getDashboard(role, response);
 			} catch (Exception e) {
 				Spark.halt(500);
 			}

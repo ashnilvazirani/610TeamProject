@@ -8,27 +8,37 @@ import java.util.Map;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.Version;
+import myPLS.DAO.LectureDAO;
 import myPLS.beans.Course;
 import myPLS.beans.CourseGroup;
 import myPLS.beans.CourseGroupMembers;
+import myPLS.beans.Grade;
+import myPLS.beans.Lecture;
+import myPLS.beans.Question;
 import myPLS.beans.User;
 
 import myPLS.services.CourseComponentServiceImpl;
 import myPLS.services.CourseService;
 
 import myPLS.services.LearnerService;
+import myPLS.services.QuizService;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
+import myPLS.beans.Quiz;
 
 public class LearnerController {
     private final Configuration configuration = new Configuration(new Version(2, 3, 0));
     private LearnerService learnerService;
 	private CourseService courseService;
+	private LectureDAO lectureDao;
+	private QuizService quizService;
     public LearnerController(){
         this.setConfiguration();
         this.learnerService = new LearnerService(); 
 		this.courseService = new CourseComponentServiceImpl();
+		this.lectureDao = new LectureDAO();
+		this.quizService = new QuizService();
     }
     private void setConfiguration() {
         configuration.setClassForTemplateLoading(LearnerController.class, "/");
@@ -38,9 +48,7 @@ public class LearnerController {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Course> courses = learnerService.getEnrolledCourses(request);
-		System.out.println("USER ID: "+request.session().attribute("userID"));
 		List<CourseGroup> myCourseGroups = this.courseService.getCourseGroupForUserByUserId(request.session().attribute("userID"));
-		System.out.println("MY H+GRP:"+myCourseGroups.size());
 		Template resultTemplate;
 		try {
 			resultTemplate = configuration.getTemplate("templates/studentDashboard.ftl");
@@ -128,6 +136,89 @@ public class LearnerController {
 		return writer;
 
     }
-    
-
+    public StringWriter getLearnerLectureDetails(Request request) {
+        StringWriter writer = new StringWriter();
+		int courseId = Integer.parseInt(request.queryParams("courseId"));
+		List<Lecture> lectures =  this.lectureDao.getLectures(courseId);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("lectures", lectures);
+		map.put("userId", request.session().attribute("userID").toString());
+		Template resultTemplate;
+		try {
+			resultTemplate = configuration.getTemplate("templates/studentGetLectures.ftl");
+			resultTemplate.process(map, writer);
+		} catch (Exception e) {
+			Spark.halt(500);
+		}
+		return writer;
+    }
+	public StringWriter getLearnerQuizPage(Request request) {
+		StringWriter writer = new StringWriter();
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Quiz> quizzes = null;
+		if(request.params("courseId") != null){
+			map.put("courseId", Integer.parseInt(request.params("courseId")));
+			map.put("lectureId", Integer.parseInt(request.params("lectureId")));
+			map.put("courseName", this.courseService.getCourseByCourseId(Integer.parseInt(request.params("courseId"))).getCourseName());
+			quizzes = this.quizService.getQuizForLecture(Integer.parseInt(request.params("courseId")), Integer.parseInt(request.params("lectureId")));
+		}
+		int userId = request.session().attribute("userID");
+		List<Grade> grades = this.quizService.getGradesForStudent(userId);
+		map.put("quizzes", quizzes);
+		map.put("grades", grades);
+		map.put("userId", userId);
+		Template resultTemplate;
+		try {
+			resultTemplate = configuration.getTemplate("templates/viewStudentQuiz.ftl");
+			resultTemplate.process(map, writer);
+		} catch (Exception e) {
+			Spark.halt(500);
+		}
+		return writer;
+	}
+	public StringWriter takeQuiz(Request request) {
+		StringWriter writer = new StringWriter();
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Question> questions = null;
+		int quizID = Integer.parseInt(request.queryParams("quizID"));
+		if(request.queryParams("quizID") != null){
+			map.put("quizID", quizID);
+			map.put("courseName", this.courseService.getCourseByCourseId(quizID).getCourseName());
+			questions = this.quizService.getQuestionsForQuiz(quizID);
+		}
+		map.put("questions", questions);
+		map.put("userId", request.session().attribute("userID"));
+		map.put("lectureId", Integer.parseInt(request.queryParamsSafe("lectureId")));
+		Template resultTemplate;
+		try {
+			
+			resultTemplate = configuration.getTemplate("templates/takeQuiz.ftl");
+			resultTemplate.process(map, writer);
+		} catch (Exception e) {
+			Spark.halt(500);
+		}
+		return writer;
+	}
+	public Object submitQuizToGetGrades(Request request, Response response) {	
+	try {
+		Map<Integer, Integer> userAnswers = new HashMap<>();
+		int numberOfQuestions = Integer.parseInt(request.queryParams("totalPoints").split(":")[1].trim())/10;
+		for(int i=1;i<=numberOfQuestions;i++){
+			int q = Integer.parseInt(request.queryParams("question:"+i));
+			int a =Integer.parseInt(request.queryParams("answer:"+i));
+			userAnswers.put(q, a);
+		}
+		int quizID = Integer.parseInt(request.queryParams("quizId"));
+		int lectureId = Integer.parseInt(request.queryParams("lectureId"));
+		int userID = request.session().attribute("userID");
+		if(this.quizService.gradeQuiz(userAnswers, quizID, lectureId, userID)>0){
+			response.redirect("/studentDashboard");
+		}else{
+			System.out.println("ERRIR");
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

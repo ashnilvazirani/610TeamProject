@@ -45,6 +45,9 @@
 					<th scope="col"></th>
 					<th scope="col"></th>
 					<th scope="col"></th>
+					<th scope="col"></th>
+					<th scope="col"></th>
+					
 				</tr>
 			</thead>
 			<tbody>
@@ -97,6 +100,29 @@
 							<td scope="col">
 							<button type="submit" class="btn btn-info">Delete Lecture</button></td>
 						</form>
+						<form method="GET" class="register-form" id="get-form" name="editLecture"  action="/scheduleLectureSharing">
+							<td scope="col" hidden>
+								<input name="lectureId" id=${lectures[i].lectureId} value=${lectures[i].lectureId} hidden>${lectures[i].lectureId} </input>
+								</td>
+								<td scope="col" hidden>
+								<input name="courseId" id=${lectures[i].courseId} value=${lectures[i].courseId} hidden>${lectures[i].courseId} </input>
+								</td>
+								<td scope="col" hidden>
+								<input name="lectureName" id=${lectures[i].lectureName} value=${lectures[i].lectureName} hidden>${lectures[i].lectureName} </input>
+								</td>
+								<td scope="col">
+								<button type="submit" class="btn btn-info">Schedule Lecture</button></td>
+						</form>
+
+						<td>
+						<#--  - ${quizNumbers[course?counter -1]}  -->
+							<a class="navbar-brand" href="http://localhost:4567/createQuiz/${lectures[i].courseId}/${lectures[i].lectureId}">
+								<button type="submit" class="btn btn-info">Create NEW Quiz</button>
+							</a>
+							<a class="navbar-brand" href="http://localhost:4567/viewQuiz/${lectures[i].courseId}/${lectures[i].lectureId}">
+								<button type="submit" class="btn btn-info">View Quiz</button>
+							</a>
+						</td>
 					</tr>
 				</#list>
 			</tbody>

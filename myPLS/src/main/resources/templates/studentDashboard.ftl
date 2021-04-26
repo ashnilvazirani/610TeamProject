@@ -70,19 +70,16 @@
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th scope="col">Course ID</th>
 					<th scope="col">Course Name</th>
-					<th scope="col">Course Teacher</th>
+					<th scope="col">Course Description</th>
+					<th scope="col">Course Duration</th>
                     <th scope="col">Stream</th>
 
                     <th scope="col">Active Groups</th>
-                    <#--  <th scope="col"></th>
-                    <th scope="col"></th>  -->
-
-                    <th scope="col"></th>
-                   
-
+                    <th scope="col">View Lectures</th>
+                    <th scope="col">Professor Feedback</th>
 				</tr>
+
 			</thead>
 			<tbody>
 			
@@ -103,20 +100,24 @@
 						</#if>
 					</#list>
 					</td>				
-						
-
-					<!--	<form class="form-inline" method="get" action="/deleteCourse"> 
-						 <td scope="col">
-							<button type="submit" class="btn btn-info" name="DeleteCourse" id="DeleteCourse">Remove Course</button>
+							
+				<form class="form-inline" method="get" action="/learnerLectures"> 
+						<td scope="col" hidden>
+							<input name="courseId" id=${course.courseId} value=${course.courseId} hidden>${course.courseId} </input>
 						</td>
-					</form> -->
-					
-				<td>
-					<a class="navbar-brand" href="http://localhost:4567/viewQuiz/${course.courseId}">
-						<button type="submit" class="btn btn-info" style="margin:5px;">View Quiz</button>
-					</a>
-				</td>
-				</form>
+						<td scope="col">
+							<input type="submit" value="ViewLectures" class="btn btn-info"/>
+						</td>
+					</form>
+					<td scope="col">
+						<form class="form-inline" method="post" action="/professorFeedback">
+							<input name="professorId" id=${course.professorId} value=${course.professorId} hidden/>
+							<div class="form-group" hidden>
+								<input type="text" name="courseId" id="courseId" value= ${course.courseId} />
+							</div>
+							<button type="submit" class="btn btn-info">Give Feedback</button>
+						</form>
+					</td>
 				</tr>
 				</#list>
 			</tbody>
