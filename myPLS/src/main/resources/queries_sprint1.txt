@@ -233,3 +233,13 @@ fileName varchar(30)
 // add sharingDate in lecture table
 alter table lecture
 add column sharingDate TIMESTAMP;
+
+///professorFeedback table
+create table professorFeedback(
+learnerId int references learner(userId),
+professorId int references course(professorId),
+courseId int references learner(courseId),
+rating double not null,
+comments varchar(100),
+Constraint primary key(learnerId,professorId,courseId)
+);

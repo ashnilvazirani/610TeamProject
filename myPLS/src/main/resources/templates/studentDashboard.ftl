@@ -77,6 +77,7 @@
 
                     <th scope="col">Active Groups</th>
                     <th scope="col">View Lectures</th>
+                    <th scope="col">Professor Feedback</th>
 				</tr>
 
 			</thead>
@@ -108,6 +109,15 @@
 							<input type="submit" value="ViewLectures" class="btn btn-info"/>
 						</td>
 					</form>
+					<td scope="col">
+						<form class="form-inline" method="post" action="/professorFeedback">
+							<input name="professorId" id=${course.professorId} value=${course.professorId} hidden/>
+							<div class="form-group" hidden>
+								<input type="text" name="courseId" id="courseId" value= ${course.courseId} />
+							</div>
+							<button type="submit" class="btn btn-info">Give Feedback</button>
+						</form>
+					</td>
 				</tr>
 				</#list>
 			</tbody>

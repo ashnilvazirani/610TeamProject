@@ -112,6 +112,7 @@ public class LearnerDAO {
 				course.setCourseDuration(result.getInt("courseDuration"));
 				course.setCourseDescription(result.getString("courseDescription"));
 				course.setCourseId(result.getInt("courseId"));
+				course.setProfessorId(result.getInt("professorId"));
 				course.setStreamName(streamDAO.getStream(result.getInt("streamId")).getStreamName());
 				courses.add(course);
 			}
