@@ -26,6 +26,18 @@ import myPLS.main.mainApp;
 
 public class MailUtil {
 
+	/**
+	 * This sendEmail method for sending email to registered users
+	 * @param session session number
+	 * @param toEmail email address of users
+	 * @param subject subject of email
+	 * @param paramMap mapping parameter
+	 * @throws TemplateNotFoundException handle  TemplateNotFound exception
+	 * @throws MalformedTemplateNameException handle exception
+	 * @throws ParseException handle parse exception
+	 * @throws IOException handle IO Exception 
+	 * @throws TemplateException handle Template exception
+	 */
 public void sendEmail(Session session, String toEmail, String subject, Map<String,String> paramMap) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 	try
     {

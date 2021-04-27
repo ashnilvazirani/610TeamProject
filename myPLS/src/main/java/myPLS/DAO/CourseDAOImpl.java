@@ -19,7 +19,11 @@ import myPLS.services.UserService;
 import spark.Request;
 import myPLS.beans.User;
 
-
+/**
+ * The CourseDAOImpl class to get details of course
+ * @author sandeep
+ *
+ */
 public class CourseDAOImpl implements CourseDAO {
 	private UserService userService;
 	private StreamDAO streamDAO;
@@ -32,6 +36,11 @@ public class CourseDAOImpl implements CourseDAO {
 	}
 
 	@Override
+	/**
+	 * This addCourse method will add course 
+	 * @param course details of course added by the admin
+	 * @return true  if course is added in the system
+	 */
 	public boolean addCourse(Course course) {
 		final String COURSE = "INSERT INTO Course (streamId, courseName, courseDescription, courseDuration,professorId) VALUES (?,?,?,?,?)";
 		boolean result = false;
@@ -72,6 +81,11 @@ public class CourseDAOImpl implements CourseDAO {
 		return false;
 	}
 	@Override
+	/**
+	 * This updateCourse method will update course details in system
+	 * @param course details of course
+	 * @return true if course is updated in the system by admin
+	 */
 	public boolean updateCourse(Course course) {
 		final String UPDATE_STREAM = "UPDATE Course SET streamId = ?, courseName = ? , courseDescription = ?, courseDuration = ? where courseId = ?";
 		try (Connection conn = JDBCConnection.geConnection();
@@ -92,6 +106,10 @@ public class CourseDAOImpl implements CourseDAO {
 	}
 
 	@Override
+	/**
+	 * This getCourses method will get course details 
+	 * @return list of all courses added by admin
+	 */
 	public List<Course> getCourses() {
 		final String GET_COURSES = "SELECT * FROM Course";
 		List<Course> courses = new ArrayList<>();
@@ -134,6 +152,11 @@ public class CourseDAOImpl implements CourseDAO {
 	}
 
 	@Override
+	/**
+	 * This getCourse method will get course details from system
+	 * @param id id of course
+	 * @return course details from the system 
+	 */
 	public Course getCourse(int id) {
 		final String GET_COURSES = "SELECT * FROM Course where courseId = ?";
 		Course course = new Course();
@@ -181,6 +204,13 @@ public class CourseDAOImpl implements CourseDAO {
 		}
 		return null;
 	}
+	
+	
+	/**
+	 * This getStreamById method will get stream details from system
+	 * @param id id of stream
+	 * @return stream details from the system based on stream id 
+	 */
 	public Stream getStreamById(int streamId){
 		final String GET_COURSES = "SELECT * FROM stream where streamId = ?";
 		Stream stream = new Stream();
@@ -227,6 +257,12 @@ public class CourseDAOImpl implements CourseDAO {
 		return courses;
 	}
 	@Override
+	/**
+	 * This createAGroupForCourse method will create a discussion group for a course
+	 * @param courseId id of course
+	 * @param professorId id of professor
+	 * @return true if discussion group is created for a course
+	 */
 	public boolean createAGroupForCourse(int professorId, int courseId){
         Course c = getCourse(courseId);
 		Stream s = getStreamById(c.getStreamID());
@@ -308,6 +344,11 @@ public class CourseDAOImpl implements CourseDAO {
 		return gc;
 	}
 	@Override
+	/**
+	 * This getCourseGroupsForUser method will get details of a discussion group for a user
+	 * @param userId id of user
+	 * @return list of all group for a course for a student id
+	 */
 	public List<CourseGroup> getCourseGroupsForUser(int userId){
 		final String GET_GROUPS_FOR_USER = "SELECT * FROM courseGroupMembers where userID = ?";
 		List<CourseGroup> userGroups = new ArrayList<>();
@@ -364,6 +405,11 @@ public class CourseDAOImpl implements CourseDAO {
 		return userGroups;
 	}
 	@Override
+	/**
+	 * This getCourseGroupChats method will get details of a discussion group chats 
+	 * @param courseGroupID id of course group
+	 * @return list of all group chats for a course for a course id
+	 */
 	public List<CourseGroupChat> getCourseGroupChats(int courseGroupID){
 		final String GET_COURSE_GROUP = "SELECT * FROM courseGroupChat where courseGroupID = ?";
 		List<CourseGroupChat> groupChats = new ArrayList<CourseGroupChat>();
@@ -388,6 +434,11 @@ public class CourseDAOImpl implements CourseDAO {
 		return groupChats;
 	}
 	@Override
+	/**
+	 * This postMessageInGroup method will post messages in discussion group chats 
+	 * @param chat chat details for a course group
+	 * @return true if message is posted in group chat 
+	 */
 	public boolean postMessageInGroup(CourseGroupChat chat){
 		boolean result = false;
 		final String LC = "INSERT INTO courseGroupChat (userID, courseGroupID, messageContent, userName, flag) VALUES (?,?,?,?,?)";
@@ -408,6 +459,13 @@ public class CourseDAOImpl implements CourseDAO {
 		return result;
 	}
 	@Override
+	/**
+	 * This addRemoveMemberCourseGroup method will add or remove members from discussion group for a given course
+	 * @param courseId id of course
+	 * @param userID id of user
+	 * @param operation add or remove operation
+	 * @return true if member is added or removed from course group 
+	 */
 	public boolean addRemoveMemberCourseGroup(int courseId, int userID, int operation){
 		CourseGroup group = getCourseGroupByCourseId(courseId);
 		if(operation==1){

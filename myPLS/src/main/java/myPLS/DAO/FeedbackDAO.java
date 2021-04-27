@@ -7,8 +7,18 @@ import java.sql.SQLException;
 
 import myPLS.beans.Feedback;
 
+/**
+ * The FeedbackDAO class to get feedback of learner 
+ * @author abriti
+ *
+ */
 public class FeedbackDAO {
 
+	/**
+	 * This addStudentFeedback method will add feedback of student 
+	 * @param feedback details of feedback for a student given by professor
+	 * @return true  if feedback is given to a student
+	 */
 	public boolean addStudentFeedback(Feedback feedback) {
 		final String STUDENT_FFEDBACK = "INSERT INTO learnerFeedback (learnerId, professorId, rating, comments, courseId) VALUES (?,?,?,?,?)";
 		boolean result = false;
@@ -29,6 +39,11 @@ public class FeedbackDAO {
 		return result;
 	}
 
+	/**
+	 * This updateStudentFeedback method will update feedback of student 
+	 * @param feedback details of feedback for a student given by professor
+	 * @return true if feedback given is updated for a student
+	 */
 	public boolean updateStudentFeedback(Feedback feedback) {
 		final String STUDENT_FFEDBACK = "UPDATE learnerFeedback set rating=?, comments=? where learnerId = ? and professorId=? and courseId=?";
 		boolean result = false;
@@ -49,6 +64,11 @@ public class FeedbackDAO {
 		return result;
 	}
 
+	/**
+	 * This getStudentFeedback method will get details of feedback for a student 
+	 * @param feedback details of feedback for a student
+	 * @return feedback(rating, comments) given for a student by professor
+	 */
 	public Feedback getStudentFeedback(Feedback feedback) {
 		final String ENROLLED_STUDENTS = "select * from learnerFeedback where learnerId =? and professorId=? and courseId=?";
 		Feedback feedbackObj = null;
