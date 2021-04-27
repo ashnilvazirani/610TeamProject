@@ -1,6 +1,7 @@
 package myPLS.DAO;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +15,11 @@ import myPLS.beans.Course;
 import myPLS.beans.Learner;
 import myPLS.beans.User;
 
+/**
+ * This LearnerDAO class to enroll learner lecture to a course
+ * @author ashnil
+ *
+ */
 public class LearnerDAO {
 
 
@@ -23,6 +29,10 @@ public class LearnerDAO {
 		this.streamDAO = new StreamDAOImpl();
 	}
 
+	/**
+	 * The getAllLearners method will get all learner 
+	 * @return all the learners
+	 */
 	public Map<Integer, Learner> getAllLearners() {
 		final String selectQuery = "SELECT * FROM LEARNER";
 		try (Connection conn = JDBCConnection.geConnection(); Statement stmt = conn.createStatement();) {
@@ -42,6 +52,11 @@ public class LearnerDAO {
 		}
 	}
 
+	/**
+	 * The enrollCourse method will enroll course for a learner
+	 * @param learner details of a learner 
+	 * @return true if a course is enrolled by a learner
+	 */
 	public boolean enrollCourse(Learner learner) {
 		final String LEARNER_EROLLMENT = "INSERT INTO LEARNER (userId, courseId, streamId) VALUES (?,?,?)";
 		boolean result = false;
@@ -80,6 +95,13 @@ public class LearnerDAO {
     //         return null;
     //     }    
     // }
+	
+	/**
+	 * The enrollLearnerForCourse method will enroll learner for a course
+	 * @param learnerID id of learner
+	 * @param courseID if of course
+	 * @return true  if course is enrolled by a learner
+	 */
     public boolean enrollLearnerForCourse(int learnerID, int courseID){
         final String LC = "INSERT INTO learner_course (learnerID, courseID) VALUES (?,?)";
 		boolean result = false;
@@ -98,6 +120,11 @@ public class LearnerDAO {
 		return result;
 	}
 
+    /**
+     * This getEnrolledCourses method will get list of all enrolled courses by a learner
+     * @param userId id of user
+     * @return list of all courses that a user has enrolled in
+     */
 	public List<Course> getEnrolledCourses(int userId) {
 		final String ENROLLED_COURSES = "select * from course where courseId in (select courseId from learner where userId = ?)";
 		List<Course> courses = new ArrayList<Course>();
@@ -125,6 +152,11 @@ public class LearnerDAO {
 
 	}
 	
+	/**
+	 * This getUnEnrolledCourses method will get list of all not enrolled courses by a learner
+	 * @param userId id of user
+	 * @return list of all courses that a user has not enrolled in
+	 */
 	public List<Course> getUnEnrolledCourses(int userId) {
 		final String ENROLLED_COURSES = "select * from course where courseId not in (select courseId from learner where userId = ?)";
 		List<Course> courses = new ArrayList<Course>();
@@ -151,6 +183,11 @@ public class LearnerDAO {
 
 	}
 	
+	/**
+	 * This getLearnersEnrolledList method will get list of all learners enrolled in courses
+	 * @param courseId id of course
+	 * @return list of all learners enrolled in a course
+	 */
 	public List<User> getLearnersEnrolledList(int courseId) {
         System.out.println(courseId);
 		final String ENROLLED_STUDENTS = "select * from user where userId in (select userId from learner where courseId = ?)";

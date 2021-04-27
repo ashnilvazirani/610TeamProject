@@ -16,8 +16,19 @@ import java.util.List;
 import myPLS.beans.Lecture;
 import myPLS.beans.PDFLecture;
 
+/**
+ * 
+ * This LectureDAO class to add, update delete, schedule lecture for a course
+ * @author abriti
+ *
+ */
 public class LectureDAO {
 	
+	/**
+	 * The addLecture method will add lecture for a course
+	 * @param lecture lecture details
+	 * @return true if lecture added for a course
+	 */
 	public boolean addLecture(Lecture lecture) {
 		final String INSERT_LECTURE = "INSERT INTO LECTURE (courseId, professorId, lectureName,lectureDescription) VALUES (?,?,?,?)";
 		boolean result = false;
@@ -38,6 +49,11 @@ public class LectureDAO {
 
 	}
 	
+	/**
+	 * The uploadPDF method will upload/ add PDF for a lecture
+	 * @param pdf file to be uploaded
+	 * @return true if PDf file is uploaded successfully in the system
+	 */
 	public boolean uploadPDF(PDFLecture pdf) {
 		final String PDF = "INSERT INTO pdfLecture (lectureId,content,fileName) VALUES (?,?,?)";
 		boolean result = false;
@@ -56,6 +72,11 @@ public class LectureDAO {
 		return result;
 	}
 	
+	/**
+	 * The getLecture method will get lecture details for a course
+	 * @param lectureId ID of lecture
+	 * @return list of lecture 
+	 */
 	public List<Lecture> getLecture(int lectureId) {
 		final String GET_LECTURE = "select * from LECTURE where lectureId=?";
 		List<Lecture> lectures = new ArrayList<>();
@@ -80,6 +101,11 @@ public class LectureDAO {
 		return lectures;
 	}
 	
+	/**
+	 * The getLecture method will get lecture details for a course
+	 * @param courseId ID of course
+	 * @return list of lecture for a given course
+	 */
 	public List<Lecture> getLectures(int courseId) {
 		final String GET_LECTURES = "select * from LECTURE where courseId=?";
 		List<Lecture> lectures = new ArrayList<>();
@@ -104,6 +130,11 @@ public class LectureDAO {
 		return lectures;
 	}
 	
+	/**
+	 * The getScheduledLectures method will get lecture details for a course
+	 * @param courseId ID of course
+	 * @return list of lecture for a given course
+	 */
 	public List<Lecture> getScheduledLectures(int courseId) {
 		final String GET_LECTURES = "select * from LECTURE where courseId=? and sharingDate<=sysdate()";
 		List<Lecture> lectures = new ArrayList<>();
@@ -128,6 +159,13 @@ public class LectureDAO {
 		return lectures;
 	}
 	
+	/**
+	 * 
+	 * The getPdf method will get pdf file for a lecture
+	 * @param lectureId ID of lecture
+	 * @param lectureName name of lecture
+	 * @return pdf file for the particular lecture
+	 */
 	public OutputStream getPdf(int lectureId,String lectureName) {
 		final String GET_LECTURE = "select * from pdfLecture where lectureId=? and fileName=?";
 		OutputStream fos = null;
@@ -162,6 +200,12 @@ public class LectureDAO {
 		return fos;
 	}
 	
+	/**
+	 * 
+	 * The getPdfNames method will get name of pdf file for a lecture
+	 * @param lectureId id for lecture
+	 * @return list of all pdf files for a lecture
+	 */
 	public List<PDFLecture> getPdfNames(int lectureId) {
 		final String GET_LECTURE = "select * from pdfLecture where lectureId=?";
 		List<PDFLecture> lectures = new ArrayList<>();
@@ -184,6 +228,11 @@ public class LectureDAO {
 		return lectures;
 	}
 
+	/**
+	 * The updateLecture method will update lecture
+	 * @param lecture details of lecture
+	 * @return true if lecture is updated in system
+	 */
 	public boolean updateLecture(Lecture lecture) {
 		final String UPDATE_LECTURE = "UPDATE LECTURE set lectureName = ?, lectureDescription = ? where lectureId = ?";
 		boolean result = false;
@@ -203,6 +252,11 @@ public class LectureDAO {
 
 	}
 	
+	/**
+	 * The deleteLecture method will delete lecture
+	 * @param lectureId id of lecture
+	 * @return true if lecture is deleted from the system
+	 */
 	public boolean deleteLecture(int lectureId) {
 		this.deletePdfLecture(lectureId);
 		final String DELETE_LECTURE = "delete from  LECTURE where lectureId = ?";
@@ -221,6 +275,11 @@ public class LectureDAO {
 
 	}
 	
+	/**
+	 *  The deletePdfLecture method will delete pdf for lecture
+	 * @param lectureId id of lecture
+	 * @return true if  pdf file  is deleted for a given lecture
+	 */
 	public boolean deletePdfLecture(int lectureId) {
 		final String DELETE_LECTURE_Content = "delete from  pdfLecture where lectureId = ?";
 		boolean result = false;
@@ -238,6 +297,12 @@ public class LectureDAO {
 
 	}
 
+	/**
+	 * The scheduleLectureSharing method will schedule sharing of lecture
+	 * @param date date of lecture to be shared in myPLS
+	 * @param lectureId id of lecture
+	 * @return true if lecture is schedule to be shared 
+	 */
 	public boolean scheduleLectureSharing(LocalDateTime date, int lectureId) {
 		final String UPDATE_LECTURE = "UPDATE LECTURE set sharingDate = ? where lectureId = ?";
 		boolean result = false;

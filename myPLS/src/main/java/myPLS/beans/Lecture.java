@@ -2,6 +2,11 @@ package myPLS.beans;
 
 import java.io.InputStream;
 
+/**
+ * The Lecture class to declare lecture details like Lecture id, name and description, course id, group id, professor id
+ * @author sandeep
+ *
+ */
 public class Lecture {
 	private int lectureId;
 	private int courseId;

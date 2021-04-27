@@ -2,6 +2,11 @@ package myPLS.beans;
 
 import java.io.InputStream;
 
+/**
+ * The PDFLecture class to declare pdf details like Lecture id, pdf if, file name id, content
+ * @author sandeep
+ *
+ */
 public class PDFLecture {
 	private int pdfId;
 	private int lectureId;

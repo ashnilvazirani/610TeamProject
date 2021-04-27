@@ -13,6 +13,11 @@ import spark.Request;
 import spark.Response;
 import spark.Spark;
 
+/**
+ *  The ProfessorFeedbackController class to implement prof feedback functionality
+ * @author sandeep
+ *
+ */
 public class ProfessorFeedbackController {
 	private final Configuration configuration = new Configuration(new Version(2, 3, 0));
 	private ProfessorFeedbackService professorFeedbackService;
@@ -22,7 +27,7 @@ public class ProfessorFeedbackController {
 		professorFeedbackService = new ProfessorFeedbackService();
 	}
 
-	
+	 // method to call professorFeedback.ftl file 
 	public StringWriter getProfessorFeedbackPage(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String,Object> map = new HashMap<String, Object>();

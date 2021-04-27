@@ -10,7 +10,22 @@
     <style type="text/css">
 	<#include "/static/css/style.css">
 	</style>
-	 
+	 	</style>
+	
+		<style>
+      input.right {
+      	 display: inline-block;
+		
+		background: #6c757d;
+		color: #fff;
+		border-bottom: none;
+		width: auto;
+		padding: 15px 39px;
+		-webkit-border-radius: 5px;
+		cursor: pointer;
+        float: left;
+      }
+    </style>
      
 </head>
 <body>
@@ -20,6 +35,10 @@
         <!-- Sign up form -->
         <section class="signup">
             <div class="container">
+            
+              <input onclick="goBack()" class="right" type="button" name="Back" id="Back" style="margin:5px;" value="<< Back"/>
+             
+                
                 <div class="signup-content">
                     <div class="signup-form">
                         <h2 class="form-title">Learner Feedback</h2>
@@ -50,11 +69,12 @@
                             <div class="form-group form-button">
                                 <input type="submit" name="add" id="add" class="form-submit" value="Add"/>
                                 
-                                 <input onclick="goBack()" type="submit" name="Back" id="Back" style="margin:5px;" class="form-submit" value="<< Back"/>
+                                
+                            </div>           
                               
-                            </div>              
                         </form>
-                    </div>                 
+                        
+                    </div>                               
                 </div>
             </div>
         </section>

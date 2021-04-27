@@ -1,5 +1,10 @@
 package myPLS.beans;
 
+/**
+ * The PublishAnswerkey class to declare answer key details like quiz id, answer key id, publish ans key
+ * @author ashnil
+ *
+ */
 public class PublishAnswerkey {
     int publishAnswerKeyID;
     int quizID;

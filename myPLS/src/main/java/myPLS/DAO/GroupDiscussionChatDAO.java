@@ -10,7 +10,19 @@ import java.util.ArrayList;
 import java.sql.ResultSet;
 import myPLS.beans.GroupDiscussionMembers;
 import myPLS.beans.GroupDiscussionChat;
+
+/**
+ * This GroupDiscussionChatDAO class to get discussion group chat details
+ * @author ashnil
+ *
+ */
 public class GroupDiscussionChatDAO {
+	
+	/**
+	 * This getChatsByGroupDiscussionID method will get chats from discussion groups based on group id
+	 * @param groupDiscussionID id of discussion  group
+	 * @return list of all chats from discussion groups
+	 */
     public List<GroupDiscussionChat> getChatsByGroupDiscussionID(int groupDiscussionID){
         final String GET_USERS_IN_GROUP = "SELECT * FROM groupDiscussionChat WHERE groupDiscussionID = "+groupDiscussionID;
 		List<GroupDiscussionChat> chats = new ArrayList<>();
@@ -32,6 +44,12 @@ public class GroupDiscussionChatDAO {
 		}
 		return chats;
     }
+    
+    /**
+     * This postMessage method will post chats/messages in discussion groups in myPLS
+     * @param groupDiscussionChat details of discussion  group chat
+     * @return true if any message is posted in group chats
+     */
     public boolean postMessage(GroupDiscussionChat groupDiscussionChat) {
 		final String POST_MESSAGE = "INSERT INTO groupDiscussionChat (userID, groupDiscussionID, messageContent, flag) VALUES (?,?,?,?)";
 		boolean result = false;

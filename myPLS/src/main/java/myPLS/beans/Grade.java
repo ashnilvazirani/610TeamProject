@@ -1,5 +1,10 @@
 package myPLS.beans;
 
+/**
+ * The Grade class to declare grades details like course id, grade id, quiz id, lecture id, user id, total points
+ * @author ashnil
+ *
+ */
 public class Grade {
     int gradeID;
     int userID;

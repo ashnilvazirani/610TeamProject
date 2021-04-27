@@ -22,6 +22,12 @@ import spark.Request;
 import spark.Response;
 import spark.Spark;
 
+/**
+ * The CourseController class to implement courses functionality
+ * @author ashnil
+ *
+ *
+ */
 public class CourseController {
 	private final Configuration configuration = new Configuration(new Version(2, 3, 0));
 	private static CourseService courseService;
@@ -39,6 +45,7 @@ public class CourseController {
 		pfController = new ProfessorController();
 	}
 
+	// method to call adminDashboard.ftl file based on admin role
 	public StringWriter getCourses() {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -54,6 +61,7 @@ public class CourseController {
 		return writer;
 	}
 
+	// method to call viewCourseGroupChats.ftl file 
 	public StringWriter getCourseChat(Request request, Response response) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -86,6 +94,7 @@ public class CourseController {
 		return false;
 		
 	}
+	// method to  add or remove members from course group
 	public boolean addRemoveMemberCourseGroup(Request request, Response response){
 		int operation = -1;
 		int courseId=Integer.parseInt(request.queryParams("courseId"));
@@ -101,6 +110,7 @@ public class CourseController {
 				response.redirect("/enrolledLearners?courseId="+courseId);
 		return true;
 	}
+	// method to modify a course
 	public void modifyCourse(Request request,Response response){
 		int courseId = Integer.parseInt(request.queryParams("courseId"));
 		String operation="";
@@ -116,6 +126,7 @@ public class CourseController {
 			System.out.println("ERROR");
 		}
 	}
+	// method to call course.ftl file 
 	public StringWriter getAddCoursePage(String operation, int courseId) {
 		StringWriter writer = new StringWriter();
 		Map<String,Object> map = new HashMap<String, Object>();
@@ -137,6 +148,7 @@ public class CourseController {
 		return writer;
 	}
 	
+	// method to call addPreReq.ftl file 
 	public StringWriter getAddPreReqCoursePage(Request request, Response response) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();

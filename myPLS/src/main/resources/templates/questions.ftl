@@ -24,6 +24,9 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	
+	<button onclick="goBack()" class="btn btn-info"	style="margin:15px;" >&laquo; Back</button>
+	
 		<a class="navbar-brand" href="http://localhost:4567/professorDashboard">MyPLS</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
@@ -35,6 +38,9 @@
 			<div class="navbar-nav ml-auto">
 				<a class="navbar-brand" href="http://localhost:4567/addQuestion">
 					<button type="submit" class="btn btn-info" style="margin:5px;">Add Question</button>
+				</a>
+				<a class="navbar-brand" href="http://localhost:4567/">
+					<button type="submit" class="btn btn-info" style="margin:5px;">Logout</button>
 				</a>
 			</div>
 		</div>
@@ -87,9 +93,7 @@
 						</#if>
 				</tr>
 				</#list>
-				<a class="navbar-brand" href="http://localhost:4567/professorDashboard">
-					<button type="submit" class="btn btn-info">Back</button>
-				</a>
+				
 				
 			</tbody>
 			<#if courseID??>
@@ -108,9 +112,18 @@
 						</div>
 						<button type="submit" class="btn btn-info" style="margin:20px;">PUBLISH QUIZ</button>
 					</form>
+
 				</td>
 			</#if>
 		</table>
+		
 	</div>
+	
+		 <script type="text/javascript">
+	    <#include "/static/js/jquery.min.js">
+	    function goBack() {
+  		window.history.back();}
+	</script>	
+	
 </body>
 </html>

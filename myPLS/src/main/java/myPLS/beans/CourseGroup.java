@@ -1,5 +1,10 @@
 package myPLS.beans;
 
+/**
+ * The CourseGroup class to declare course discussion group details like course id, course name, course stream, user id, course group
+ * @author abriti
+ *
+ */
 public class CourseGroup {
     private int courseGroupID;
 

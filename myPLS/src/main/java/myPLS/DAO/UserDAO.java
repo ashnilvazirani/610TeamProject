@@ -8,7 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import myPLS.beans.User;
+
+/**
+ * This UserDAO class to get RIT users and their details from database
+ * @author sandeep
+ *
+ */
 public class UserDAO {
+	
+	/**
+	 * This getRITUsers method will get all RIT users from database
+	 * @return list of all RIT users 
+	 */
     public List<User> getRITUsers() {
 		String sql = "SELECT * FROM rit_users";
 		List<User> users = new ArrayList<User>();
@@ -30,6 +41,11 @@ public class UserDAO {
 		return users;
 	}
 
+    /**
+     * This getUserByID method will get user details from database
+     * @param userID the user id for users
+     * @return user details (email, role, name, authorized)
+     */
 	public User getUserByID(int userID){
 		final String GET_USER = "SELECT * FROM user WHERE userID = "+userID;
 		User user = new User();
@@ -49,6 +65,11 @@ public class UserDAO {
 		}
 		return user;
 	}
+	
+	/**
+	 * This getUsers method will get list of all users from database
+	 * @return list of all users 
+	 */
     public List<User> getUsers() {
 		String sql = "SELECT * FROM user";
 		List<User> users = new ArrayList<User>();
