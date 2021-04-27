@@ -258,10 +258,6 @@ public class mainApp {
 			return professorController.deleteLecture(request,response);
 		});
 		
-		get("/viewLectures",(request,response) -> {
-			return professorController.viewLectures(request);
-		});
-		
 		get("/scheduleLectureSharing",(request,response) -> {
 			return professorController.scheduleLectureSharing(request);
 		});
