@@ -139,7 +139,7 @@ public class LearnerController {
     public StringWriter getLearnerLectureDetails(Request request) {
         StringWriter writer = new StringWriter();
 		int courseId = Integer.parseInt(request.queryParams("courseId"));
-		List<Lecture> lectures =  this.lectureDao.getLectures(courseId);
+		List<Lecture> lectures =  this.lectureDao.getScheduledLectures(courseId);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("lectures", lectures);
 		map.put("userId", request.session().attribute("userID").toString());
