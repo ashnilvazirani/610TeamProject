@@ -1,5 +1,10 @@
 package myPLS.beans;
 
+/**
+ * The CourseGroupChat class to declare course discussion group chats details like set course group id, get message content
+ * @author ashnil
+ *
+ */
 public class CourseGroupChat{
     private int courseGroupChatID;
     private int courseGroupID;
