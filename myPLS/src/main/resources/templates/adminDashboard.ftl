@@ -36,6 +36,9 @@
 				<form class="form-inline" method="get" action="/addCourse">
 					<button type="submit" class="btn btn-info" style="margin:5px;">Add course</button>
 				</form>
+				<form class="form-inline" method="get" action="/viewFeedback">
+					<button type="submit" class="btn btn-info" style="margin:5px;">View Feedback</button>
+				</form>
 				<form class="form-inline" method="get" action="/createGroup">
 					<button type="submit" class="btn btn-info" style="margin:5px;">Create A group</button>
 				</form>

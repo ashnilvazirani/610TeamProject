@@ -12,7 +12,7 @@ import myPLS.beans.Feedback;
  * @author abriti
  *
  */
-public class FeedbackDAO {
+public class LearnerFeedbackDAO {
 
 	/**
 	 * This addStudentFeedback method will add feedback of student 
