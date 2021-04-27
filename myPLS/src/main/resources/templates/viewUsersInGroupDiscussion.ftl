@@ -33,6 +33,10 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav mr-auto"></div>
 			<div class="navbar-nav ml-auto">
+			
+				<a class="navbar-brand" href="http://localhost:4567/">
+					<button type="submit" class="btn btn-info" style="margin:5px;">Logout</button>
+				</a>
 				
 			</div>
 		</div>
