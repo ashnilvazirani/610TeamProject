@@ -35,8 +35,7 @@
         <section class="signup">
             <div class="container">
             
-                <input onclick="goBack()" class="right" type="button" name="Back" id="Back" style="margin:5px;" value="<< Back"/>
-                     
+                 
                 <div class="signup-content">
                     <div class="signup-form">
                         <h2 class="form-title">Professor Feedback</h2>
@@ -66,7 +65,9 @@
                           
                             <div class="form-group form-button">
                                 <input type="submit" name="add" id="add" class="form-submit" value="Add"/>
-                                        
+  							  <input onclick="goBack()" type="button" name="Back" id="Back" style="margin:5px;" class="form-submit" value="<< Back"/>
+                             
+                             
                             </div>    
                             
                                    
