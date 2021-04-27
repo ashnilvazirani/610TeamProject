@@ -358,25 +358,6 @@ public class ProfessorController {
 		return null;
 	}
 
-//	public Object viewLectures(Request request) {
-//		StringWriter writer = new StringWriter();
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		String type = request.queryParams("type") != null ? request.queryParams("type") : "unknown";
-//		LectureService lectureService = lectureFactory.createLecture(type);
-//		List<Lecture> lectures = lectureService.getScheduledLectures(request);
-//		map.put("lectures", lectures);
-//		int courseId = Integer.parseInt(request.queryParams("courseId"));
-//		map.put("courseId", courseId);
-//		Template resultTemplate;
-//		try {
-//			resultTemplate = configuration.getTemplate("templates/viewLectures.ftl");
-//			resultTemplate.process(map, writer);
-//		} catch (Exception e) {
-//			Spark.halt(500);
-//		}
-//		return writer;
-//	}
-
 	public Object scheduleLectureSharing(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
