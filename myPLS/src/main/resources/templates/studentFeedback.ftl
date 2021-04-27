@@ -15,14 +15,15 @@
 		<style>
       input.right {
       	 display: inline-block;
-		background: #6dabe4;
+		
+		background: #6c757d;
 		color: #fff;
 		border-bottom: none;
 		width: auto;
 		padding: 15px 39px;
 		-webkit-border-radius: 5px;
 		cursor: pointer;
-        float: right;
+        float: left;
       }
     </style>
      
@@ -36,6 +37,7 @@
             <div class="container">
             
               <input onclick="goBack()" class="right" type="button" name="Back" id="Back" style="margin:5px;" value="<< Back"/>
+             
                 
                 <div class="signup-content">
                     <div class="signup-form">
@@ -69,9 +71,10 @@
                                 
                                 
                             </div>           
-                               
+                              
                         </form>
-                    </div>                 
+                        
+                    </div>                               
                 </div>
             </div>
         </section>

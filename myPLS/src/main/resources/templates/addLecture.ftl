@@ -35,6 +35,10 @@
                              </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="add" id="add" class="form-submit" value="Add Lecture"/>
+                                
+   							<input onclick="goBack()" type="button" name="Back" id="Back" style="margin:5px;" class="form-submit" value="<< Back"/>
+                            
+  
                             </div>      
                         </form>
                     </div>                 
@@ -65,6 +69,12 @@
 	  <script type="text/javascript">
 	<#include "/static/js/main.js">
 	</script>
+	
+		 <script type="text/javascript">
+	    <#include "/static/js/jquery.min.js">
+	    function goBack() {
+  		window.history.back();}
+	</script>	
     
 </body>
 </html>
