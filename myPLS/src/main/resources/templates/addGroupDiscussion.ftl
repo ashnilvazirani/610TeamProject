@@ -9,8 +9,22 @@
     <!-- Main css -->
     <style type="text/css">
 	<#include "/static/css/style.css">
+	
+	      input.right {
+      	 display: inline-block;
+		background: #6dabe4;
+		color: #fff;
+		border-bottom: none;
+		width: auto;
+		padding: 15px 39px;
+		-webkit-border-radius: 5px;
+		cursor: pointer;
+        float: right;
+      }
+      
 	</style>
-	 
+	
+
      
 </head>
 <body>
@@ -20,6 +34,9 @@
         <!-- Sign up form -->
         <section class="signup">
             <div class="container">
+            
+                   <input onclick="goBack()" class="right" type="button" name="Back" id="Back" style="margin:5px;" class="form-submit" value="<< Back"/>
+               
                 <div class="signup-content">
                     <div class="signup-form">
                         <h2 class="form-title">Add Discussion Group</h2>
@@ -35,16 +52,16 @@
                             <div class="form-group">
                                 <input type="hidden" name="userID" id="userID" placeholder="Topic Description" value="${userID}" required/>
                             </div>
-                            <div class="form-group form-button">
-                                <input type="submit" name="add" id="add" class="form-submit" value="Add"/> 
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input onclick="goBack()" type="submit" name="Back" id="Back" class="form-submit" value="<< Back"/>
-                            </div>              
+          
+                    		 <div class="form-group form-button">
+                                <input type="submit" name="add" id="add" class="form-submit" value="Add"/>
+                               	
+                                                   
+                            </div>   
                         </form>
-               
-                    
+                   
                     </div>            
-                </div>            	
+                </div>  			           	
       		  </div>
        </section>
 

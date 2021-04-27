@@ -11,6 +11,19 @@
     <style type="text/css">
 	<#include "/static/css/style.css">
 	</style>
+		<style>
+      input.right {
+      	 display: inline-block;
+		background: #6dabe4;
+		color: #fff;
+		border-bottom: none;
+		width: auto;
+		padding: 15px 39px;
+		-webkit-border-radius: 5px;
+		cursor: pointer;
+        float: right;
+      }
+    </style>
     
 </head>
 <body>
@@ -20,6 +33,10 @@
         <!-- Sing in  Form -->
         <section class="sign-in">
             <div class="container">
+            
+                  <input onclick="goBack()" class="right" type="button" name="Back" id="Back" style="margin:5px;" class="form-submit" value="<< Back"/>
+                       
+                      
                 <div class="signin-content">
                     <div class="signin-form">
                         <h2 class="form-title">View Chats for Group: ${group.getGroupName()}</h2>
@@ -47,12 +64,10 @@
                             </div>
                         </form>
                         
-                        <input onclick="goBack()" type="submit" name="Back" id="Back" style="margin:5px;" class="form-submit" value="<< Back"/>
-                              
-                                   
                     </div>
                 </div>
             </div>
+            
         </section>
 
     </div>
