@@ -1,5 +1,10 @@
 package myPLS.beans;
 
+/**
+ * The Question class to declare question details like course id, question id, options, problem, professor id
+ * @author abriti
+ *
+ */
 public class Question {
     int questionID;
     String problem;

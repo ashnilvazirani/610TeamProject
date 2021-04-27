@@ -1,5 +1,10 @@
 package myPLS.beans;
 
+/**
+ * The DiscussionPanel class to declare discussion panel details like course id, user id, discussion panel id, message content
+ * @author sandeep
+ *
+ */
 public class DiscussionPanel {
     private int discussionPanelID;
     private int userID;

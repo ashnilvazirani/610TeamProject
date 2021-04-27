@@ -1,5 +1,10 @@
 package myPLS.beans;
 
+/**
+ * The Learner class to declare learner details like learner name, stream id, group id, user id
+ * @author abriti
+ *
+ */
 public class Learner {
     private String learnerName;
     private int streamID;
