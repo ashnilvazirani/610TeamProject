@@ -1,5 +1,10 @@
 package myPLS.beans;
 
+/**
+ * The InviteRequest class to declare group discussion invite details 
+ * @author sandeep
+ *
+ */
 public class InviteRequest{
     private int iniviteRequestID;
     private int userID;

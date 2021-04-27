@@ -1,5 +1,10 @@
 package myPLS.beans;
 
+/**
+ * The course class to declare course details like stream, course name, course duration, course id, professor id
+ * @author ashnil
+ *
+ */
 public class Course {
     private int courseId;
     private String courseName;

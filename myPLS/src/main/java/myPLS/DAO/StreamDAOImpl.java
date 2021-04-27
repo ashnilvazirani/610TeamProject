@@ -9,9 +9,19 @@ import java.util.List;
 
 import myPLS.beans.Stream;
 
+/**
+ * The StreamDAOImpl class to add, update stream details
+ * @author sandeep
+ *
+ */
 public class StreamDAOImpl implements StreamDAO {
 
+
 	@Override
+	/**
+	 * This getStreams method will get stream from database
+	 *  @return the list of all streams 
+	 */
 	public List<Stream> getStreams() {
 		final String GET_STREAMS = "SELECT * FROM Stream";
 		List<Stream> streams = new ArrayList<Stream>();
@@ -35,6 +45,11 @@ public class StreamDAOImpl implements StreamDAO {
 	}
 
 	@Override
+	/**
+	 * This getStreams method will get stream from database
+	 * @param id stream id
+	 *  @return the streams 
+	 */
 	public Stream getStream(int id) {
 		final String GET_STREAM = "SELECT * FROM Stream where streamId = ?";
 		Stream stream = new Stream();
@@ -76,6 +91,11 @@ public class StreamDAOImpl implements StreamDAO {
 	}
 
 	@Override
+	/**
+	 * This addStream method will add stream to database
+	 * @param stream name of stream
+	 *  @return true if stream is added to DB
+	 */
 	public boolean addStream(Stream stream) {
 		final String INSERT_STREAM = "INSERT INTO Stream (streamName, streamDuration, streamDescription) VALUES (?,?,?)";
 		boolean result = false;

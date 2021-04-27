@@ -51,7 +51,9 @@
 			<h1 class="display-4">
 				Welcome Professor!
 			</h1>
-			<p class="lead">Courses List</p>
+			
+			<p class="lead">Professor Dashboard</p>
+			
 		</div>
 	</div>
 
@@ -140,7 +142,7 @@
 				<td>
    				<form class="form-inline" method="GET" action="/getLectures">
    					<input name="courseId" id=${course.courseId} value=${course.courseId} hidden/>
-							<button type="submit" class="btn btn-info">Get Lectures</button>
+							<button type="submit" class="btn btn-info">Get</button>
 				</form> 
    					
 				</td>
@@ -148,7 +150,7 @@
 				<td>
 					<form class="form-inline" method="GET" action="/addLecture">
 						<input name="courseId" id=${course.courseId} value=${course.courseId} hidden/>
-						<button type="submit" class="btn btn-info">Add Lecture</button>
+						<button type="submit" class="btn btn-info">Add</button>
 					</form>
 				</td>
 				

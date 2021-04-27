@@ -1,5 +1,10 @@
 package myPLS.beans;
 
+/**
+ * The Quiz class to declare quiz details like user id, course id, questions, lecture id
+ * @author sandeep
+ *
+ */
 public class Quiz {
     int quizID;
     String quizTime;

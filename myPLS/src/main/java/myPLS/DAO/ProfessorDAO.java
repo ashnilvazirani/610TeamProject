@@ -12,12 +12,22 @@ import myPLS.beans.Course;
 import myPLS.beans.Learner;
 import myPLS.services.CourseService;
 import myPLS.services.CourseServiceImpl;
+
+/**
+ *  This ProfessorDAO class to get details of the professor
+ * @author ashnil
+ *
+ */
 public class ProfessorDAO {
     private CourseService courseService;
     public ProfessorDAO(){
         this.courseService = new CourseServiceImpl();
     }
 
+    /**
+     * This getAllLearners method will get all learners assigned to a professor
+     * @return all the learners assigned to professor
+     */
     public Map<Integer, Learner> getAllLearners(){
         final String selectQuery = "SELECT * FROM PROFESSOR";
         try (Connection conn = JDBCConnection.geConnection();

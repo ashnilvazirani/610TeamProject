@@ -1,5 +1,10 @@
 package myPLS.beans;
 
+/**
+ * The Stream class to declare Stream details like Stream id, Stream name and description, Stream duration
+ * @author ashnil
+ *
+ */
 public class Stream {
     private int streamID;
     private String streamName;

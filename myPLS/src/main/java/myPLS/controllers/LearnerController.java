@@ -27,6 +27,11 @@ import spark.Response;
 import spark.Spark;
 import myPLS.beans.Quiz;
 
+/**
+ * The LearnerController class to implement learner functionality
+ * @author abriti
+ *
+ */
 public class LearnerController {
     private final Configuration configuration = new Configuration(new Version(2, 3, 0));
     private LearnerService learnerService;
@@ -44,6 +49,7 @@ public class LearnerController {
         configuration.setClassForTemplateLoading(LearnerController.class, "/");
 	}
     
+ // method to call studentDashboard.ftl file based on student role
     public StringWriter getLearnerDashboard(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -62,6 +68,7 @@ public class LearnerController {
 		return writer;
 	}
     
+    // method to call enrollCourses.ftl file 
     public StringWriter getAllCourses(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -91,6 +98,7 @@ public class LearnerController {
 		return writer;
     }
     
+    // method to call enrolledLearners.ftl file 
     public StringWriter getLearnersEnrolledList(Request request) {
     	StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -119,6 +127,8 @@ public class LearnerController {
 		}
 		return null;
 	}
+	
+    // method to call viewCoursesForStudentToEnroll.ftl file 
 	public StringWriter getCourseListForLearners(Request request, Response response) {
 		StringWriter writer = new StringWriter();
 		List<Course> courses = (List<Course>)courseService.getCourses();
@@ -139,7 +149,7 @@ public class LearnerController {
     public StringWriter getLearnerLectureDetails(Request request) {
         StringWriter writer = new StringWriter();
 		int courseId = Integer.parseInt(request.queryParams("courseId"));
-		List<Lecture> lectures =  this.lectureDao.getLectures(courseId);
+		List<Lecture> lectures =  this.lectureDao.getScheduledLectures(courseId);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("lectures", lectures);
 		map.put("userId", request.session().attribute("userID").toString());
@@ -152,6 +162,8 @@ public class LearnerController {
 		}
 		return writer;
     }
+    
+    // method to call viewStudentQuiz.ftl file 
 	public StringWriter getLearnerQuizPage(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -176,6 +188,7 @@ public class LearnerController {
 		}
 		return writer;
 	}
+	   // method to call takeQuiz.ftl file 
 	public StringWriter takeQuiz(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();

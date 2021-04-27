@@ -1,6 +1,10 @@
 package myPLS.beans;
 
-
+/**
+ * The User class to declare User details like User id, User name, email, role, password
+ * @author abriti
+ *
+ */
 public class User {
 	private int userID;
 	private String name;

@@ -24,6 +24,9 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	
+	<button onclick="goBack()" class="btn btn-info"	style="margin:15px;" >&laquo; Back</button>
+	
 		<a class="navbar-brand" href="http://localhost:4567/">MyPLS</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
@@ -99,7 +102,7 @@
 			
 		</table>
 		
-			<button onclick="goBack()" class="btn btn-info"	>&laquo; Back</button>
+		
 	</div>
 	
 	  <script type="text/javascript">
