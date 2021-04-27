@@ -9,8 +9,17 @@ import java.util.List;
 
 import myPLS.beans.User;
 
+/**
+ *   The RITUserDAO class to get RIT users from database
+ * @author abriti
+ *
+ */
 public class RITUserDAO {
 	
+	/**
+	 * This getRITUsers method will get user details from database
+	 * @return list of all RIT users 
+	 */
 	public List<User> getRITUsers() {
 		String sql = "SELECT * FROM rit_users";
 		List<User> users = new ArrayList<User>();

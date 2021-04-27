@@ -4,6 +4,11 @@ import java.util.List;
 
 import myPLS.beans.Stream;
 
+/**
+ * The StreamDAO interface 
+ * @author sandeep
+ *
+ */
 public interface StreamDAO {
 	List<Stream> getStreams();
 	Stream getStream(int id);
