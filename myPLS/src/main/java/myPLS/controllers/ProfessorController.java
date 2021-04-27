@@ -38,6 +38,7 @@ public class ProfessorController {
 	public ArrayList<Integer> questionList;
 	private LectureFactory lectureFactory;
 	private LectureDAO lectureDao;
+	private LearnerController learnerCotroller;
 
 	public ProfessorController() {
 		this.setConfiguration();
@@ -47,6 +48,7 @@ public class ProfessorController {
 		this.questionList = new ArrayList<>();
 		lectureFactory = new LectureFactory();
 		lectureDao = new LectureDAO();
+		learnerCotroller = new LearnerController();
 	}
 
 	private void setConfiguration() {
@@ -301,7 +303,7 @@ public class ProfessorController {
 		String lectureName = request.queryParams("lectureName");
 		lectureDao.getPdf(lectureId, lectureName);
 		if (request.session().attribute("role").equals("student")) {
-			return this.viewLectures(request);
+			return learnerCotroller.getLearnerLectureDetails(request);
 		}
 		return this.getLectures(request);
 	}
@@ -354,25 +356,6 @@ public class ProfessorController {
 
 	public Object getLearnerLectureDetails(Request request) {
 		return null;
-	}
-
-	public Object viewLectures(Request request) {
-		StringWriter writer = new StringWriter();
-		Map<String, Object> map = new HashMap<String, Object>();
-		String type = request.queryParams("type") != null ? request.queryParams("type") : "unknown";
-		LectureService lectureService = lectureFactory.createLecture(type);
-		List<Lecture> lectures = lectureService.getScheduledLectures(request);
-		map.put("lectures", lectures);
-		int courseId = Integer.parseInt(request.queryParams("courseId"));
-		map.put("courseId", courseId);
-		Template resultTemplate;
-		try {
-			resultTemplate = configuration.getTemplate("templates/viewLectures.ftl");
-			resultTemplate.process(map, writer);
-		} catch (Exception e) {
-			Spark.halt(500);
-		}
-		return writer;
 	}
 
 	public Object scheduleLectureSharing(Request request) {
