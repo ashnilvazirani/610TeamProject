@@ -17,6 +17,12 @@ import myPLS.services.UserService;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
+
+/**
+ *  The AdminController class to implement admin functionality
+ * @author sandeep
+ *
+ */
 public class AdminController {
     private final Configuration configuration = new Configuration(new Version(2, 3, 0));
     private static GroupDiscussionService groupDiscussionService;
@@ -29,6 +35,8 @@ public class AdminController {
     private void setConfiguration() {
 		configuration.setClassForTemplateLoading(AdminController.class, "/");
 	}
+    
+    // method to call viewGroups.ftl file
     public StringWriter viewAllGroupDiscussion(Request request, Response response) {
 		StringWriter writer = new StringWriter();
 		Map<String,Object> map = new HashMap<String, Object>();
@@ -43,6 +51,7 @@ public class AdminController {
 		}
 		return writer;
 	}
+    //method to call viewChats.ftl file
     public StringWriter viewGroupChats(Request request, Response response) {
 		StringWriter writer = new StringWriter();
 		Map<String,Object> map = new HashMap<String, Object>();
@@ -65,6 +74,8 @@ public class AdminController {
 		}
 		return writer;
 	}
+    
+   
     public void createADiscussionGroup(Request request, Response response){
         if(groupDiscussionService.createADiscussionGroup(request, response))
             response.redirect("/courses");
@@ -72,6 +83,7 @@ public class AdminController {
             System.out.println("ERROR TO INSERT!!!");
     }
 
+    //method to call inviteMembers.ftl file
     public StringWriter inviteMembers(Request request, Response response){
         StringWriter writer = new StringWriter();
         List<User> users = userService.getAllUsers();
@@ -88,6 +100,7 @@ public class AdminController {
 		return writer;
     }
 
+    //method to add members to groups
     public StringWriter addMemberToGroup(Request request, Response response){
         if(groupDiscussionService.addMemberToGroup(request, response)){
             System.out.println("ADDED");
@@ -98,6 +111,8 @@ public class AdminController {
 
         return null;
     }
+    
+  //method to call viewUsersInGroupDiscussion.ftl file
     public StringWriter viewMembersInGroupDiscussion(Request request, Response response){
         StringWriter writer = new StringWriter();
 		Map<String,Object> map = new HashMap<String, Object>();
@@ -112,6 +127,7 @@ public class AdminController {
 
 		return writer;
     }
+    //method to call addGroupDiscussion.ftl file
     public StringWriter getGroupDiscussionPage(Request request, Response  response) {
 		StringWriter writer = new StringWriter();
 		Map<String,Object> map = new HashMap<String, Object>();

@@ -13,6 +13,11 @@ import spark.Request;
 import spark.Response;
 import spark.Spark;
 
+/**
+ * The FeedbackController class to implement feedback functionality
+ * @author ashnil
+ *
+ */
 public class FeedbackController {
 	private final Configuration configuration = new Configuration(new Version(2, 3, 0));
 	private FeedbackService feedbackService;
@@ -22,7 +27,7 @@ public class FeedbackController {
 		feedbackService = new FeedbackService();
 	}
 
-	
+	// method to call studentFeedback.ftl file 
 	public StringWriter getStudentFeedbackPage(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String,Object> map = new HashMap<String, Object>();

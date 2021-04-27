@@ -30,6 +30,11 @@ import spark.Request;
 import spark.Response;
 import spark.Spark;
 
+/**
+ *  The ProfessorController class to implement professor functionality
+ * @author ashnil
+ *
+ */
 public class ProfessorController {
 	private final Configuration configuration = new Configuration(new Version(2, 3, 0));
 	private CourseService courseService;
@@ -59,6 +64,7 @@ public class ProfessorController {
 		return this.courseService.createACourseGroup(request);
 	}
 
+	//m method to add question by professor
 	public boolean addQuestion(Request request, Response response) {
 		String problem = request.queryParams("problem") != null ? request.queryParams("problem") : "null";
 		String option1 = request.queryParams("option1") != null ? request.queryParams("option1") : "null";
@@ -82,6 +88,7 @@ public class ProfessorController {
 		}
 	}
 
+	 // method to call professorDashboard.ftl file based on professor role
 	public StringWriter getProfessorDashboard(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -117,6 +124,7 @@ public class ProfessorController {
 		return writer;
 	}
 
+	// method to implement publish quiz functionality
 	public boolean publishQuiz(Request request, Response response) {
 		System.out.println(request.queryParams("quizTopic"));
 		String quizTime = request.queryParams("quizTime");
@@ -138,6 +146,7 @@ public class ProfessorController {
 		return true;
 	}
 
+	// method to get question page
 	public StringWriter getQuestionPage(Request request, Response response) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -210,6 +219,7 @@ public class ProfessorController {
 		return writer;
 	}
 
+	// method to get answer key for quiz
 	public StringWriter getAnswerKey(Request request, Response response) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -235,7 +245,7 @@ public class ProfessorController {
 		}
 		return writer;
 	}
-
+		// method to implement add lecture
 	public StringWriter addLecture(Request request, Response response) {
 		String type = request.queryParams("type") != null ? request.queryParams("type") : "unknown";
 		LectureService lectureService = lectureFactory.createLecture(type);
@@ -259,6 +269,7 @@ public class ProfessorController {
 		return writer;
 	}
 
+	// method to get lecture
 	public StringWriter getLectures(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -292,6 +303,7 @@ public class ProfessorController {
 		return writer;
 	}
 
+	// method to call upload pdf
 	public Object uploadPdf(Request request, Response response) {
 		LectureService lectureService = lectureFactory.createLecture("PDF");
 		lectureService.upload(request);
@@ -358,6 +370,7 @@ public class ProfessorController {
 		return null;
 	}
 
+	// method to implement schedule sharing of lecture
 	public Object scheduleLectureSharing(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
