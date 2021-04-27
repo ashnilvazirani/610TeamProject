@@ -2,6 +2,7 @@ package myPLS.controllers;
 
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import freemarker.template.Configuration;
@@ -20,23 +21,23 @@ import spark.Spark;
  * @author sandeep
  *
  */
-public class ProfessorFeedbackController {
+public class AdminFeedbackController {
 	private final Configuration configuration = new Configuration(new Version(2, 3, 0));
 	private FeedbackService feedbackService;
 	
-	public ProfessorFeedbackController() {
+	public AdminFeedbackController() {
 		setConfiguration();
-		feedbackService = FeedbackFactory.feedback(RoleType.PROFESSOR);
+		feedbackService = FeedbackFactory.feedback(RoleType.ADMIN);
 	}
 
 	 // method to call professorFeedback.ftl file 
-	public StringWriter getProfessorFeedbackPage(Request request) {
+	public StringWriter getAdminFeedbackPage(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String,Object> map = new HashMap<String, Object>();
-		Feedback feedback = this.getProfessorFeedback(request);
-		map.put("feedback", feedback);
+		List<Feedback> feedback = this.getProfessorFeedback(request);
+		map.put("feedbacks", feedback);
 		try {
-			Template formTemplate = configuration.getTemplate("templates/professorFeedback.ftl");
+			Template formTemplate = configuration.getTemplate("templates/adminViewFeedback.ftl");
 			formTemplate.process(map, writer);
 		} catch (Exception e) {
 			Spark.halt(500);
@@ -46,17 +47,11 @@ public class ProfessorFeedbackController {
 		
 	}
 	
-	public StringWriter addProfessorFeedback(Request request,Response response) {
-		feedbackService.addFeedback(request);
-		response.redirect("/studentDashboard");
-		return null;
-	}
-	
-	public Feedback getProfessorFeedback(Request request) {
-		return (Feedback)feedbackService.getFeedback(request);
+	public List<Feedback> getProfessorFeedback(Request request) {
+		return (List<Feedback>)feedbackService.getFeedback(request);
 	}
 	
 	private void setConfiguration() {
-		configuration.setClassForTemplateLoading(ProfessorFeedbackController.class, "/");
+		configuration.setClassForTemplateLoading(AdminFeedbackController.class, "/");
 	}
 }
