@@ -205,7 +205,10 @@ public class ProfessorController {
 			map.put("courseId", Integer.parseInt(request.params("courseId")));
 			map.put("courseName", this.courseService.getCourseByCourseId(Integer.parseInt(request.params("courseId")))
 					.getCourseName());
-			quizzes = this.quizService.getAllQuizForCourse(Integer.parseInt(request.params("courseId")));
+			if(request.params("lectureId")!=null)
+				quizzes = this.quizService.getAllQuizForLecture(Integer.parseInt(request.params("lectureId")));
+			else
+				quizzes = this.quizService.getAllQuizForCourse(Integer.parseInt(request.params("courseId")));
 		}
 		map.put("quizzes", quizzes);
 		map.put("userId", request.session().attribute("userID"));

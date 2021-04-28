@@ -66,8 +66,8 @@
                         <input name="lectureId" type="hidden" value="${lectureId}" />
                         <br><br><br>
                         <input name="totalPoints" type="text" value="Total Marks:${questions?size * 10}" readonly/>
-                        <input type="submit" name="submitQuiz" id="submitQuiz" style="margin:5px;" class="form-submit" value="Submit Quiz"/>
                     </form>
+                    <input onclick="confirmSubmitQuiz()" name="submitQuiz" id="submitQuiz" style="margin:5px;" class="form-submit" value="Submit Quiz"/>
                     <br><br><br>
                         <input onclick="goBack()" type="submit" name="Back" id="Back" style="margin:5px;" class="form-submit" value="<< Back"/>
                     </div>
@@ -109,13 +109,19 @@
             return;
         }
 }
-
+    function confirmSubmitQuiz(){
+        var r = confirm("Submit a quiz!");
+		if (r == true) {
+			document.getElementById("submitQuiz").submit();
+        }
+    }
 window.onload = function () {
     var quizTime = parseInt(document.getElementById("time").innerHTML);
-    var time = 60 * 0.1,
+    var time = 60 * quizTime,
         display = document.querySelector('#time');
     startTimer(time, display);
 };
+
 </script>
 </body>
 </html>
