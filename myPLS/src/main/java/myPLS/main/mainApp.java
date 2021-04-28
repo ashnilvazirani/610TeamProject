@@ -10,8 +10,9 @@ import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
 import myPLS.controllers.AdminController;
+import myPLS.controllers.AdminFeedbackController;
 import myPLS.controllers.CourseController;
-import myPLS.controllers.FeedbackController;
+import myPLS.controllers.LearnerFeedbackController;
 import myPLS.controllers.GroupDiscussionChatController;
 import myPLS.controllers.LearnerController;
 import myPLS.controllers.ProfessorController;
@@ -26,8 +27,10 @@ public class mainApp {
 	private final static AdminController adminController = new AdminController();
 	private final static GroupDiscussionChatController groupDiscussionChatController = new GroupDiscussionChatController();
 	private static final ProfessorController professorController = new ProfessorController();
-	private static final FeedbackController feedbackController = new FeedbackController();
+	private static final LearnerFeedbackController feedbackController = new LearnerFeedbackController();
 	private static final ProfessorFeedbackController professorFeedbackController = new ProfessorFeedbackController();
+	private static final AdminFeedbackController adminFeedbackController = new AdminFeedbackController();
+
 
 	public static int fileCount=0;
 	public static void main(String[] args) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException, Exception {
@@ -285,5 +288,11 @@ public class mainApp {
 		post("/addProfessorFeedback",(request,response) -> {
 			return professorFeedbackController.addProfessorFeedback(request,response);
 		});
+		
+		get("/viewFeedback",(request,response) -> {
+			return adminFeedbackController.getAdminFeedbackPage(request);
+		});
+		
+		
 	}
 }
