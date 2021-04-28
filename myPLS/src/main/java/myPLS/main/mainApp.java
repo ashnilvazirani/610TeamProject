@@ -140,8 +140,6 @@ public class mainApp {
         	courseController.modifyCourse(request, response);
 			return 0;
         });
-		
-        
         get("/studentDashboard",(request,response) -> {
         	return learnerController.getLearnerDashboard(request);
         });

@@ -71,7 +71,7 @@
 					<th scope="col">Manage Students</th>
 					<#--  <th scope="col">Create Quiz</th>   -->
 					<th scope="col">View Group Chats</th> 
-					<th scope="col">View Question</th>
+					<#--  <th scope="col">View Question</th>  -->
 					<th scope="col">Get Lectures</th> 
 					<th scope="col">Add Lecture</th>
 				</tr>
@@ -132,12 +132,12 @@
 						
 					</#if>
 				</td>
-				<td>
+				<#--  <td>
 					<form class="form-inline" method="POST" action="/question">
 					<button type="submit" class="btn btn-info">View</button>
 					<input id="courseID" name="courseID" type="hidden" value="0"/>
 					</form>
-				</td>
+				</td>  -->
 				
 				<td>
    				<form class="form-inline" method="GET" action="/getLectures">

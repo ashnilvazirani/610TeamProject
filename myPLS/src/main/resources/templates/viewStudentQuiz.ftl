@@ -77,17 +77,25 @@
 				</a>
 				</td>  -->
 				<td>
-					<form class="form-inline" method="POST" action="/takeQuiz">
-					<button type="submit" class="btn btn-info">take quiz</button>
-					<input id="courseID" name="courseID" type="hidden" value="${quiz.courseID}"/>
-                    <input id="quizID" name="quizID" type="hidden" value="${quiz.quizID}"/>
-					<input id="lectureId" name="lectureId" type="hidden" value="${quiz.lectureId}"/>
+					<button onclick="startQuiz()" class="btn btn-info" id="takeQuiz">take quiz</button>
+					<form class="form-inline" method="POST" action="/takeQuiz" id="takequizform">
+						<input id="courseID" name="courseID" type="hidden" value="${quiz.courseID}"/>
+						<input id="quizID" name="quizID" type="hidden" value="${quiz.quizID}"/>
+						<input id="lectureId" name="lectureId" type="hidden" value="${quiz.lectureId}"/>
 					</form>
 				</td>
 				<#if grades??>
 					<#list grades as g>
 						<#if g.quizID == quiz.quizID>
 							<td>${g.pointSecured}/${g.totalPoints}</td>
+							<td>
+								<a class="navbar-brand" href="http://localhost:4567/quizAnswerKey/${quiz.quizID}">
+									<button type="submit" class="btn btn-info">View Quiz</button>
+								</a>
+							</td>
+							<script>
+								document.getElementById("takeQuiz").disabled = true;
+							</script>
 						</#if>
 					</#list>
 				<#else>
@@ -99,5 +107,17 @@
 			
 		</table>
 	</div>
+	<script type="text/javascript">
+	<#include "/static/js/jquery.min.js">
+	function startQuiz() {
+		
+		var r = confirm("Start a quiz!");
+		if (r == true) {
+			document.getElementById("takequizform").submit();
+		} else {
+			alert("Take soon!!")
+		}
+		}
+	</script>	
 </body>
 </html>

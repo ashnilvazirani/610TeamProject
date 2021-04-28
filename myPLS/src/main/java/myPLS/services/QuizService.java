@@ -58,4 +58,7 @@ public class QuizService{
     public List<Grade> getGradesForStudent(int userId) {
         return this.quizDAO.getGradesForStudent(userId);
     }
+    public List<Quiz> getAllQuizForLecture(int lectureID) {
+        return this.quizDAO.getAllQuizForLecture(lectureID);
+    }
 }
