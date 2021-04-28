@@ -12,6 +12,11 @@ import spark.Request;
 import spark.Response;
 import spark.Spark;
 
+/**
+ * The RegistrationController class to implement registration page functionality
+ * @author abriti
+ *
+ */
 public class RegistrationController {
 	private final Configuration configuration = new Configuration(new Version(2, 3, 0));
 	private static RegistrationService registrationService;
@@ -21,6 +26,7 @@ public class RegistrationController {
 		registrationService = new RegistrationService();
 	}
 
+	 // method to call registration.ftl page for new users
 	public StringWriter getRegistrationPage() {
 		StringWriter writer = new StringWriter();
 		try {
@@ -34,6 +40,7 @@ public class RegistrationController {
 
 	}
 
+	 // method to call registration.ftl page for new users
 	public StringWriter registerUser(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -59,6 +66,7 @@ public class RegistrationController {
 		return writer;
 	}
 
+	 // method to call resetPassword.ftl page 
 	public StringWriter authoriseUser(Request request) {
 		registrationService.updateAuthorization(request);
 		StringWriter writer = new StringWriter();
@@ -105,6 +113,7 @@ public class RegistrationController {
 		configuration.setClassForTemplateLoading(RegistrationController.class, "/");
 	}
 
+	 // method to call login.ftl page based on user role
 	public Object logIn(Request request, Response response) {
 		StringWriter writer = new StringWriter();
 		Template formTemplate;

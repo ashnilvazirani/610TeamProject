@@ -10,8 +10,19 @@ import java.util.Map;
 
 import myPLS.beans.User;
 
+/**
+ *  The RegistrationDAO class to add, update user details into and from database
+ * @author abriti
+ *
+ */
+
 public class RegistrationDAO {
 
+	/**
+	 *  This saveUser method will save the user details in database
+	 * @param map user details
+	 * @return the user is authorized or not
+	 */
 	public boolean saveUser(Map<String, Object> map) {
 	 final String INSERT_USER = "INSERT INTO USER (name, email, authorized) VALUES (?,?,?)";
 	 boolean result = false;
@@ -31,6 +42,11 @@ public class RegistrationDAO {
 
 	}
 	
+	/**
+	 * This updateUser method update the user details in database
+	 * @param email the email address of the user
+	 * @param role the role of the user (learner, professor, admin)
+	 */
 	public void updateUser(String email,String role) {
 		final String INSERT_USER = "UPDATE USER SET authorized = ?, role = ? where email = ?";
 		 try (Connection conn = JDBCConnection.geConnection();
@@ -47,6 +63,11 @@ public class RegistrationDAO {
 
 	}
 	
+	/**
+	 * This getUser method will get user details from DB
+	 * @param email the email address of the user
+	 * @return details of the user (email, role, authorized, password, userID)
+	 */
 	public User getUser(String email) {
 		final String GET_USER = "SELECT  email, role, authorized, password, userID FROM user where email = ?";
         User user = new User();
@@ -69,6 +90,12 @@ public class RegistrationDAO {
 		return user;
 	}
 
+	/**
+	 * This updatePassword method will save details related to password of user
+	 * @param email the email address of the user
+	 * @param password the password of the user
+	 * @return the password is set or not
+	 */
 	public boolean updatePassword(String email, String password) {
 		final String INSERT_USER = "UPDATE USER SET password = ? where email = ?";
 		 try (Connection conn = JDBCConnection.geConnection();
@@ -84,6 +111,11 @@ public class RegistrationDAO {
 		 return true;
 	}
 	
+	/**
+	 * This getUsersByRole method will fetch user details from database
+	 * @param role the role of the user (learner, professor, admin)
+	 * @return details regarding the user
+	 */
 	public List<User> getUsersByRole(String role) {
 		final String GET_USER = "SELECT  email, role, authorized, password, userID FROM user where role = ?";
         List<User> users = new ArrayList<>();

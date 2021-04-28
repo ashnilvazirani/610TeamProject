@@ -1,5 +1,10 @@
 package myPLS.beans;
 
+/**
+ * The GroupDiscussion class to declare group discussion details like group id, group name, topic, user id
+ * @author ashnil
+ *
+ */
 public class GroupDiscussion {
     private int groupDiscussionID;
     private int userID; // admin ID

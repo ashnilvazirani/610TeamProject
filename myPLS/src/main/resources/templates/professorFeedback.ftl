@@ -10,22 +10,21 @@
     <style type="text/css">
 	<#include "/static/css/style.css">
 	</style>
-	 	</style>
 	
 		<style>
       input.right {
       	 display: inline-block;
-		
-		background: #6c757d;
+		background: #6dabe4;
 		color: #fff;
 		border-bottom: none;
 		width: auto;
 		padding: 15px 39px;
 		-webkit-border-radius: 5px;
 		cursor: pointer;
-        float: left;
+        float: right;
       }
     </style>
+	 
      
 </head>
 <body>
@@ -36,16 +35,14 @@
         <section class="signup">
             <div class="container">
             
-              <input onclick="goBack()" class="right" type="button" name="Back" id="Back" style="margin:5px;" value="<< Back"/>
-             
-                
+                 
                 <div class="signup-content">
                     <div class="signup-form">
-                        <h2 class="form-title">Learner Feedback</h2>
-                        <form method="POST" class="register-form" id="student-feedback-form" name="studentFeedbackForm" action="/addStudentFeedback">
+                        <h2 class="form-title">Professor Feedback</h2>
+                        <form method="POST" class="register-form" id="professor-feedback-form" name="professorFeedbackForm" action="/addProfessorFeedback">
                           </font>
                           	<div class="form-group" hidden>
-                                <input type="text" name="learnerId" id="learnerId" value= ${feedback.feedbackEntityId} />
+                                <input type="text" name="professorId" id="professorId" value= ${feedback.feedbackEntityId} />
                            </div>
                            <div class="form-group" hidden>
                                 <input type="text" name="courseId" id="courseId" value= ${feedback.courseId} />
@@ -68,13 +65,17 @@
                           
                             <div class="form-group form-button">
                                 <input type="submit" name="add" id="add" class="form-submit" value="Add"/>
-                                
-                                
-                            </div>           
-                              
+  							  <input onclick="goBack()" type="button" name="Back" id="Back" style="margin:5px;" class="form-submit" value="<< Back"/>
+                             
+                             
+                            </div>    
+                            
+                                   
                         </form>
                         
-                    </div>                               
+                    
+ 							                      
+                    </div>                 
                 </div>
             </div>
         </section>

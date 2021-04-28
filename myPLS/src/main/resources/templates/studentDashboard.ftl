@@ -59,8 +59,9 @@
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<h1 class="display-4">
-				Welcome!
+				Welcome Student!
 			</h1>
+			<p class="lead"> Student Dashboard </p>
 			<p class="lead">You have enrolled for the following courses:</p>
 		</div>
 	</div>
@@ -77,6 +78,7 @@
 
                     <th scope="col">Active Groups</th>
                     <th scope="col">View Lectures</th>
+                    <th scope="col">Professor Feedback</th>
 				</tr>
 
 			</thead>
@@ -105,9 +107,18 @@
 							<input name="courseId" id=${course.courseId} value=${course.courseId} hidden>${course.courseId} </input>
 						</td>
 						<td scope="col">
-							<input type="submit" value="ViewLectures" class="btn btn-info"/>
+							<input type="submit" value="View" class="btn btn-info"/>
 						</td>
 					</form>
+					<td scope="col">
+						<form class="form-inline" method="post" action="/professorFeedback">
+							<input name="professorId" id=${course.professorId} value=${course.professorId} hidden/>
+							<div class="form-group" hidden>
+								<input type="text" name="courseId" id="courseId" value= ${course.courseId} />
+							</div>
+							<button type="submit" class="btn btn-info">Feedback</button>
+						</form>
+					</td>
 				</tr>
 				</#list>
 			</tbody>

@@ -2,6 +2,11 @@ package myPLS.beans;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * The Professor class to declare Professor details like Professor id, name, user name, email, contact info, user id
+ * @author ashnil
+ *
+ */
 public class Professor {
     private int professorID;
     private String professorName;

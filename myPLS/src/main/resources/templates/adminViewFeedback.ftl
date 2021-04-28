@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Admin Home</title>
+<title>Feedback</title>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -23,8 +23,9 @@
 
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="http://localhost:4567/">MyPLS</a>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<button onclick="goBack()" class="btn btn-info"	style="margin:15px;" >&laquo; Back</button>
+		<a class="navbar-brand" href="http://localhost:4567/professorDashboard">MyPLS</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -33,72 +34,52 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav mr-auto"></div>
 			<div class="navbar-nav ml-auto">
-			
-				<form class="form-inline" method="get" action="/createGroup">
-					<button type="submit" class="btn btn-info" style="margin:5px;">Create Group</button>
-				</form>
-				<form class="form-inline" method="get" action="/viewGroups">
-					<button type="submit" class="btn btn-info" style="margin:5px;">View Group</button>
-				</form>
+				
+				
 				<a class="navbar-brand" href="http://localhost:4567/">
 					<button type="submit" class="btn btn-info" style="margin:5px;">Logout</button>
 				</a>
-				
 			</div>
 		</div>
 	</nav>
+	
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
-			<h1 class="display-4">
-				Invite Members
+			<h1 class="lead">
+			Courses List
 			</h1>
-			<p class="lead">Invite for group discussion</p>
-		<#--	<p class="lead">Group Name: ${groupDiscussion.getGroupName()} </p>
-            <p class="lead">Topic: ${groupDiscussion.getGroupTopic()} </p> -->
 		</div>
 	</div>
-
 	<div class="container">
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th scope="col">ID</th>
-					<th scope="col">User Name</th>
-                    <th scope="col">User Email</th>
-					<th scope="col">ADD</th>
+					<th scope="col">Name</th>
+					<th scope="col">Rating</th>
+                    <th scope="col">Role</th>
 				</tr>
 			</thead>
 			<tbody>
-				<#list users as user>
-				<tr>
-					<td scope="col">${user.getUserID()}</td>
-					<td scope="col">${user.getName()}</td>
-                    <td scope="col">${user.getEmail()}</td>
-                    <td scope="col">
-                        <form class="form-inline" method="post" action="/addMemberToGroup">
-                            <button type="submit" class="btn btn-info">ADD</button>
-                            <input id="groupDiscussionID" name="groupDiscussionID" type="hidden" value="${groupDiscussionID}"/> 
-                            <input id="userID" name="userID" type="hidden" value="${user.getUserID()}"/> 
-                        </form>
-                    </td>
-				</tr>
+				<#list 0..feedbacks?size-1 as i>
+					<tr>
+					    
+							<td scope="col">${feedbacks[i].name}</td>
+							<td scope="col">${feedbacks[i].rating}</td>
+							<td scope="col">${feedbacks[i].role}</td>
+							
+					</tr>
 				</#list>
 			</tbody>
 			
 		</table>
 		
-		<button onclick="goBack()" class="btn btn-info"	>&laquo; Back</button>
-
 	</div>
-
-	  <!-- JS -->
-  
-    
+	
+	  
     <script type="text/javascript">
 	    <#include "/static/js/jquery.min.js">
 	    function goBack() {
   		window.history.back();}
 	</script>	
-	
 </body>
 </html>

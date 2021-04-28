@@ -30,6 +30,11 @@ import spark.Request;
 import spark.Response;
 import spark.Spark;
 
+/**
+ *  The ProfessorController class to implement professor functionality
+ * @author ashnil
+ *
+ */
 public class ProfessorController {
 	private final Configuration configuration = new Configuration(new Version(2, 3, 0));
 	private CourseService courseService;
@@ -38,6 +43,7 @@ public class ProfessorController {
 	public ArrayList<Integer> questionList;
 	private LectureFactory lectureFactory;
 	private LectureDAO lectureDao;
+	private LearnerController learnerCotroller;
 
 	public ProfessorController() {
 		this.setConfiguration();
@@ -47,6 +53,7 @@ public class ProfessorController {
 		this.questionList = new ArrayList<>();
 		lectureFactory = new LectureFactory();
 		lectureDao = new LectureDAO();
+		learnerCotroller = new LearnerController();
 	}
 
 	private void setConfiguration() {
@@ -57,6 +64,7 @@ public class ProfessorController {
 		return this.courseService.createACourseGroup(request);
 	}
 
+	//m method to add question by professor
 	public boolean addQuestion(Request request, Response response) {
 		String problem = request.queryParams("problem") != null ? request.queryParams("problem") : "null";
 		String option1 = request.queryParams("option1") != null ? request.queryParams("option1") : "null";
@@ -80,6 +88,7 @@ public class ProfessorController {
 		}
 	}
 
+	 // method to call professorDashboard.ftl file based on professor role
 	public StringWriter getProfessorDashboard(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -115,6 +124,7 @@ public class ProfessorController {
 		return writer;
 	}
 
+	// method to implement publish quiz functionality
 	public boolean publishQuiz(Request request, Response response) {
 		System.out.println(request.queryParams("quizTopic"));
 		String quizTime = request.queryParams("quizTime");
@@ -136,6 +146,7 @@ public class ProfessorController {
 		return true;
 	}
 
+	// method to get question page
 	public StringWriter getQuestionPage(Request request, Response response) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -208,6 +219,7 @@ public class ProfessorController {
 		return writer;
 	}
 
+	// method to get answer key for quiz
 	public StringWriter getAnswerKey(Request request, Response response) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -233,7 +245,7 @@ public class ProfessorController {
 		}
 		return writer;
 	}
-
+		// method to implement add lecture
 	public StringWriter addLecture(Request request, Response response) {
 		String type = request.queryParams("type") != null ? request.queryParams("type") : "unknown";
 		LectureService lectureService = lectureFactory.createLecture(type);
@@ -257,6 +269,7 @@ public class ProfessorController {
 		return writer;
 	}
 
+	// method to get lecture
 	public StringWriter getLectures(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -290,6 +303,7 @@ public class ProfessorController {
 		return writer;
 	}
 
+	// method to call upload pdf
 	public Object uploadPdf(Request request, Response response) {
 		LectureService lectureService = lectureFactory.createLecture("PDF");
 		lectureService.upload(request);
@@ -301,7 +315,7 @@ public class ProfessorController {
 		String lectureName = request.queryParams("lectureName");
 		lectureDao.getPdf(lectureId, lectureName);
 		if (request.session().attribute("role").equals("student")) {
-			return this.viewLectures(request);
+			return learnerCotroller.getLearnerLectureDetails(request);
 		}
 		return this.getLectures(request);
 	}
@@ -356,25 +370,7 @@ public class ProfessorController {
 		return null;
 	}
 
-	public Object viewLectures(Request request) {
-		StringWriter writer = new StringWriter();
-		Map<String, Object> map = new HashMap<String, Object>();
-		String type = request.queryParams("type") != null ? request.queryParams("type") : "unknown";
-		LectureService lectureService = lectureFactory.createLecture(type);
-		List<Lecture> lectures = lectureService.getScheduledLectures(request);
-		map.put("lectures", lectures);
-		int courseId = Integer.parseInt(request.queryParams("courseId"));
-		map.put("courseId", courseId);
-		Template resultTemplate;
-		try {
-			resultTemplate = configuration.getTemplate("templates/viewLectures.ftl");
-			resultTemplate.process(map, writer);
-		} catch (Exception e) {
-			Spark.halt(500);
-		}
-		return writer;
-	}
-
+	// method to implement schedule sharing of lecture
 	public Object scheduleLectureSharing(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();

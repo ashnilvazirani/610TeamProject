@@ -23,6 +23,29 @@
 
 </head>
 <body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		
+		<button onclick="goBack()" class="btn btn-info"	style="margin:15px;" >&laquo; Back</button>
+				
+		<a class="navbar-brand" href="http://localhost:4567/professorDashboard">MyPLS</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav mr-auto"></div>
+			<div class="navbar-nav ml-auto">
+				
+			
+				<a class="navbar-brand" href="http://localhost:4567/">
+					<button type="submit" class="btn btn-info" style="margin:5px;">Logout</button>
+				</a>
+				
+				
+			</div>
+		</div>
+	</nav>
 	
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
@@ -128,8 +151,17 @@
 			</tbody>
 			
 		</table>
+		
+		
+                            
 		</#if>
 	</div>
+	
+	     <script type="text/javascript">
+	    <#include "/static/js/jquery.min.js">
+	    function goBack() {
+  		window.history.back();}
+	</script>	
 	
 </body>
 </html>

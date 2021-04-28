@@ -2,6 +2,11 @@ package myPLS.beans;
 
 import java.util.Date;
 
+/**
+ * The Feedback class to declare feedback details like feedback id, dates, comments, rating, course id
+ * @author sandeep
+ *
+ */
 public class Feedback {
 	private int feedbackId;
 	// reciever
@@ -12,7 +17,8 @@ public class Feedback {
 	private String comments;
 	private double rating;
 	private int courseId;
-	
+	private String name;
+	private String role;
 	public int getFeedbackId() {
 		return feedbackId;
 	}
@@ -54,5 +60,21 @@ public class Feedback {
 	}
 	public void setCourseId(int courseId) {
 		this.courseId = courseId;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
+	public String getRole() {
+		return role;
 	}
 }

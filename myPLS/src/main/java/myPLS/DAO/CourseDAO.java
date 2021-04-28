@@ -7,6 +7,12 @@ import myPLS.beans.CourseGroup;
 import myPLS.beans.CourseGroupChat;
 import myPLS.beans.CourseGroupMembers;
 
+/**
+ * 
+ * The CourseDAO interface 
+ * @author ashnil
+ *
+ */
 public interface CourseDAO {
 	boolean addCourse(Course course);
 	boolean updateCourse(Course course);
