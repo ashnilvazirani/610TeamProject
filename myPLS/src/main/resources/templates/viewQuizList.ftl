@@ -78,7 +78,7 @@
 				</td>  -->
 				<td>
 				<a class="navbar-brand" href="http://localhost:4567/quizAnswerKey/${quiz.quizID}">
-					<button type="submit" class="btn btn-info">View Quiz</button>
+					<button type="submit" class="btn btn-info">View Answer Key</button>
 				</a>
 				</td>
 				<td>

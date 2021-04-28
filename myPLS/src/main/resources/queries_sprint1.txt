@@ -243,3 +243,9 @@ rating double not null,
 comments varchar(100),
 Constraint primary key(learnerId,professorId,courseId)
 );
+
+
+create table publishAnswerkey(
+publishAnswerkeyID int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+quizID int references quiz(quizID),
+flag int);

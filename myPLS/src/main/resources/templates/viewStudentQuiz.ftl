@@ -77,7 +77,7 @@
 				</a>
 				</td>  -->
 				<td>
-					<button onclick="startQuiz()" class="btn btn-info">take quiz</button>
+					<button onclick="startQuiz()" class="btn btn-info" id="takeQuiz">take quiz</button>
 					<form class="form-inline" method="POST" action="/takeQuiz" id="takequizform">
 						<input id="courseID" name="courseID" type="hidden" value="${quiz.courseID}"/>
 						<input id="quizID" name="quizID" type="hidden" value="${quiz.quizID}"/>
@@ -88,6 +88,14 @@
 					<#list grades as g>
 						<#if g.quizID == quiz.quizID>
 							<td>${g.pointSecured}/${g.totalPoints}</td>
+							<td>
+								<a class="navbar-brand" href="http://localhost:4567/quizAnswerKey/${quiz.quizID}">
+									<button type="submit" class="btn btn-info">View Quiz</button>
+								</a>
+							</td>
+							<script>
+								document.getElementById("takeQuiz").disabled = true;
+							</script>
 						</#if>
 					</#list>
 				<#else>
