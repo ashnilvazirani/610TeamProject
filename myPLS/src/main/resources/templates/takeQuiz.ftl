@@ -23,11 +23,12 @@
                 <div class="signin-content">
                     <div class="signin-form">
                         <h2 class="form-title">Take Quiz: ${quizID} for ${courseName}</h2>
+                        <h4><div>Quiz Time: <span id="time">${quizTime}</span> minutes!</div></h4>
                             <p>            	
                             <font color ="red">
                                 <#if status??>${message}</#if>
                             </font>
-                        <form action="/submitQuiz" method="POST">
+                        <form action="/submitQuiz" method="POST" id="submitQuiz">
                             <#list questions as question>
                             <div class="form-group" style="width=100%;">
                                 <input placeholder="Question: ${question?counter}" readonly/>
@@ -85,6 +86,36 @@
     function goBack() {
         window.history.back();
     }
+    function startTimer(duration, display) {
+        var timer = duration, minutes, seconds;
+        var submit = false;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+            timer=timer-1;
+            if (timer == 0) {
+                alert("END TIME!! submit quiz");
+                document.getElementById("submitQuiz").submit();
+                submit=true;
+            }
+            console.log(timer)
+        }, 1000);
+        if(submit == true){
+            return;
+        }
+}
+
+window.onload = function () {
+    var quizTime = parseInt(document.getElementById("time").innerHTML);
+    var time = 60 * 0.1,
+        display = document.querySelector('#time');
+    startTimer(time, display);
+};
 </script>
 </body>
 </html>
