@@ -358,17 +358,12 @@ public class QuizDAO {
                 preparedStatement.setInt(1, g.getUserID());
                 preparedStatement.setInt(2, g.getQuizID());
                 preparedStatement.setInt(3, g.getCourseID());
-                preparedStatement.setInt(4, g.getQuizID());
+                preparedStatement.setInt(4, g.getLectureID());
                 preparedStatement.setInt(5, g.getTotalPoints());
                 preparedStatement.setInt(6, g.getPointSecured());
                 int row = preparedStatement.executeUpdate();
                 if(row>0){
-                    System.out.println("GRADED!!" +row);
                     return row;
-                    // ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-                    // if (generatedKeys.next()) {
-                    //     return Integer.parseInt((generatedKeys.getLong(1)+""));
-                    // }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
