@@ -227,6 +227,32 @@ public class QuizDAO {
             }   
     }
     
+    public List<Quiz> getAllQuizForLecture(int lectureID) {
+        final String selectQuery = "SELECT * FROM quiz WHERE lectureId = "+lectureID;
+        try (Connection conn = JDBCConnection.geConnection();
+            Statement stmt = conn.createStatement();) {
+            ResultSet rs = stmt.executeQuery(selectQuery);
+            List<Quiz> quizzes= new ArrayList<>();
+            while(rs.next()){
+                Quiz q = new Quiz();
+                q.setCourseID(rs.getInt("courseID"));
+                q.setNumberOfQuestions(rs.getInt("numberOfQuestions"));
+                q.setQuizTopic(rs.getString("quizTopic"));
+                q.setQuizTime(rs.getString("quizTime"));
+                q.setQuizID(rs.getInt("quizID"));
+                q.setUserID(rs.getInt("userID"));
+                q.setLectureId(rs.getInt("lectureId"));
+                quizzes.add(q);
+            }
+            return quizzes;
+            }catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }   
+    }
     
     public Quiz getQuizByQuizID(int quizID) {
         final String selectQuery = "SELECT * FROM quiz WHERE quizID = "+quizID;
@@ -358,17 +384,12 @@ public class QuizDAO {
                 preparedStatement.setInt(1, g.getUserID());
                 preparedStatement.setInt(2, g.getQuizID());
                 preparedStatement.setInt(3, g.getCourseID());
-                preparedStatement.setInt(4, g.getQuizID());
+                preparedStatement.setInt(4, g.getLectureID());
                 preparedStatement.setInt(5, g.getTotalPoints());
                 preparedStatement.setInt(6, g.getPointSecured());
                 int row = preparedStatement.executeUpdate();
                 if(row>0){
-                    System.out.println("GRADED!!" +row);
                     return row;
-                    // ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-                    // if (generatedKeys.next()) {
-                    //     return Integer.parseInt((generatedKeys.getLong(1)+""));
-                    // }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Professor Home</title>
+<title>Feedback</title>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -23,7 +23,8 @@
 
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<button onclick="goBack()" class="btn btn-info"	style="margin:15px;" >&laquo; Back</button>
 		<a class="navbar-brand" href="http://localhost:4567/professorDashboard">MyPLS</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
@@ -34,64 +35,51 @@
 			<div class="navbar-nav mr-auto"></div>
 			<div class="navbar-nav ml-auto">
 				
-				<form class="form-inline" method="get" action="/createGroup">
-					<button type="submit" class="btn btn-info" style="margin:5px;">Create Group</button>
-				</form>
-				<form class="form-inline" method="get" action="/viewGroups">
-					<button type="submit" class="btn btn-info" style="margin:5px;">View Group</button>
-				</form>
+				
 				<a class="navbar-brand" href="http://localhost:4567/">
 					<button type="submit" class="btn btn-info" style="margin:5px;">Logout</button>
 				</a>
 			</div>
 		</div>
 	</nav>
+	
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
-			<h1 class="display-4">
-				Welcome Professor!
+			<h1 class="lead">
+			Courses List
 			</h1>
-			<p class="lead">Courses List</p>
 		</div>
 	</div>
-
 	<div class="container">
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th scope="col">Quiz</th>
-					<th scope="col">Description</th>
-					<th scope="col">View Quiz</th>
-					<th scope="col">View Question</th>
+					<th scope="col">Name</th>
+					<th scope="col">Rating</th>
+                    <th scope="col">Role</th>
 				</tr>
 			</thead>
 			<tbody>
-				<#list quizzes as quiz>
-				<tr>
-                <td>${quiz.quizID}</td>
-                <td>${quiz.getQuizTopic()}</td>
-				<#--  <td>
-					<form class="form-inline" method="GET" action="/enrolledLearners">
-						<input name="courseId" id=${course.courseId} value=${course.courseId} hidden/>
-						<button type="submit" class="btn btn-info">Manage</button>
-					</form>
-				</td>  -->
-				<td>
-				<a class="navbar-brand" href="http://localhost:4567/quizAnswerKey/${quiz.quizID}">
-					<button type="submit" class="btn btn-info">View Answer Key</button>
-				</a>
-				</td>
-				<td>
-					<form class="form-inline" method="POST" action="/question">
-					<button type="submit" class="btn btn-info">View Question</button>
-					<input id="courseID" name="courseID" type="hidden" value="0"/>
-					</form>
-				</td>
-				</tr>
+				<#list 0..feedbacks?size-1 as i>
+					<tr>
+					    
+							<td scope="col">${feedbacks[i].name}</td>
+							<td scope="col">${feedbacks[i].rating}</td>
+							<td scope="col">${feedbacks[i].role}</td>
+							
+					</tr>
 				</#list>
 			</tbody>
 			
 		</table>
+		
 	</div>
+	
+	  
+    <script type="text/javascript">
+	    <#include "/static/js/jquery.min.js">
+	    function goBack() {
+  		window.history.back();}
+	</script>	
 </body>
 </html>

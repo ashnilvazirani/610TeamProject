@@ -148,7 +148,12 @@ public class LearnerController {
     }
     public StringWriter getLearnerLectureDetails(Request request) {
         StringWriter writer = new StringWriter();
-		int courseId = Integer.parseInt(request.queryParams("courseId"));
+		int courseId;
+		if(request.queryParams("courseId")!=null){
+			courseId = Integer.parseInt(request.queryParams("courseId"));
+		}else{
+			courseId = Integer.parseInt(request.params("courseId"));
+		}
 		List<Lecture> lectures =  this.lectureDao.getScheduledLectures(courseId);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("lectures", lectures);
@@ -200,8 +205,10 @@ public class LearnerController {
 			questions = this.quizService.getQuestionsForQuiz(quizID);
 		}
 		map.put("questions", questions);
+		int timeInMinutes = questions.size();
 		map.put("userId", request.session().attribute("userID"));
 		map.put("lectureId", Integer.parseInt(request.queryParamsSafe("lectureId")));
+		map.put("quizTime", timeInMinutes);
 		Template resultTemplate;
 		try {
 			
@@ -218,13 +225,14 @@ public class LearnerController {
 		int numberOfQuestions = Integer.parseInt(request.queryParams("totalPoints").split(":")[1].trim())/10;
 		for(int i=1;i<=numberOfQuestions;i++){
 			int q = Integer.parseInt(request.queryParams("question:"+i));
-			int a =Integer.parseInt(request.queryParams("answer:"+i));
+			int a =request.queryParams("answer:"+i)!=null ? Integer.parseInt(request.queryParams("answer:"+i)):0;
 			userAnswers.put(q, a);
 		}
 		int quizID = Integer.parseInt(request.queryParams("quizId"));
 		int lectureId = Integer.parseInt(request.queryParams("lectureId"));
 		int userID = request.session().attribute("userID");
 		if(this.quizService.gradeQuiz(userAnswers, quizID, lectureId, userID)>0){
+			// http://localhost:4567/learnerQuiz/:courseId/:lectureId
 			response.redirect("/studentDashboard");
 		}else{
 			System.out.println("ERRIR");

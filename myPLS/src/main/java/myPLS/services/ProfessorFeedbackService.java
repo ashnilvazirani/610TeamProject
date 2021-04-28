@@ -6,7 +6,7 @@ import myPLS.DAO.ProfessorFeedbackDAO;
 import myPLS.beans.Feedback;
 import spark.Request;
 
-public class ProfessorFeedbackService {
+public class ProfessorFeedbackService extends FeedbackService{
 	
 	private ProfessorFeedbackDAO professorFeedbackDAO;
 	
@@ -15,7 +15,8 @@ public class ProfessorFeedbackService {
 		
 	}
 	
-	public boolean addProfessorFeedback(Request request) {
+	@Override
+	public boolean addFeedback(Request request) {
 		Feedback feedback = new Feedback();
 		feedback.setFeedbackEntityId(Integer.parseInt(request.queryParams("professorId") != null ? request.queryParams("professorId") : "unknown"));
 		int learnerId = request.session().attribute("userID");
@@ -31,11 +32,12 @@ public class ProfessorFeedbackService {
 		}
 	}
 	
-	public Feedback getProfessorFeedback(Request request) {
+
+	@Override
+	public Object getFeedback(Request request) {
 		Feedback feedback = new Feedback();
 		feedback.setFeedbackEntityId(Integer.parseInt(request.queryParams("professorId") != null ? request.queryParams("professorId") : "unknown"));
-		int learnerId = request.session().attribute("userID");
-		feedback.setFeedbackGiverId(learnerId);
+		feedback.setFeedbackGiverId(request.session().attribute("userID"));
 		feedback.setCourseId(Integer.parseInt(request.queryParams("courseId") != null ? request.queryParams("courseId") : "unknown"));
 		Feedback reponse = professorFeedbackDAO.getProfessorFeedback(feedback);
 		if(reponse != null) {
