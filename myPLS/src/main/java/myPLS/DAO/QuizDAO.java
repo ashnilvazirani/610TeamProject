@@ -289,12 +289,7 @@ public class QuizDAO {
                 preparedStatement.setInt(6, g.getPointSecured());
                 int row = preparedStatement.executeUpdate();
                 if(row>0){
-                    System.out.println("GRADED!!" +row);
                     return row;
-                    // ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-                    // if (generatedKeys.next()) {
-                    //     return Integer.parseInt((generatedKeys.getLong(1)+""));
-                    // }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
