@@ -25,7 +25,11 @@
 <body>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		
-		<button onclick="goBack()" class="btn btn-info"	style="margin:15px;" >&laquo; Back</button>
+	<!--	<button onclick="goBack()" class="btn btn-info"	style="margin:15px;" >&laquo; Back</button>  -->
+		
+				<a class="navbar-brand" href="http://localhost:4567/professorDashboard">
+				<button type="submit" class="btn btn-info">&laquo; Back</button>
+				</a>
 				
 		<a class="navbar-brand" href="http://localhost:4567/professorDashboard">MyPLS</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -64,12 +68,12 @@
 				<tr>
 					<th scope="col">Lecture Name</th>
 					<th scope="col">Lecture Description</th>
-					<th scope="col"></th>
-					<th scope="col"></th>
-					<th scope="col"></th>
-					<th scope="col"></th>
-					<th scope="col"></th>
-					<th scope="col"></th>
+					<th scope="col">Upload Lecture</th>
+					<th scope="col">Get Lecture Content</th>
+					<th scope="col">Edit Lecture</th>
+					<th scope="col">Delete Lecture</th>
+					<th scope="col">Schedule Lecture</th>
+					<th scope="col">Quiz</th>
 					
 				</tr>
 			</thead>
@@ -89,7 +93,7 @@
 							<input name="courseId" id=${lectures[i].courseId} value=${lectures[i].courseId} hidden/>
 							</td>
 		                    <td scope="col">
-							<button type="submit" class="btn btn-info">upload Lecture</button></td>
+							<button type="submit" class="btn btn-info">Upload</button></td>
 							</form>
 						<form method="POST" class="register-form" id="get-form" name="getPdf"  action="/getPdfs">
 						<td scope="col" hidden>
@@ -99,7 +103,7 @@
 							<input name="courseId" id=${lectures[i].courseId} value=${lectures[i].courseId} hidden>${lectures[i].courseId} </input>
 							</td>
 							<td scope="col">
-							<button type="submit" class="btn btn-info">Get Lectures Content</button></td>
+							<button type="submit" class="btn btn-info">Get</button></td>
 						</form>
 						
 						<form method="POST" class="register-form" id="get-form" name="editLecture"  action="/editLecture">
@@ -110,7 +114,7 @@
 							<input name="courseId" id=${lectures[i].courseId} value=${lectures[i].courseId} hidden>${lectures[i].courseId} </input>
 							</td>
 							<td scope="col">
-							<button type="submit" class="btn btn-info">Edit Lecture</button></td>
+							<button type="submit" class="btn btn-info">Edit</button></td>
 						</form>
 						
 						<form method="POST" class="register-form" id="get-form" name="editLecture"  action="/deleteLecture">
@@ -121,7 +125,7 @@
 							<input name="courseId" id=${lectures[i].courseId} value=${lectures[i].courseId} hidden>${lectures[i].courseId} </input>
 							</td>
 							<td scope="col">
-							<button type="submit" class="btn btn-info">Delete Lecture</button></td>
+							<button type="submit" class="btn btn-info">Delete</button></td>
 						</form>
 						<form method="GET" class="register-form" id="get-form" name="editLecture"  action="/scheduleLectureSharing">
 							<td scope="col" hidden>
@@ -134,13 +138,13 @@
 								<input name="lectureName" id=${lectures[i].lectureName} value=${lectures[i].lectureName} hidden>${lectures[i].lectureName} </input>
 								</td>
 								<td scope="col">
-								<button type="submit" class="btn btn-info">Schedule Lecture</button></td>
+								<button type="submit" class="btn btn-info">Schedule</button></td>
 						</form>
 
 						<td>
 						<#--  - ${quizNumbers[course?counter -1]}  -->
 							<a class="navbar-brand" href="http://localhost:4567/createQuiz/${lectures[i].courseId}/${lectures[i].lectureId}">
-								<button type="submit" class="btn btn-info">Create NEW Quiz</button>
+								<button type="submit" class="btn btn-info">Create Quiz</button>
 							</a>
 							<a class="navbar-brand" href="http://localhost:4567/viewQuiz/${lectures[i].courseId}/${lectures[i].lectureId}">
 								<button type="submit" class="btn btn-info">View Quiz</button>
@@ -151,9 +155,7 @@
 			</tbody>
 			
 		</table>
-		
-		
-                            
+                      
 		</#if>
 	</div>
 	
