@@ -290,7 +290,9 @@ public class mainApp {
 		get("/viewFeedback",(request,response) -> {
 			return adminFeedbackController.getAdminFeedbackPage(request);
 		});
-		
+		post("/deleteCourse",(request,response) -> {
+			return courseController.deleteCourse(request,response);
+		});
 		
 	}
 }
