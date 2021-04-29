@@ -24,6 +24,9 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	      	<button onclick="goBack()" class="btn btn-info"	style="margin:15px;" >&laquo; Back</button> 
+             
+                
 		<a class="navbar-brand" href="http://localhost:4567/professorDashboard">MyPLS</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
@@ -34,11 +37,7 @@
 			<div class="navbar-nav mr-auto"></div>
 			<div class="navbar-nav ml-auto">
 				
-				<form class="form-inline" method="get" action="/createGroup">
-					<button type="submit" class="btn btn-info" style="margin:5px;">Create Group</button>
-				</form>
-				<form class="form-inline" method="get" action="/viewGroups">
-					<button type="submit" class="btn btn-info" style="margin:5px;">View Group</button>
+			
 				</form>
 				<a class="navbar-brand" href="http://localhost:4567/">
 					<button type="submit" class="btn btn-info" style="margin:5px;">Logout</button>
@@ -77,7 +76,7 @@
 				</a>
 				</td>  -->
 				<td>
-					<button onclick="startQuiz()" class="btn btn-info" id="takeQuiz">take quiz</button>
+					<button onclick="startQuiz()" class="btn btn-info" id="takeQuiz">Take quiz</button>
 					<form class="form-inline" method="POST" action="/takeQuiz" id="takequizform">
 						<input id="courseID" name="courseID" type="hidden" value="${quiz.courseID}"/>
 						<input id="quizID" name="quizID" type="hidden" value="${quiz.quizID}"/>
@@ -90,7 +89,7 @@
 							<td>${g.pointSecured}/${g.totalPoints}</td>
 							<td>
 								<a class="navbar-brand" href="http://localhost:4567/quizAnswerKey/${quiz.quizID}">
-									<button type="submit" class="btn btn-info">View Quiz</button>
+									<button type="submit" class="btn btn-info">View Answers</button>
 								</a>
 							</td>
 							<script>
@@ -119,5 +118,12 @@
 		}
 		}
 	</script>	
+	
+	      <script type="text/javascript">
+	    <#include "/static/js/jquery.min.js">
+	    function goBack() {
+  		window.history.back();}
+	</script>	
+	
 </body>
 </html>
