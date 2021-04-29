@@ -24,6 +24,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<button onclick="goBack()" class="btn btn-info"	style="margin:15px;" >&laquo; Back</button> 
 		<a class="navbar-brand" href="http://localhost:4567/professorDashboard">MyPLS</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
@@ -51,7 +52,7 @@
 			<h1 class="display-4">
 				Welcome Professor!
 			</h1>
-			<p class="lead">Courses List</p>
+			<p class="lead">View Quiz</p>
 		</div>
 	</div>
 
@@ -61,7 +62,7 @@
 				<tr>
 					<th scope="col">Quiz</th>
 					<th scope="col">Description</th>
-					<th scope="col">View Quiz</th>
+					<th scope="col">View Quiz Answers</th>
 					<th scope="col">View Question</th>
 				</tr>
 			</thead>
@@ -93,5 +94,11 @@
 			
 		</table>
 	</div>
+	
+			 <script type="text/javascript">
+	    <#include "/static/js/jquery.min.js">
+	    function goBack() {
+  		window.history.back();}
+	</script>	
 </body>
 </html>

@@ -33,13 +33,20 @@
                             </div>
                             
                             <div class="form-group form-button">
-                                <input type="submit" name="upload" id="upload" class="form-submit" value="upload Lecture"/>
+                                <input type="submit" name="upload" id="upload" class="form-submit" value="Upload Lecture"/>
+                          
+                  
                                 <div hidden>
                                 <td scope="col">
 							<input name="courseId" id=courseId value=${courseId} hidden>${courseId} </input>
+							
+							        
 							</div>
+							  
 							</td>
+					
                             </div> 
+                            
                             </form>
                     </div>                 
                 </div>
@@ -47,6 +54,12 @@
         </section>
 
     </div>
+    
+    	<script type="text/javascript">
+	<#include "/static/js/jquery.min.js">
+	function goBack() {
+	window.history.back();}
+</script>	
 
 </body>
 </html>
