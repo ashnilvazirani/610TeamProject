@@ -134,7 +134,7 @@ public class mainApp {
         });
 		// -----------------QUESTION MODULE---------------------
         get("/courses",(request,response) -> {
-        	return courseController.getCourses();
+        	return courseController.getCourses(request);
         });
 		post("/modifyCourse",(request,response) -> {
         	courseController.modifyCourse(request, response);
