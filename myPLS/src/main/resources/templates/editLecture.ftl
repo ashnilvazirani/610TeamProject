@@ -37,8 +37,12 @@
                             <input type="text" name="courseId" id="courseId" value=${lecture.courseId} hidden/> 
                              </div>
                             <div class="form-group form-button">
-                                <input type="submit" name="add" id="add" class="form-submit" value="Add Lecture"/>
-                            </div>      
+                                <input type="submit" name="add" id="add" class="form-submit" value="Edit Lecture"/>
+                                
+                                <input onclick="goBack()" type="submit" name="Back" id="Back" style="margin:5px;" class="form-submit" value="<< Back"/>
+                              
+                            </div>   
+                        
                         </form>
                     </div>                 
                 </div>

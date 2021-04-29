@@ -60,8 +60,8 @@
 				<tr>
 					<th scope="col">Lecture Name</th>
 					<th scope="col">Lecture Description</th>
-					<th scope="col"></th>
-					<th scope="col"></th>
+					<th scope="col">Get Lecture Content</th>
+					<th scope="col">View Quiz</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -77,7 +77,7 @@
 							<input name="courseId" id=${lectures[i].courseId} value=${lectures[i].courseId} hidden>${lectures[i].courseId} </input>
 							</td>
 							<td scope="col">
-							<button type="submit" class="btn btn-info">Get Lectures Content</button></td>
+							<button type="submit" class="btn btn-info">Get Content</button></td>
 						</form>
 						<td>
 							<a class="navbar-brand" href="http://localhost:4567/learnerQuiz/${lectures[i].courseId}/${lectures[i].lectureId}">

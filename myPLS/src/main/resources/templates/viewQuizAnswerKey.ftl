@@ -22,7 +22,7 @@
             <div class="container">
                 <div class="signin-content">
                     <div class="signin-form">
-                        <h2 class="form-title">View Answer: ${quizID}</h2>
+                        <h2 class="form-title">View Answer Key for Quiz: ${quizID}</h2>
                        	<p>            	
                        	<font color ="red">
                        		<#if status??>${message}</#if>
