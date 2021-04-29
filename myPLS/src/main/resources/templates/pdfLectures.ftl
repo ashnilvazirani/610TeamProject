@@ -60,8 +60,8 @@
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th scope="col">Name of Lecture</th>
-					<th scope="col">Download Lecture</th>
+					<th scope="col">Name of File</th>
+					<th scope="col">Download File</th>
                     
 				</tr>
 			</thead>
