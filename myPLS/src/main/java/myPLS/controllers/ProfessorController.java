@@ -94,25 +94,19 @@ public class ProfessorController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Course> courses = courseService.getCoursesById(request);
 		ArrayList<CourseGroup> courseGroups = new ArrayList<>();
-		Map<Integer, List<Course>> prereqCourses = new HashMap<Integer, List<Course>>();
 		List<Integer> quizNumbersInLine = new ArrayList<>();
 		for (Course c : courses) {
 			CourseGroup gc = courseService.getCourseGroupByCourseId(c.getCourseId());
 			if (gc.getCourseName() != null)
 				courseGroups.add(gc);
-			prereqCourses.put(c.getCourseId(), new ArrayList<Course>());
 			request.attribute("courseId", c.getCourseId());
 			quizNumbersInLine.add(this.quizService.getQuizNumberForCourse(c.getCourseId()));
 			List<Course> preReqs = preReqService.getCoursesById(request);
 			Iterator<Course> itr = preReqs.iterator();
-			while (itr.hasNext()) {
-				prereqCourses.get(c.getCourseId()).add(itr.next());
-			}
 		}
 		map.put("courses", courses);
 		map.put("courseGroups", courseGroups);
 		map.put("userId", request.session().attribute("userID"));
-		map.put("preReqs", prereqCourses);
 		map.put("quizNumbers", quizNumbersInLine);
 		Template resultTemplate;
 		try {
