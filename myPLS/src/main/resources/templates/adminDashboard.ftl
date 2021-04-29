@@ -71,6 +71,7 @@
 					<th scope="col">Stream Name</th>
 					<th scope="col">PreReq Course Names</th>
 					<th scope="col">Add Pre-Requisite Course</th>
+					<th scope="col">Delete Course</th>
 					
                     
 				</tr>
@@ -100,6 +101,12 @@
                     <form class="form-inline" method="POST" action="/preReqCourse">
 					<input name="courseId" id=${course.courseId} value=${course.courseId} hidden /> 
 					<button type="submit" class="btn btn-info">Add</button>
+				</form></td>
+				
+				 <td scope="col">
+                    <form class="form-inline" method="POST" action="/deleteCourse">
+					<input name="courseId" id=${course.courseId} value=${course.courseId} hidden /> 
+					<button type="submit" class="btn btn-info">Delete Course</button>
 				</form></td>
 					<#--  <form class="form-inline" method="POST" action="/modifyCourse">
 						<td scope="col">
