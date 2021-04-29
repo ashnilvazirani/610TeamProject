@@ -65,9 +65,6 @@
 					<th scope="col">Course Description</th>
                     <th scope="col">Course Duration</th>
 					<th scope="col">Stream Name</th>
-					<th scope="col">PreReq Course Names</th>
-					
-					<th scope="col">Add Pre-Requisite Course</th>
 					<th scope="col">Manage Students</th>
 					<#--  <th scope="col">Create Quiz</th>   -->
 					<th scope="col">View Group Chats</th> 
@@ -83,26 +80,9 @@
 					<td scope="col">${course.courseDescription}</td>
                     <td scope="col">${course.courseDuration}</td>
                     <td scope="col">${course.streamName}</td>
-                    <td>
-                    <#list preReqs as k,v>
-                    <#if k == course.courseId>
-                    <#list 0..v?size-1 as i>
-                    <#if v[i]??>
-					<span>${v[i].courseName}
-					<#assign ls = v?size-1>
-						<#if ls != i>, </#if>
-							</span>
-						</#if>
-					</#list>
-					</#if>
-					</#list>
-					</td>
+                    
                     </td>
-                    <td scope="col">
-                    <form class="form-inline" method="POST" action="/preReqCourse">
-					<input name="courseId" id=${course.courseId} value=${course.courseId} hidden /> 
-					<button type="submit" class="btn btn-info">Add</button>
-				</form></td>
+                    
 
 				<td>
 					<form class="form-inline" method="GET" action="/enrolledLearners">

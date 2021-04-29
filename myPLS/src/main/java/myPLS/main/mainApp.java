@@ -134,7 +134,7 @@ public class mainApp {
         });
 		// -----------------QUESTION MODULE---------------------
         get("/courses",(request,response) -> {
-        	return courseController.getCourses();
+        	return courseController.getCourses(request);
         });
 		post("/modifyCourse",(request,response) -> {
         	courseController.modifyCourse(request, response);
@@ -290,7 +290,9 @@ public class mainApp {
 		get("/viewFeedback",(request,response) -> {
 			return adminFeedbackController.getAdminFeedbackPage(request);
 		});
-		
+		post("/deleteCourse",(request,response) -> {
+			return courseController.deleteCourse(request,response);
+		});
 		
 	}
 }

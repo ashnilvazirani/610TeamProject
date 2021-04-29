@@ -1,7 +1,9 @@
 package myPLS.controllers;
 
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +11,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.Version;
 import myPLS.beans.Course;
+import myPLS.beans.CourseGroup;
 import myPLS.beans.CourseGroupChat;
 import myPLS.beans.Stream;
 import myPLS.beans.User;
@@ -46,14 +49,25 @@ public class CourseController {
 	}
 
 	// method to call adminDashboard.ftl file based on admin role
-	public StringWriter getCourses() {
+	public StringWriter getCourses(Request request) {
 		StringWriter writer = new StringWriter();
 		Map<String, Object> map = new HashMap<String, Object>();
 		Template resultTemplate;
 		List<Course> courses = (List<Course>)courseService.getCourses();
+		Map<Integer, List<Course>> prereqCourses = new HashMap<Integer, List<Course>>();
+		for (Course c : courses) {
+			request.attribute("courseId", c.getCourseId());
+			prereqCourses.put(c.getCourseId(), new ArrayList<Course>());
+			List<Course> preReqs = preReqService.getCoursesById(request);
+			Iterator<Course> itr = preReqs.iterator();
+			while (itr.hasNext()) {
+				prereqCourses.get(c.getCourseId()).add(itr.next());
+			}
+		}
 		try {
 			resultTemplate = configuration.getTemplate("templates/adminDashboard.ftl");
 			map.put("courses", courses);
+			map.put("preReqs", prereqCourses);
 			resultTemplate.process(map, writer);
 		} catch (Exception e) {
 			Spark.halt(500);
@@ -174,7 +188,7 @@ public class CourseController {
 		Template resultTemplate;
 		try {
 			if(result) {
-				return pfController.getProfessorDashboard(request);
+				return this.getCourses(request);
 			} else {
 				resultTemplate = configuration.getTemplate("templates/addPreReq.ftl");
 				List<Course> courses = (List<Course>) courseService.getCourses();
@@ -192,6 +206,11 @@ public class CourseController {
 
 	public void addCourse(Request request, Response response) {
 		courseService.addCourse(request);
+	}
+	
+	public StringWriter deleteCourse(Request request, Response response) {
+		courseService.deleteCourse(request);
+		return this.getCourses(request);
 	}
 
 	private void setConfiguration() {

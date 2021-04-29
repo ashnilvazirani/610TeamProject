@@ -20,12 +20,16 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
+	
+	
 
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	
-	<button onclick="goBack()" class="btn btn-info"	style="margin:15px;" >&laquo; Back</button>
+	 <button onclick="goBack()" class="btn btn-info"	style="margin:15px;" >&laquo; Back</button> 
+	
+		
 	
 		<a class="navbar-brand" href="http://localhost:4567/professorDashboard">MyPLS</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -64,9 +68,9 @@
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th scope="col">Problem</th>
+					<th scope="col">Problem Question</th>
 					<th scope="col">Correct Answer</th>
-					<th scope="col">Add</th>
+					<th scope="col">Add Question</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -94,22 +98,23 @@
 				</tr>
 				</#list>
 				
-				
+					</table>
+					<table class="table table-striped table-bordered">
 			</tbody>
 			<#if courseID??>
-					<td>
+					
 					<form class="form-inline" method="POST" action="/publishQuiz">
 						<input name="courseID" value=${courseID} hidden/>
 						<input name="userID" value=${userId} hidden/>
-						<div class="form-group">
-							<input type="text" name="quizTopic" id="quizTopic" style="margin:20px;" placeholder="Quiz Topic: " required/>
-						</div>
-						<div class="form-group">
-							<input type="text" name="quizTime" id="quizTime" style="margin:20px;" placeholder="Quiz Time: " required/>
-						</div>
+						<td><div class="form-group">
+							<input type="text" name="quizTopic" id="quizTopic" style="margin:20px;" placeholder="Quiz Topic  " required/>
+						</div></td>
+						<td><div class="form-group">
+							<input type="text" name="quizTime" id="quizTime" style="margin:20px;" placeholder="Quiz Time " required/>
+						</div></td>
 						<div class="form-group">
 							<input type="text" value="${lectureId}" name="lectureId" id="lectureId" style="margin:20px;" hidden/>
-						</div>
+						<td></div>
 						<button type="submit" class="btn btn-info" style="margin:20px;">PUBLISH QUIZ</button>
 					</form>
 

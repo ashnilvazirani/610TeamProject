@@ -12,14 +12,14 @@
 	
 	      input.right {
       	 display: inline-block;
-		background: #6dabe4;
+		background: #6c757d;
 		color: #fff;
 		border-bottom: none;
 		width: auto;
 		padding: 15px 39px;
 		-webkit-border-radius: 5px;
 		cursor: pointer;
-        float: right;
+        float: left;
       }
       
 	</style>

@@ -60,26 +60,7 @@ public class CourseDAOImpl implements CourseDAO {
 		}
 		return result;
 	}
-	public boolean modifyCourse(Course c, String operation){
-//		if(operation.equalsIgnoreCase("DELETE")){
-////			final String DELETE_COURSE = "UPDATE Course SET isDeleted = 1 WHERE courseId = ?";
-////			final String REMOVE_LEARNERS = "UPDATE learner SET isDeleted=1 WHERE courseId=?";
-//			try (Connection conn = JDBCConnection.geConnection();
-//			PreparedStatement preparedStatement = conn.prepareStatement(DELETE_COURSE)) {
-//				preparedStatement.setInt(1, c.getCourseId());
-//				preparedStatement.executeUpdate();
-//				PreparedStatement ps = conn.prepareStatement(REMOVE_LEARNERS);
-//				ps.setInt(1, c.getCourseId());
-//				ps.executeUpdate();
-//				return true;
-//			}catch(Exception e){
-//				e.printStackTrace();
-//			}
-//		}else if(operation.equalsIgnoreCase("UPDATE")){
-//			
-//		}
-		return false;
-	}
+
 	@Override
 	/**
 	 * This updateCourse method will update course details in system
@@ -135,19 +116,19 @@ public class CourseDAOImpl implements CourseDAO {
 	}
 
 	@Override
-	public boolean deleteCourse(int id) {
-//		final String DELETE_COURSE = "DELETE from Course where courseId = ? and isDeleted=0";
+	public boolean deleteCourse(int courseId) {
+		final String DELETE_COURSE = "DELETE from Course where courseId = ?";
 		boolean result = false;
-//		try (Connection conn = JDBCConnection.geConnection();
-//				PreparedStatement preparedStatement = conn.prepareStatement(DELETE_COURSE)) {
-//			preparedStatement.setInt(1, id);
-//			int row = preparedStatement.executeUpdate();
-//			result = row > 0 ? true : false;
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		try (Connection conn = JDBCConnection.geConnection();
+				PreparedStatement preparedStatement = conn.prepareStatement(DELETE_COURSE)) {
+			preparedStatement.setInt(1, courseId);
+			int row = preparedStatement.executeUpdate();
+			result = row > 0 ? true : false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 
@@ -493,6 +474,11 @@ public class CourseDAOImpl implements CourseDAO {
 				e.printStackTrace();
 			}
 		}
+		return false;
+	}
+
+	@Override
+	public boolean modifyCourse(Course c, String operation) {
 		return false;
 	}
 }

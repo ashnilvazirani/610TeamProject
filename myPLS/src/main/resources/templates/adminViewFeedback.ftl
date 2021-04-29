@@ -46,7 +46,7 @@
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<h1 class="lead">
-			Courses List
+			View Feedback
 			</h1>
 		</div>
 	</div>
