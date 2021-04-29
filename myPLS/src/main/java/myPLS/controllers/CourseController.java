@@ -207,6 +207,11 @@ public class CourseController {
 	public void addCourse(Request request, Response response) {
 		courseService.addCourse(request);
 	}
+	
+	public StringWriter deleteCourse(Request request, Response response) {
+		courseService.deleteCourse(request);
+		return this.getCourses(request);
+	}
 
 	private void setConfiguration() {
 		configuration.setClassForTemplateLoading(CourseController.class, "/");
